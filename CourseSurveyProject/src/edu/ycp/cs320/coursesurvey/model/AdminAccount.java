@@ -10,7 +10,7 @@ public class AdminAccount {
  
 
 	
-	private String name, password;
+	private String accountName, password;
 	
 	/**
 	 * Constructor 
@@ -18,7 +18,7 @@ public class AdminAccount {
 	 * @param password - new Admin account password
 	 */
 	public AdminAccount (String accountName, String password) {
-		this.name = accountName;
+		this.accountName = accountName;
 		this.password = password;
 	}
 	
@@ -27,16 +27,16 @@ public class AdminAccount {
 	 * @return name
 	 */
 	
-	public String getName () {
-		return name;
+	public String getAccountName () {
+		return accountName;
 	}
 	/**
 	 * Set the Admin account's name.
 	 * @param name
 	 */
 	
-	public void setName (String name) {
-		this.name = name;
+	public void setAccountName (String name) {
+		this.accountName = name;
 	}
 	/**
 	 * Set the Admin account's password

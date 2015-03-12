@@ -18,23 +18,23 @@ public class AdminAccountTest {
 	}
 	@Test
 	public void testGetAccountName() throws Exception {
-		assertEquals("foo", accountOne.getName());
-		assertNotEquals("fo", accountOne.getName());
+		assertEquals("foo", accountOne.getAccountName());
+		assertNotEquals("fo", accountOne.getAccountName());
 
-		assertEquals("Ravens", accountTwo.getName());
-		assertNotEquals("ravens", accountTwo.getName());
+		assertEquals("Ravens", accountTwo.getAccountName());
+		assertNotEquals("ravens", accountTwo.getAccountName());
 
 	}
 
 	@Test
 	public void testSetAccountName() throws Exception {
-		accountOne.setName("Zelda");
-		assertEquals("Zelda", accountOne.getName());
-		assertNotEquals ("foo", accountOne.getName());
+		accountOne.setAccountName("Zelda");
+		assertEquals("Zelda", accountOne.getAccountName());
+		assertNotEquals ("foo", accountOne.getAccountName());
 		
-		accountTwo.setName("Zombie");
-		assertEquals("Zombie", accountTwo.getName());
-		assertNotEquals("foo", accountTwo.getName());
+		accountTwo.setAccountName("Zombie");
+		assertEquals("Zombie", accountTwo.getAccountName());
+		assertNotEquals("foo", accountTwo.getAccountName());
 		
 	}
 	

@@ -1,7 +1,6 @@
 package edu.ycp.cs320.coursesurvey.model;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 /**
  * 
@@ -65,7 +64,7 @@ public class Institution {
 	public int findAdminIndex (String name) {
 		int i = 0;
 		for (Iterator<AdminAccount> itr = adminList.iterator(); itr.hasNext(); i++ ) {
-			if (name == itr.next().getName()) {
+			if (name == itr.next().getAccountName()) {
 				return i;
 			}
 		}
@@ -108,4 +107,3 @@ public class Institution {
 	}
 	
 }
-

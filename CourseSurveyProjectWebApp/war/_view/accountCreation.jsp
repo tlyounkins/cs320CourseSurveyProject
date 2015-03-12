@@ -24,23 +24,23 @@
     <form action="${pageContext.servletContext.contextPath}/accountCreation" method="post">
       <table>
         <tr>
-          <td class="label">First Name:</td>
-          <td><input type="text" name="first" size="16" value="${firstName}" /></td>
+          <td class="label">Institution:</td>
+          <td><input type="text" name="institution" size="16" value="${institutionName}" /></td>
         </tr>
         <tr>
-          <td class="label">Last Name:</td>
-          <td><input type="text" name="second" size="16" value="${lastName}" /></td>
+          <td class="label">Account Name:</td>
+          <td><input type="text" name="account" size="16" value="${accountName}" /></td>
         </tr>
         <tr>
           <td class="label">Password:</td>
-          <td><input type="text" name="second" size="16" value="${password}" /></td>
+          <td><input type="text" name="password" size="16" value="${password}" /></td>
         </tr>
         <tr>
           <td class="label">Confirm Password:</td>
           <td><input type="text" name="second" size="16" value="${passwordConfirm}" /></td>
         </tr>
       </table>
-      <input type="Submit" name="submit" value="Create Account">
+      <input name="Submit" type="submit" value="Create Institution">
     </form>
   </body>
 </html>

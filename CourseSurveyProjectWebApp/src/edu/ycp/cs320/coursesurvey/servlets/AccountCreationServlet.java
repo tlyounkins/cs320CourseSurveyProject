@@ -15,7 +15,7 @@ public class AccountCreationServlet extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// Just forward to the view
+		// Just forward to the accountCreation
 		req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 	}
 	
@@ -24,6 +24,8 @@ public class AccountCreationServlet extends HttpServlet{
 			Institution nInstitution = new Institution (req.getParameter("institution"));
 			
 			nInstitution.createAdminAccount(req.getParameter("account"), req.getParameter("password"));
+			
+			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 		
 	}
 }

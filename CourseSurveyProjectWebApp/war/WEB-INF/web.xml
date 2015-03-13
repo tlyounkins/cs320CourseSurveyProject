@@ -10,6 +10,9 @@
   	<servlet-name>AccountCreationServlet</servlet-name>
   	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.AccountCreationServlet</servlet-class>
   </servlet><servlet>
+ 	 <servlet-name>UserHomePageServlet</servlet-name>
+  	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.UseHomePageServlet</servlet-class>
+  </servlet><servlet>
     <servlet-name>IndexServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.coursesurvey.servlets.IndexServlet</servlet-class>
   </servlet>
@@ -22,5 +25,9 @@
   <servlet-mapping>
   	<servlet-name>AccountCreationServlet</servlet-name>
   	<url-pattern>/accountCreation</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>UserHomePageServlet</servlet-name>
+  	<url-pattern>/userHomePage</url-pattern>
   </servlet-mapping>
 </web-app>

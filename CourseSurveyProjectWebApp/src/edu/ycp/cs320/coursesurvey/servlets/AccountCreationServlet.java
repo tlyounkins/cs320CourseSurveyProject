@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.coursesurvey.model.Institution;
+import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
 
 public class AccountCreationServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -20,10 +21,27 @@ public class AccountCreationServlet extends HttpServlet{
 	}
 	
 	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			Institution nInstitution = new Institution (req.getParameter("institution"));
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+			throws ServletException, IOException {
+		Institution nInstitution = new Institution (req.getParameter("institutionName"));
+		String accountName = req.getParameter("accountName");
+		String password = req.getParameter("password");
+		String passwordCheck = req.getParameter("passwordConfirm");
 			
-			nInstitution.createAdminAccount(req.getParameter("account"), req.getParameter("password"));
+		AccountCreationController controller = new AccountCreationController();
+		controller.setInstitution(nInstitution);
+			
+			
+		//make sure password is as intended then create account
+		controller.createAccount(accountName, password, passwordCheck);
 		
+		req.setAttribute("create", controller);
+		
+		req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
+		
+		if (controller.done()){
+			System.out.println("done");
+			controller = null;
+		}
 	}
 }

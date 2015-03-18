@@ -37,11 +37,13 @@ public class AccountCreationServlet extends HttpServlet{
 		
 		req.setAttribute("create", controller);
 		
-		req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
+		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 		
 		if (controller.done()){
 			System.out.println("done");
-			controller = null;
 		}
+		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+		
+		
 	}
 }

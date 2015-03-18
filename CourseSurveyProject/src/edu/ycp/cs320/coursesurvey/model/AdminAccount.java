@@ -8,8 +8,6 @@ package edu.ycp.cs320.coursesurvey.model;
  */
 public class AdminAccount {
  
-
-	
 	private String accountName, password;
 	
 	/**

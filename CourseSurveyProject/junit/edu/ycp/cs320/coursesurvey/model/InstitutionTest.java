@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import edu.ycp.cs320.coursesurvey.model.Institution;
 
-
+/*
 public class InstitutionTest {
 
 	Institution testOne;
@@ -68,3 +68,4 @@ public class InstitutionTest {
 		assertEquals(-1, testOne.findGeneralIndex("Luigi"));
 	}
 }
+*/

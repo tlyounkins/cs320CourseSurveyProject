@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 
 public class Section {
-
+	//TODO : Update model using id and section name
 	int sect;
 	ArrayList<GeneralUser> studentList;
 	ArrayList<GeneralUser> teacherList;

@@ -9,16 +9,8 @@ package edu.ycp.cs320.coursesurvey.model;
 public class AdminAccount {
  
 	private String accountName, password;
+	private int instId, adminId;
 	
-	/**
-	 * Constructor 
-	 * @param name - new Admin account name
-	 * @param password - new Admin account password
-	 */
-	public AdminAccount (String accountName, String password) {
-		this.accountName = accountName;
-		this.password = password;
-	}
 	
 	/**
 	 * Get the Admin account's name
@@ -36,6 +28,42 @@ public class AdminAccount {
 	public void setAccountName (String name) {
 		this.accountName = name;
 	}
+	
+	/**
+	 * Get the Admin Account's Institution ID
+	 */
+	
+	public int getInstId () {
+		return instId;
+	}
+
+	/**
+	 * Set the Admin Account's Institution ID
+	 * @param instId
+	 */
+	
+	public void setInstId(int instId) {
+		this.instId = instId;
+	}
+	
+	/**
+	 * Get the Admin Account ID
+	 */
+	
+	public int getAdminId () {
+		return adminId;
+	}
+	
+	/**
+	 * Set the Admin Account ID
+	 * @param adminId
+	 */
+	
+	public void setAdminId (int adminId) {
+		this.adminId = adminId;
+	}
+	
+	
 	/**
 	 * Set the Admin account's password
 	 * @param password

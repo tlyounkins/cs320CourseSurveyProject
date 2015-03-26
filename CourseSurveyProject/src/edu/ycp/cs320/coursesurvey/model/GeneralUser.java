@@ -4,10 +4,6 @@ public class GeneralUser {
 
 	private String genName, genPassword;
 	
-	public GeneralUser (String genName, String genPassword) {
-		this.genName = genName;
-		this.genPassword = genPassword;
-	}
 
 	public String getGenName () {
 		return genName;

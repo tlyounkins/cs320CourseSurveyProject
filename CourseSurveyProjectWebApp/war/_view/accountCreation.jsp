@@ -27,11 +27,11 @@
 		      <table>
 		        <tr>
 		          <td class="label">Institution:</td>
-		          <td><input type="text" name="institution" size="16" value="${institutionName}" /></td>
+		          <td><input type="text" name="institutionName" size="16" value="${institutionName}" /></td>
 		        </tr>
 		        <tr>
 		          <td class="label">Account Name:</td>
-		          <td><input type="text" name="account" size="16" value="${accountName}" /></td>
+		          <td><input type="text" name="accountName" size="16" value="${accountName}" /></td>
 		        </tr>
 		        <c:if test="${create.passwordMatching}">
 		    		<div>

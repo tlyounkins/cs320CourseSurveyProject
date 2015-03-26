@@ -11,6 +11,7 @@
   	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.AccountCreationServlet</servlet-class>
   </servlet><servlet>
  	 <servlet-name>AdminHomePageServlet</servlet-name>
+ 	<servlet-name>AdminHomePageServlet</servlet-name>
   	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.AdminHomePageServlet</servlet-class>
   </servlet><servlet>
     <servlet-name>IndexServlet</servlet-name>
@@ -19,6 +20,12 @@
     	<servlet-name>LoginServlet</servlet-name>
     	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.LoginServlet</servlet-class>
     </servlet>
+ 	<servlet-name>LoginServlet</servlet-name>
+   	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.LoginServlet</servlet-class>
+  </servlet><servlet>
+   	<servlet-name>SurveyCreationServlet</servlet-name>
+   	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.SurveyCreationServlet</servlet-class>
+  </servlet>
 
   <!-- Servlet mappings -->
   <servlet-mapping>
@@ -37,4 +44,8 @@
     	<servlet-name>LoginServlet</servlet-name>
     	<url-pattern>/accountLogin</url-pattern>
     </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SurveyCreationServlet</servlet-name>
+   	<url-pattern>/surveyCreation</url-pattern>
+  </servlet-mapping>
 </web-app>

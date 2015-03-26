@@ -23,17 +23,22 @@ public class AccountCreationServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+		//initialize variables to receive input from form
 		Institution nInstitution = new Institution (req.getParameter("institutionName"));
 		String accountName = req.getParameter("accountName");
 		String password = req.getParameter("password");
 		String passwordCheck = req.getParameter("passwordConfirm");
 			
+		//initiailizes the controller class
 		AccountCreationController controller = new AccountCreationController();
+		
+		//sets the institution of the controller
 		controller.setInstitution(nInstitution);
 			
 			
-		//make sure password is as intended then create account
+		//make sure password is as intended then create account for the institution
 		controller.createAccount(accountName, password, passwordCheck);
+		
 		
 		req.setAttribute("create", controller);
 		

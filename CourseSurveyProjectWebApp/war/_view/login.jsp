@@ -23,7 +23,7 @@
             <header><h1>Web Survey</h1></header>
                 <nav>
                      <ul>
-                        <li><a href="login.jsp">Login</a></li>
+                       <!--  <li><a href="login.jsp">Login</a></li> -->
                      </ul>
                 </nav>
             <c:if test="${! empty errorMessage}">
@@ -41,17 +41,13 @@
             		            <td><input type="text" name="user" size="16" value="${userName}" /></td>
             		        </tr>
             		        <tr>
-            		            <td class="label">Password:</td>
-            		            <td><input type="text" name="password" size="16" value="${password}" /></td>
+            		            <td class="label">Institution:</td>
+            		            <td><input type="text" name="password" size="16" value="${institution}" /></td>
             		        </tr>
             		   
             		        <tr>
             		            <td class="label">Password:</td>
             		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
-            		        </tr>
-            		        <tr>
-            		            <td class="label">Confirm Password:</td>
-            		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="passwordConfirm" size="16" value="${passwordConfirm}" /></td>
             		        </tr>
             		    </table>
             		    
@@ -61,5 +57,9 @@
         
             </div>
         </div>
+        Create institution administrator account
+        <p>
+        
+        <a href="${pageContext.servletContext.contextPath}/accountCreation">Account Creation</a>
     </body>
 </html>

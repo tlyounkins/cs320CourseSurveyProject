@@ -59,7 +59,7 @@
             		        </tr>
             		    </table>
             		    
-            	        <input name="Submit" type="submit" value="Create Institution">
+            	        <input name="Submit" type="submit" value="Login">
             	    </form>
             	</c:if>
                 <c:if test="${! empty create}">

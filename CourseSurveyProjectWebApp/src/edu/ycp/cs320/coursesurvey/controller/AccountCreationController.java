@@ -49,6 +49,7 @@ public class AccountCreationController {
 			//this.institute.createAdminAccount(accountName, password);
 			instExists = false;
 			finished = true;
+			System.out.println("created");
 		}
 	}
 

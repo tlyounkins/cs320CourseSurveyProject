@@ -50,7 +50,7 @@ public class AccountCreationServlet extends HttpServlet{
 		
 	
 		//goes to admin home page if account info is incorrect
-		if (!controller.passwordsMatching() && controller.done()){
+		if (controller.passwordsMatching() && controller.done()){
 			System.out.println("done");
 			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 		}

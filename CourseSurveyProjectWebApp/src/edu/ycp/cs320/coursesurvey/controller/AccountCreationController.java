@@ -7,7 +7,7 @@ import edu.ycp.cs320.coursesurvey.persistence.FakeDatabase;
 public class AccountCreationController {
 	private boolean passwordMatch = false;
 	private boolean finished = false;
-	
+	private boolean instExists = false;
 	
 	private void checkPassword(String password, String passwordCheck){
 		if (password.contains(passwordCheck)){
@@ -23,18 +23,29 @@ public class AccountCreationController {
 	public boolean passwordsMatching(){
 		return this.passwordMatch;
 	}
+	
+	public boolean instAlreadyExists(){
+		return this.instExists;
+	}
 
 	public void createAccount(String instName, String accountName, String password, String passwordCheck){
 		this.checkPassword(password, passwordCheck);
 		if (passwordMatch) {
-			
 			// TODO: Check if institution already exists
+			int id = -1;
 			
-			//create a new institution
-			DatabaseProvider.getInstance().addInstitution(instName);	
-			DatabaseProvider.getInstance().addAdmin(accountName, password);
-
+			//create a new institution if it does not exist
+			if ((DatabaseProvider.getInstance().findInstitution(instName)) == null){
+				id = DatabaseProvider.getInstance().addInstitution(instName);	
+				DatabaseProvider.getInstance().addAdmin(accountName, password, id);
+			}
+			else {
+				//variable will be set to true if the institution already exists and the account will not be created
+				instExists = true;
+			}
+			
 			//this.institute.createAdminAccount(accountName, password);
+			instExists = false;
 			finished = true;
 		}
 	}

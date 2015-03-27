@@ -35,7 +35,7 @@ public class FakeDatabase  implements IDatabase{
 		return null;
 	}
 
-	public void addInstitution ( String instName) {
+	public int addInstitution ( String instName) {
 		institutionList.add(new Institution());
 		int index = institutionList.size()-1;
 		int instId = institutionList.size();
@@ -46,9 +46,12 @@ public class FakeDatabase  implements IDatabase{
 		//TODO: Remove me later and create junit tests for database
 		System.out.println("Institution Name is " + institutionList.get(index).getName());
 		System.out.println("institution id is " + institutionList.get(index).getInstId(instId));
+		
+		//returns the id to be stored if needed (look at account creation controller for an ex.)
+		return instId;
 	}
 
-	public void addAdmin (String adminName, String password) {
+	public void addAdmin (String adminName, String password, int instId) {
 		adminList.add(new AdminAccount());
 
 		int index = adminList.size()-1;

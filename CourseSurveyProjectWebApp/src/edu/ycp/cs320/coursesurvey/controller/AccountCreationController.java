@@ -8,7 +8,6 @@ public class AccountCreationController {
 	private boolean passwordMatch = false;
 	private boolean finished = false;
 	
-	
 	private void checkPassword(String password, String passwordCheck){
 		if (password.contains(passwordCheck)){
 			passwordMatch = true;
@@ -29,11 +28,14 @@ public class AccountCreationController {
 		if (passwordMatch) {
 			
 			// TODO: Check if institution already exists
-			
-			//create a new institution
-			DatabaseProvider.getInstance().addInstitution(instName);	
-			DatabaseProvider.getInstance().addAdmin(accountName, password);
-
+			if (DatabaseProvider.getInstance().findInstitution(instName) == null) {
+				//create a new institution
+				DatabaseProvider.getInstance().addInstitution(instName);	
+				DatabaseProvider.getInstance().addAdmin(accountName, password);
+			} else {
+				// Institution already exists
+				System.out.println("institution already exists");
+			}
 			//this.institute.createAdminAccount(accountName, password);
 			finished = true;
 		}

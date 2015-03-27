@@ -55,5 +55,8 @@
 	    		Your account has been created
 	    	</div>
 	   </c:if>
+	   
+	   Already have an account?
+	   	<a href="${pageContext.servletContext.contextPath}/login">Login</a>
   </body>
 </html>

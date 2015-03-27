@@ -13,7 +13,7 @@
             }
         </style>
         <meta charset="utf-8">
-        <link href="web_survey.css" rel="stylesheet">
+        <link href="<c:url value='/survey/web_survey.css'/>"  rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Web forum login">
     </head>
@@ -57,7 +57,7 @@
             		    
             	        <input name="Submit" type="submit" value="Create Institution">
             	    </form>
-            	</c:if>
+            
         
             </div>
         </div>

@@ -44,18 +44,10 @@
             		            <td class="label">Password:</td>
             		            <td><input type="text" name="password" size="16" value="${password}" /></td>
             		        </tr>
-            		   
-            		        <tr>
-            		            <td class="label">Password:</td>
-            		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
-            		        </tr>
-            		        <tr>
-            		            <td class="label">Confirm Password:</td>
-            		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="passwordConfirm" size="16" value="${passwordConfirm}" /></td>
-            		        </tr>
+            		  
             		    </table>
             		    
-            	        <input name="Submit" type="submit" value="Create Institution">
+            	        <input name="Submit" type="submit" value="Login">
             	    </form>
             
         

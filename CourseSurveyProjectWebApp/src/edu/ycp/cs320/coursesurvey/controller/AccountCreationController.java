@@ -8,6 +8,7 @@ public class AccountCreationController {
 	private boolean passwordMatch = false;
 	private boolean finished = false;
 	private boolean instExists = false;
+
 	
 	private void checkPassword(String password, String passwordCheck){
 		if (password.contains(passwordCheck)){
@@ -32,6 +33,7 @@ public class AccountCreationController {
 		this.checkPassword(password, passwordCheck);
 		if (passwordMatch) {
 			// TODO: Check if institution already exists
+
 			int id = -1;
 			
 			//create a new institution if it does not exist

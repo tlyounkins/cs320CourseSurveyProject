@@ -21,7 +21,7 @@
       <div class="error">${errorMessage}</div>
     </c:if>
     
-	
+    
 	    <form action="${pageContext.servletContext.contextPath}/accountCreation" method="post">
 		        <table>
     		        <tr>
@@ -43,7 +43,5 @@
                 </table>
 	            <input name="Submit" type="submit" value="Create Institution">
 	     </form>
-	  
-	   
   </body>
 </html>

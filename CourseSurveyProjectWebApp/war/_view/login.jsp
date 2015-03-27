@@ -32,7 +32,7 @@
             
             <div id="content">
                 <h2>Login</h2>
-            	<c:if test="${empty create}">
+            	
             	    <form action="${pageContext.servletContext.contextPath}/accountCreation" method="post">
             	    	
             		    <table>
@@ -44,11 +44,7 @@
             		            <td class="label">Password:</td>
             		            <td><input type="text" name="password" size="16" value="${password}" /></td>
             		        </tr>
-            		        <c:if test="${create.passwordMatching}">
-            		    		<div>
-            		    			*Password mismatch - please make sure your password is typed correctly
-            		    		</div>
-            		    	</c:if>
+            		   
             		        <tr>
             		            <td class="label">Password:</td>
             		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
@@ -62,11 +58,7 @@
             	        <input name="Submit" type="submit" value="Create Institution">
             	    </form>
             	</c:if>
-                <c:if test="${! empty create}">
-            	    <div>
-            	        Your account has been created
-            	    </div>
-                </c:if>
+        
             </div>
         </div>
     </body>

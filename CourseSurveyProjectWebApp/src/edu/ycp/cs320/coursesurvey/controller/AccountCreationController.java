@@ -34,7 +34,6 @@ public class AccountCreationController {
 			DatabaseProvider.getInstance().addInstitution(instName);	
 			DatabaseProvider.getInstance().addAdmin(accountName, password);
 
-			//this.institute.createAdminAccount(accountName, password);
 			finished = true;
 		}
 	}

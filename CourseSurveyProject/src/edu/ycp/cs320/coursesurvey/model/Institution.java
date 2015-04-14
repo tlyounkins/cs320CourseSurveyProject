@@ -12,6 +12,8 @@ import java.util.Iterator;
 public class Institution {
 	private int instId;
 	private String name;
+	private int userTableID;
+	private int courseTableID;
 
 
 	/**
@@ -34,8 +36,8 @@ public class Institution {
 	 * Get Institution ID
 	 * @return instId
 	 */
-	public int getInstId (int instId) {
-		return instId;
+	public int getInstId () {
+		return this.instId;
 	}
 
 	/**
@@ -44,6 +46,38 @@ public class Institution {
 	 */
 	public void setId (int instId) {
 		this.instId = instId;
+	}
+	
+	/**
+	 * set User Table ID
+	 * @param userTableID
+	 */
+	public void setUserTableID(int userTableID){
+		this.userTableID = userTableID;
+	}
+	
+	/**
+	 * Get User Table ID
+	 * @return userTableID
+	 */
+	public int getUserTableID(){
+		return this.userTableID;
+	}
+	
+	/**
+	 * set Course Table ID
+	 * @param courseTableID
+	 */
+	public void setCourseTableID(int courseTableID){
+		this.courseTableID = courseTableID;
+	}
+	
+	/**
+	 * Get Course Table ID
+	 * @return courseTableID
+	 */
+	public int getCourseTableID(){
+		return this.courseTableID;
 	}
 
 }

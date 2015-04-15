@@ -45,7 +45,7 @@ public class FakeDatabase  implements IDatabase{
 		
 		//TODO: Remove me later and create junit tests for database
 		System.out.println("Institution Name is " + institutionList.get(index).getName());
-		System.out.println("institution id is " + institutionList.get(index).getInstId(instId));
+		System.out.println("institution id is " + institutionList.get(index).getInstId());
 		
 		//returns the id to be stored if needed (look at account creation controller for an ex.)
 		return instId;

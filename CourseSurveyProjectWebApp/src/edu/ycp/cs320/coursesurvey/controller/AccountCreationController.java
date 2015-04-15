@@ -32,7 +32,6 @@ public class AccountCreationController {
 	public void createAccount(String instName, String accountName, String password, String passwordCheck){
 		this.checkPassword(password, passwordCheck);
 		if (passwordMatch) {
-			// TODO: Check if institution already exists
 
 			int id = -1;
 			

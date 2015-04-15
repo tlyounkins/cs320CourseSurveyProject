@@ -8,7 +8,6 @@ import java.util.Iterator;
  *
  */
 
-// TODO: remove arraylists and empty constructor
 public class Institution {
 	private int instId;
 	private String name;

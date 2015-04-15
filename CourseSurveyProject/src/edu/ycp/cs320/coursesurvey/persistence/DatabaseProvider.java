@@ -1,13 +1,13 @@
 package edu.ycp.cs320.coursesurvey.persistence;
 
 public class DatabaseProvider {
-	private static FakeDatabase theInstance;
+	private static IDatabase theInstance;
 	
-	public static void setInstance(FakeDatabase fakeDatabase) {
-		theInstance = fakeDatabase;
+	public static void setInstance(IDatabase db) {
+		theInstance = db;
 	}
 	
-	public static FakeDatabase getInstance() {
+	public static IDatabase getInstance() {
 		if (theInstance == null) {
 			throw new IllegalStateException("IDatabase instance has not been set!");
 		}

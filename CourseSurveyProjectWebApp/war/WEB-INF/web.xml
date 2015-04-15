@@ -22,6 +22,7 @@
    	<servlet-name>SurveyCreationServlet</servlet-name>
    	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.SurveyCreationServlet</servlet-class>
   </servlet>
+  
 
   <!-- Servlet mappings -->
   <servlet-mapping>

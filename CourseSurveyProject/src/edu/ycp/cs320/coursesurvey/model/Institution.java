@@ -1,6 +1,4 @@
 package edu.ycp.cs320.coursesurvey.model;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * 
@@ -8,7 +6,6 @@ import java.util.Iterator;
  *
  */
 
-// TODO: remove arraylists and empty constructor
 public class Institution {
 	private int instId;
 	private String name;
@@ -42,7 +39,7 @@ public class Institution {
 	 * Set Institution ID#
 	 * @param instId
 	 */
-	public void setId (int instId) {
+	public void setInstId (int instId) {
 		this.instId = instId;
 	}
 

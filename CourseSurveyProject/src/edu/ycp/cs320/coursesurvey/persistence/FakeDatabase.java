@@ -41,7 +41,7 @@ public class FakeDatabase  implements IDatabase{
 		int instId = institutionList.size();
 
 		institutionList.get(index).setName(instName);
-		institutionList.get(index).setId(instId);
+		institutionList.get(index).setInstId(instId);
 		
 		//TODO: Remove me later and create junit tests for database
 		System.out.println("Institution Name is " + institutionList.get(index).getName());

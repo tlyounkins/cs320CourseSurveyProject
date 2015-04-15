@@ -10,9 +10,7 @@
 	<body>
 		This is the Survey Creation Page.
 		<p>
-		<!--
-		<a href="adminHomePage.jsp">Admin Home Page</a>
-		  -->
 		<a href="${pageContext.servletContext.contextPath}/adminHomePage">Admin Home Page</a>
+		</p>
 	</body>
 </html>

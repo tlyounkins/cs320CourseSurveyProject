@@ -28,7 +28,6 @@ public class AccountCreationServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		//Institution nInstitution = new Institution (req.getParameter("institutionName"));
 
 		//initialize variables to receive input from form
 		String instName = req.getParameter("institutionName");

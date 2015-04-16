@@ -12,7 +12,8 @@ public class DatabaseInitListener implements ServletContextListener {
 		// Initialize database
 		System.out.println("Initializing database!");
 		DatabaseProvider.setInstance(new FakeDatabase()); // TODO: eventually use real database
-
+		
+		//DatabaseProvider.setInstance(new SqliteDatabase);
 	}
 
 	public void contextDestroyed(ServletContextEvent e) {

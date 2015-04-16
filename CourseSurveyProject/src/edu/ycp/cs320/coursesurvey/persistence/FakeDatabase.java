@@ -16,7 +16,7 @@ public class FakeDatabase  implements IDatabase{
 		adminList = new ArrayList <AdminAccount> ();
 
 	}
-
+	@Override
 	public AdminAccount findAdminAccountByAdminName (String accountName) {
 		for (AdminAccount admin : adminList) {
 			if (admin.getAccountName().equals(accountName)) {
@@ -25,7 +25,7 @@ public class FakeDatabase  implements IDatabase{
 		}
 		return null;
 	}
-
+	@Override
 	public Institution findInstitution (String instName) {
 		for (Institution institution : institutionList) {
 			if (institution.getName().equals(instName)) {
@@ -34,7 +34,7 @@ public class FakeDatabase  implements IDatabase{
 		}
 		return null;
 	}
-
+	@Override
 	public int addInstitution ( String instName) {
 		institutionList.add(new Institution());
 		int index = institutionList.size()-1;
@@ -43,14 +43,13 @@ public class FakeDatabase  implements IDatabase{
 		institutionList.get(index).setName(instName);
 		institutionList.get(index).setInstId(instId);
 		
-		//TODO: Remove me later and create junit tests for database
 		System.out.println("Institution Name is " + institutionList.get(index).getName());
 		System.out.println("institution id is " + institutionList.get(index).getInstId());
 		
 		//returns the id to be stored if needed (look at account creation controller for an ex.)
 		return instId;
 	}
-
+	@Override
 	public void addAdmin (String adminName, String password, int instId) {
 		adminList.add(new AdminAccount());
 
@@ -61,7 +60,6 @@ public class FakeDatabase  implements IDatabase{
 		adminList.get(index).setPassword(password);
 		adminList.get(index).setAdminId(adminId);
 		
-		// TODO: remove me later and create junit tests for database
 		System.out.println("admin user name is " + adminList.get(index).getAccountName() );
 		System.out.println("admin id is " + adminList.get(index).getAdminId());
 		System.out.println("admin password is " + adminList.get(index).getPassword());

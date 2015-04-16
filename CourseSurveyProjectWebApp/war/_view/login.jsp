@@ -21,18 +21,13 @@
     <body>
         <div id="wrapper">
             <header><h1>Web Survey</h1></header>
-                <nav>
-                     <ul>
-                       <!--  <li><a href="login.jsp">Login</a></li> -->
-                     </ul>
-                </nav>
             <c:if test="${! empty errorMessage}">
               <div class="error">${errorMessage}</div>
             </c:if>
             
             <div id="content">
                 <h2>Login</h2>
-            	
+            		
             	    <form action="${pageContext.servletContext.contextPath}/accountCreation" method="post">
             	    	
             		    <table>
@@ -47,7 +42,7 @@
             		   
             		        <tr>
             		            <td class="label">Password:</td>
-            		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
+            		            <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
             		        </tr>
             		    </table>
             		    

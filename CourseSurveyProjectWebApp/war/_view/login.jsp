@@ -5,6 +5,8 @@
 <html>
     <head>
         <title>Survey :: Login</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/survey/_view/web_survey.css"  >
         <style type="text/css">
             .error {color: red;}
         
@@ -12,8 +14,6 @@
               text-align: right;
             }
         </style>
-        <meta charset="utf-8">
-        <link href="<c:url value='/survey/web_survey.css'/>"  rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Web forum login">
     </head>
@@ -50,10 +50,10 @@
             	    </form>
             
         
+		        Need to create an institution administrator account? Click 
+		        <a href="${pageContext.servletContext.contextPath}/accountCreation">here</a>
             </div>
         </div>
         <br>
-        Need to create an institution administrator account? <br>
-        <a href="${pageContext.servletContext.contextPath}/accountCreation">Account Creation</a>
     </body>
 </html>

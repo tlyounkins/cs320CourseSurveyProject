@@ -4,16 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.coursesurvey.model.AdminAccount;
+import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
+import edu.ycp.cs320.coursesurvey.model.Section;
 
 public class FakeDatabase  implements IDatabase{
 
 	private List<Institution> institutionList;
 	private List<AdminAccount> adminList;
+	private List<Course> courseList;
+	private List<Section> sectionList;
 
 	public FakeDatabase() {
 		institutionList = new ArrayList<Institution>();
 		adminList = new ArrayList <AdminAccount> ();
+		courseList = new ArrayList <Course>();
+		sectionList = new ArrayList <Section>();
+		
 
 	}
 	@Override
@@ -65,5 +72,20 @@ public class FakeDatabase  implements IDatabase{
 		System.out.println("admin password is " + adminList.get(index).getPassword());
 
 
+	}
+	@Override
+	public Course findCourse(String course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Section findSection(String section) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void addSurvey(String surveyName) {
+		// TODO Auto-generated method stub
+		
 	}
 }

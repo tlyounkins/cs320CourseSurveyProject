@@ -20,7 +20,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Institution inst = new Institution();
-				inst.setId(Integer.parseInt(i.next()));
+				inst.setInstId(Integer.parseInt(i.next()));
 				inst.setName(i.next());
 			}
 			return instList;

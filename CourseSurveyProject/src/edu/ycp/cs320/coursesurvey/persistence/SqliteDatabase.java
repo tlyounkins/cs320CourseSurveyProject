@@ -59,14 +59,12 @@ public class SqliteDatabase implements IDatabase{
 				DBUtil.closeQuietly(conn);
 			}
 		}
-		private Connection connect() throws SQLException {
+	private Connection connect() throws SQLException {
 			Connection conn = DriverManager.getConnection("jbdc:sqlite:test.db");
 
 			//Set autocommit to false t
 			conn.setAutoCommit(false);
 			return conn;
-		}
-
 	}
 
 	@Override
@@ -88,9 +86,9 @@ public class SqliteDatabase implements IDatabase{
 	}
 	@Override 
 	public AdminAccount findAdminAccountByAdminName (String accountName) {
-		return executeTransaction (new Transaction<ResultType>()) {
-
-		}
+		//return executeTransaction (new Transaction<ResultType>()) {
+		return null;
+	}
 		
 		
 		public <ResultType> ResultType executeTransaction (Transaction<ResultType> txn) {

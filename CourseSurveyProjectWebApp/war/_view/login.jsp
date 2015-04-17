@@ -52,9 +52,8 @@
         
             </div>
         </div>
-        Create institution administrator account
-        <p>
-        
+        <br>
+        Need to create an institution administrator account? <br>
         <a href="${pageContext.servletContext.contextPath}/accountCreation">Account Creation</a>
     </body>
 </html>

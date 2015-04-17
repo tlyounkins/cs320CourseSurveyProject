@@ -43,5 +43,11 @@
                 </table>
 	            <input name="Submit" type="submit" value="Create Institution">
 	     </form>
+	     <p> 
+	     <button type="button" onclick="alert('Password must contain 1 upper case letter, 1 number, and be at least 6 characters in length')">Need Help?</button>
+	     </p>
+	     <p>
+	     Already have an account? <a href="${pageContext.servletContext.contextPath}/login">Login</a>
+		</p>
   </body>
 </html>

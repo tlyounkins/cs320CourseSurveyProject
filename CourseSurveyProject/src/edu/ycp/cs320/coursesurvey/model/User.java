@@ -4,9 +4,39 @@ public class User {
 
 	private String userName, userPassword;
 	private int userID;
+	private int instID;
 	private boolean student;
 	private boolean proffesor;
 	private boolean admin;
+	
+	public User (String userName, String userPassword, int userID, int instID, boolean isStudent, boolean isProf, boolean isAdmin) {
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.instID = instID;
+		this.userID = userID;
+		this.student = isStudent;
+		this.proffesor = isProf;
+		this.admin = isAdmin;
+		//studentList = new ArrayList<User>();
+		//teacherList = new ArrayList<User>();
+		
+	}
+	
+	public int instID(){
+		return this.instID;
+	}
+	
+	public void setInstID(int instID){
+		this.instID = instID;
+	}
+	
+	public int userID(){
+		return this.userID;
+	}
+	
+	public void userID(int userID){
+		this.userID = userID;
+	}
 	
 	public boolean isStudent(){
 		return this.student;

@@ -35,6 +35,7 @@ public class AccountCreationServlet extends HttpServlet{
 		String accountName = req.getParameter("accountName");
 		String password = req.getParameter("password");
 		String passwordCheck = req.getParameter("passwordConfirm");
+		String error = null;
 		
 		//initiailizes the controller class
 		AccountCreationController controller = new AccountCreationController();
@@ -47,10 +48,27 @@ public class AccountCreationServlet extends HttpServlet{
 		
 		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 		
-		if (controller.done()){
+	
+		//goes to admin home page if account info is incorrect
+		if (controller.passwordsMatching() && controller.done()){
 			System.out.println("done");
+			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 		}
-		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+		//will remain on account creation if institution already exist or the passwords do not match
+		else{
+			if (!controller.passwordsMatching()){
+				if (error == null) error = "Errors :";
+				error += "*Password mismatch - please make sure your password is typed correctly \n";
+			}
+			if (controller.instAlreadyExists()){
+				if (error == null) error = "Errors :";
+				error += "*This institution already exists, please conact admin to create a new account \n";
+			}
+
+			req.setAttribute("errorMessage", error);
+			req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
+			
+		}
 		
 		
 	}

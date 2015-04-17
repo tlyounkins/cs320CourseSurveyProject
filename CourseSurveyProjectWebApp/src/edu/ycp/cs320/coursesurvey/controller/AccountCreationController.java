@@ -34,6 +34,7 @@ public class AccountCreationController {
 		if (passwordMatch) {
 
 			int id = -1;
+		
 			
 			//create a new institution if it does not exist
 			if ((DatabaseProvider.getInstance().findInstitution(instName)) == null){

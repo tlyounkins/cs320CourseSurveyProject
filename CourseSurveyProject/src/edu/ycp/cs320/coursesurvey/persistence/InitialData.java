@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.omg.PortableServer.POAPackage.AdapterAlreadyExists;
+
+import edu.ycp.cs320.coursesurvey.model.AdminAccount;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 
 public class InitialData {
@@ -29,4 +32,28 @@ public class InitialData {
 			readInst.close();
 		}
 	}
+
+	public static List<AdminAccount> getAdminAccounts() throws IOException {
+		List<AdminAccount> adminList = new ArrayList<AdminAccount>();
+		ReadCSV readAdmin = new ReadCSV ("admin_account.csv");
+		try {
+			while (true) {
+				List<String> tuple = readAdmin.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				AdminAccount admin = new AdminAccount();
+				admin.setAdminId(Integer.parseInt(i.next()));
+				admin.setAccountName(i.next());
+				admin.setPassword(i.next());
+				admin.setInstId(Integer.parseInt(i.next()));
+			}
+			return adminList;
+		}
+		finally {
+			readAdmin.close();
+		}
+	}
+
 }

@@ -9,6 +9,7 @@ public class User {
 	private boolean proffesor;
 	private boolean admin;
 	
+
 	public User (String userName, String userPassword, int userID, int instID, boolean isStudent, boolean isProf, boolean isAdmin) {
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -67,15 +68,23 @@ public class User {
 		return this.userName;
 	}
 
-	public void setGenName (String userName) {
+	public void setUserName (String userName) {
 		this.userName = userName;
 	}
+	
+	public int getUserID () {
+		return this.userID;
+	}
 
-	public String getGenPassword () {
+	public void setUserID (int userID) {
+		this.userID = userID;
+	}
+
+	public String getPassword () {
 		return this.userPassword;
 	}
 
-	public void setGenPassword (String userPassword) {
+	public void setPassword (String userPassword) {
 		this.userPassword = userPassword;
 	}
 

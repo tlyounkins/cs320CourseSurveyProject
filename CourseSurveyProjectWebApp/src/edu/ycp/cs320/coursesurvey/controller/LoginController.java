@@ -9,8 +9,9 @@ import edu.ycp.cs320.coursesurvey.model.*;
 
 public class LoginController {
 
+
 	public boolean login(String accountName, String password){
-		AdminAccount user = DatabaseProvider.getInstance().findAdminAccountByAdminName(accountName);
+		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1); //TODO: add inst field
 		
 		if (user != null){
 			if (user.getPassword().equals(password)) return true;

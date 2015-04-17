@@ -3,8 +3,8 @@ package edu.ycp.cs320.coursesurvey.persistence;
 public class DatabaseProvider {
 	private static IDatabase theInstance;
 	
-	public static void setInstance(IDatabase db) {
-		theInstance = db;
+	public static void setInstance(IDatabase fakedatabase) {
+		theInstance = fakedatabase;
 	}
 	
 	public static IDatabase getInstance() {

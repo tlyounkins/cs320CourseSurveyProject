@@ -1,6 +1,8 @@
 package edu.ycp.cs320.coursesurvey.model;
+
 //import java.util.ArrayList;
 //import java.util.Iterator;
+
 
 /**
  * 
@@ -14,7 +16,8 @@ public class Institution {
 	private int userTableID;
 	private int courseTableID;
 
-	public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
+
+	/*public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
 		this.instId = instID;
 		this.name = name;
 		this.userTableID = userTableID;
@@ -23,7 +26,16 @@ public class Institution {
 		//studentList = new ArrayList<User>();
 		//teacherList = new ArrayList<User>();
 		
+	}*/
+
+	public Institution (String name, int instID, int userTableID, int courseTableID){
+		this.setName(name);
+		this.setInstId(instID);
+		this.setCourseTableID(courseTableID);
+		this.setUserTableID(userTableID);
 	}
+
+
 	/**
 	 * Get Institution name
 	 * @return name
@@ -52,7 +64,7 @@ public class Institution {
 	 * Set Institution ID#
 	 * @param instId
 	 */
-	public void setId (int instId) {
+	public void setInstId (int instId) {
 		this.instId = instId;
 	}
 	

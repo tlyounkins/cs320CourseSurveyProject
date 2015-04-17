@@ -6,23 +6,21 @@ package edu.ycp.cs320.coursesurvey.model;
 
 public class Section {
 	//TODO : Update model using id and section name
-	private int sectTableID;
+
 	private int sectID;
 	private int userID;
-	private boolean proffesor;
 	private boolean student;
+	private boolean proffesor;
+
 	//ArrayList<User> studentList;
 	//ArrayList<User> teacherList;
 	
-	public Section (int sectTableID, int sectID, int userID, boolean isStudent, boolean isProf) {
-		this.sectTableID = sectTableID;
-		this.sectID = sectID;
-		this.userID = userID;
-		this.student = isStudent;
-		this.proffesor = isProf;
-		//studentList = new ArrayList<User>();
-		//teacherList = new ArrayList<User>();
-		
+
+	public Section (int sectID, int userID, boolean student, boolean proffesor) {
+		this.setSectID(sectID);
+		this.setUserID(userID);
+		this.setStudent(student);
+		this.setProf(proffesor);
 	}
 
 	public int getSectID () {
@@ -35,6 +33,36 @@ public class Section {
 	
 	public int getUserID () {
 		return this.userID;
+	}
+
+	public void setUserID (int userID) {
+		this.userID = userID;
+	}
+	
+	public boolean isStudent(){
+		return this.student;
+	}
+	
+	public void setStudent(boolean state){
+		this.student = state;
+	}
+	
+	public boolean isProf(){
+		return this.proffesor;
+	}
+	
+	public void setProf(boolean state){
+		this.proffesor = state;
+	}
+	
+	
+	/*public ArrayList<User> getStudentList () {
+		return studentList;
+	}
+	
+	public ArrayList<User> getTeacherList () {
+		return teacherList;
+>>>>>>> refs/remotes/origin/Garlan
 	}
 
 	public void setUserID (int userID) {

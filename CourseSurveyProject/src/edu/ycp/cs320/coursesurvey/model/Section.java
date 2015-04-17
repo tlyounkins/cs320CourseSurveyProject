@@ -6,26 +6,54 @@ import java.util.Iterator;
 
 public class Section {
 	//TODO : Update model using id and section name
-	int sect;
-	ArrayList<User> studentList;
-	ArrayList<User> teacherList;
+	int sectID;
+	int userID;
+	boolean student;
+	boolean proffesor;
+	//ArrayList<User> studentList;
+	//ArrayList<User> teacherList;
 	
-	public Section (int sect) {
-		this.sect = sect;
-		studentList = new ArrayList<User>();
-		teacherList = new ArrayList<User>();
-		
+	public Section (int sectID, int userID, boolean student, boolean proffesor) {
+		this.setSectID(sectID);
+		this.setUserID(userID);
+		this.setStudent(student);
+		this.setProf(proffesor);
 	}
 
-	public int getSect () {
-		return sect;
+	public int getSectID () {
+		return this.sectID;
 	}
 
-	public void setSect (int sect) {
-		this.sect = sect;
+	public void setSectID (int sectID) {
+		this.sectID = sectID;
 	}
 	
-	public ArrayList<User> getStudentList () {
+	public int getUSerID () {
+		return this.userID;
+	}
+
+	public void setUserID (int userID) {
+		this.userID = userID;
+	}
+	
+	public boolean isStudent(){
+		return this.student;
+	}
+	
+	public void setStudent(boolean state){
+		this.student = state;
+	}
+	
+	public boolean isProf(){
+		return this.proffesor;
+	}
+	
+	public void setProf(boolean state){
+		this.proffesor = state;
+	}
+	
+	
+	/*public ArrayList<User> getStudentList () {
 		return studentList;
 	}
 	
@@ -47,6 +75,6 @@ public class Section {
 		while(iter.hasNext()) {
 			System.out.println(iter.next());
 		}
-	}
+	}*/
 
 }

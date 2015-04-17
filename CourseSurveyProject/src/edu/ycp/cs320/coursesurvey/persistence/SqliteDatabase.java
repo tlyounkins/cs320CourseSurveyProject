@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.AdminAccount;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -66,7 +67,8 @@ public class SqliteDatabase implements IDatabase{
 		}
 	}
 	private Connection connect() throws SQLException {
-			Connection conn = DriverManager.getConnection("jbdc:sqlite:test.db");
+		String homeDir = System.getProperty("user.home");
+			Connection conn = DriverManager.getConnection("jbdc:sqlite:" + homeDir + "/sexycoursesurvey.db");
 
 			//Set autocommit to false to allow multiple the execution of
 			// multiple queries/statements as part of the same transaction.
@@ -82,9 +84,10 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	@Override
-	public void addAdmin(String adminName, String password, int instId) {
-		// TODO Auto-generated method stub
+	public int addUser(String userName, String password, int instId, boolean student, boolean prof, boolean admin){
 
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -94,10 +97,10 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	@Override
-	public AdminAccount findAdminAccountByAdminName (final String accountName) {
-		return executeTransaction(new Transaction<AdminAccount>() {
+	public User findUserAccountByName (final String accountName, int instID) {
+		return executeTransaction(new Transaction<User>() {
 			@Override
-			public AdminAccount execute(Connection conn) throws SQLException {
+			public User execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
@@ -115,6 +118,7 @@ public class SqliteDatabase implements IDatabase{
 					if (resultSet.next()) {
 						loadAdminAccount(result, resultSet, 1);
 					}
+					
 					return result;
 				} finally {
 					DBUtil.closeQuietly(stmt);
@@ -154,6 +158,54 @@ public class SqliteDatabase implements IDatabase{
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+	
+	public void createInstitutionTable() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table institution (" +
+									"    id integer primary key," +
+									"    name varchar(40)," +
+									"    courseTableID integer primary key," +
+									"    userTableID integer primary key" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createUserTable(int userTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table course_" + userTableID +  " (" +
+									"    id integer primary key," +
+									"    name varchar(40)," +
+									"    courseTableID integer primary key," +
+									"    userTableID integer primary key" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
 				}
 			}
 		});

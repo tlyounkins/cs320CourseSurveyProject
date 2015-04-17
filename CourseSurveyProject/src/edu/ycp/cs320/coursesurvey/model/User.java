@@ -8,6 +8,15 @@ public class User {
 	private boolean proffesor;
 	private boolean admin;
 	
+	public User (String userName, String password, int ID, boolean student, boolean prof, boolean admin){
+		this.setUserName(userName);
+		this.setPassword(password);
+		this.setUserID(ID);
+		this.setStudent(student);
+		this.setProf(prof);
+		this.setAdmin(admin);
+	}
+	
 	public boolean isStudent(){
 		return this.student;
 	}
@@ -37,15 +46,23 @@ public class User {
 		return this.userName;
 	}
 
-	public void setGenName (String userName) {
+	public void setUserName (String userName) {
 		this.userName = userName;
 	}
+	
+	public int getUserID () {
+		return this.userID;
+	}
 
-	public String getGenPassword () {
+	public void setUserID (int userID) {
+		this.userID = userID;
+	}
+
+	public String getPassword () {
 		return this.userPassword;
 	}
 
-	public void setGenPassword (String userPassword) {
+	public void setPassword (String userPassword) {
 		this.userPassword = userPassword;
 	}
 

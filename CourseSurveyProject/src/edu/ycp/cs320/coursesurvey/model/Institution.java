@@ -12,6 +12,12 @@ public class Institution {
 	private int userTableID;
 	private int courseTableID;
 
+	public Institution (String name, int instID, int userTableID, int courseTableID){
+		this.setName(name);
+		this.setInstId(instID);
+		this.setCourseTableID(courseTableID);
+		this.setUserTableID(userTableID);
+	}
 
 	/**
 	 * Get Institution name

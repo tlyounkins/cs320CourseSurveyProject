@@ -1,7 +1,7 @@
 package edu.ycp.cs320.coursesurvey.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.ArrayList;
+//import java.util.Iterator;
 
 public class Course {
 

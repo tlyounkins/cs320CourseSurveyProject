@@ -2,7 +2,7 @@ package edu.ycp.cs320.coursesurvey.persistence;
 
 import java.util.List;
 
-import edu.ycp.cs320.coursesurvey.model.AdminAccount;
+import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.model.Section;
@@ -12,11 +12,13 @@ public interface IDatabase {
 	//public List<Pair<Author, Book>> findAuthorAndBookByTitle(String title);
 	public Institution findInstitution (String instName);
 	
-	public AdminAccount findAdminAccountByAdminName (String accountName);
+	public User findUserAccountByName (String accountName, int instID);
 	
-	public void addAdmin (String adminName, String password, int instId);
+	public int addUser (String userName, String password, int instId, boolean student, boolean prof, boolean admin);
 	
 	public int addInstitution (String instName);
+	
+	public int addCourse(int instID, String title, String dept, int year, String term);
 
 	public Course findCourse(String course);
 	

@@ -39,7 +39,7 @@ public class AccountCreationController {
 			//create a new institution if it does not exist
 			if ((DatabaseProvider.getInstance().findInstitution(instName)) == null){
 				id = DatabaseProvider.getInstance().addInstitution(instName);	
-				DatabaseProvider.getInstance().addAdmin(accountName, password, id);
+				DatabaseProvider.getInstance().addUser(accountName, password, id, false, false, true);
 			}
 			else {
 				//variable will be set to true if the institution already exists and the account will not be created

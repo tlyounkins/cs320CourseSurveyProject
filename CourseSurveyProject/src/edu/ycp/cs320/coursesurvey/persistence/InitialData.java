@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.omg.PortableServer.POAPackage.AdapterAlreadyExists;
 
-import edu.ycp.cs320.coursesurvey.model.AdminAccount;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 
 public class InitialData {
@@ -22,7 +21,7 @@ public class InitialData {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				Institution inst = new Institution();
+				Institution inst = new Institution(null, 0, 0, 0);
 				inst.setInstId(Integer.parseInt(i.next()));
 				inst.setName(i.next());
 			}
@@ -32,7 +31,7 @@ public class InitialData {
 			readInst.close();
 		}
 	}
-
+/*
 	public static List<AdminAccount> getAdminAccounts() throws IOException {
 		List<AdminAccount> adminList = new ArrayList<AdminAccount>();
 		ReadCSV readAdmin = new ReadCSV ("admin_account.csv");
@@ -55,5 +54,5 @@ public class InitialData {
 			readAdmin.close();
 		}
 	}
-
+*/
 }

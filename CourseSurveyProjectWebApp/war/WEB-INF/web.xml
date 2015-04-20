@@ -49,6 +49,4 @@
   <!-- listeners -->
   <listener>
     <listener-class>edu.ycp.cs320.coursesurvey.servlets.DatabaseInitListener</listener-class>
-  </listener>
-  
-</web-app>
+  </listener></web-app>

@@ -4,9 +4,26 @@ public class User {
 
 	private String userName, userPassword;
 	private int userID;
+	private int instID;
 	private boolean student;
 	private boolean proffesor;
 	private boolean admin;
+	
+	public int instID(){
+		return this.instID;
+	}
+	
+	public void setInstID(int instID){
+		this.instID = instID;
+	}
+	
+	public int userID(){
+		return this.userID;
+	}
+	
+	public void userID(int userID){
+		this.userID = userID;
+	}
 	
 	public boolean isStudent(){
 		return this.student;
@@ -37,15 +54,23 @@ public class User {
 		return this.userName;
 	}
 
-	public void setGenName (String userName) {
+	public void setUserName (String userName) {
 		this.userName = userName;
 	}
+	
+	public int getUserID () {
+		return this.userID;
+	}
 
-	public String getGenPassword () {
+	public void setUserID (int userID) {
+		this.userID = userID;
+	}
+
+	public String getPassword () {
 		return this.userPassword;
 	}
 
-	public void setGenPassword (String userPassword) {
+	public void setPassword (String userPassword) {
 		this.userPassword = userPassword;
 	}
 

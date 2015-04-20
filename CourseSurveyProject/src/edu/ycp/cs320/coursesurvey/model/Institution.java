@@ -1,5 +1,9 @@
 package edu.ycp.cs320.coursesurvey.model;
 
+//import java.util.ArrayList;
+//import java.util.Iterator;
+
+
 /**
  * 
  * @author Tyler Younkins, Garlan Bowser, Cory Dawson
@@ -11,6 +15,25 @@ public class Institution {
 	private String name;
 	private int userTableID;
 	private int courseTableID;
+
+
+	/*public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
+		this.instId = instID;
+		this.name = name;
+		this.userTableID = userTableID;
+		this.courseTableID = courseTableID;
+		
+		//studentList = new ArrayList<User>();
+		//teacherList = new ArrayList<User>();
+		
+	}*/
+
+	public Institution (String name, int instID, int userTableID, int courseTableID){
+		this.setName(name);
+		this.setInstId(instID);
+		this.setCourseTableID(courseTableID);
+		this.setUserTableID(userTableID);
+	}
 
 
 	/**

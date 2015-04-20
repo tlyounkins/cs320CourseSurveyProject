@@ -66,7 +66,7 @@ public class SqliteDatabase implements IDatabase{
 		}
 	}
 	private Connection connect() throws SQLException {
-			Connection conn = DriverManager.getConnection("jbdc:sqlite:test.db");
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
 
 			//Set autocommit to false to allow multiple the execution of
 			// multiple queries/statements as part of the same transaction.
@@ -135,18 +135,18 @@ public class SqliteDatabase implements IDatabase{
 
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table admin_acount (" +
+							"create table admin_account1 (" +
 									"    id integer primary key," +
 									"    name varchar(20)," +
-									"    password varchar(20)" +
-									"    inst_id integer," +
+									"    password varchar(20)," +
+									"    inst_id integer" +
 							")");
 					stmt1.executeUpdate();
 
 					stmt2 = conn.prepareStatement(
-							"create table institution (" +
+							"create table institution_table1 (" +
 									"    id integer primary key," +
-									"    name varchar(40)," +
+									"    name varchar(40)" +
 							")");
 					stmt2.executeUpdate();
 
@@ -191,7 +191,7 @@ public class SqliteDatabase implements IDatabase{
 				PreparedStatement insertInstitution = null;
 
 				try {
-					insertAdminAccount = conn.prepareStatement("insert into AdminAccounts values (?, ?, ?)");
+					insertAdminAccount = conn.prepareStatement("insert into admin_account1 values (?, ?, ?)");
 					for (AdminAccount adminItr : adminList) {
 						insertAdminAccount.setInt(1, adminItr.getAdminId());
 						insertAdminAccount.setString(2, adminItr.getAccountName());
@@ -201,7 +201,7 @@ public class SqliteDatabase implements IDatabase{
 					}
 					insertAdminAccount.executeBatch();
 
-					insertInstitution = conn.prepareStatement("insert into Institutions values (?, ?, ?, ?)");
+					insertInstitution = conn.prepareStatement("insert into institution1 values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
 						insertInstitution.setInt(1, instItr.getInstId());
 						insertInstitution.setString(3,instItr.getName());

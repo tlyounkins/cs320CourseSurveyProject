@@ -81,7 +81,7 @@ public class FakeDatabase  implements IDatabase{
 		System.out.println("user id is " + userTable.get(newID-1).getUserID());
 		System.out.println("user password is " + userTable.get(newID-1).getPassword());
 		if (student) System.out.println("user is a student");
-		if (prof) System.out.println("user is a proffesor");
+		if (prof) System.out.println("user is a profesor");
 		if (admin) System.out.println("user is an admin");
 		
 		return newID;

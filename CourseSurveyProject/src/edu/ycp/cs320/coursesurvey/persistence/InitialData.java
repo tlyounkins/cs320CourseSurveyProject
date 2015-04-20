@@ -10,7 +10,7 @@ import org.omg.PortableServer.POAPackage.AdapterAlreadyExists;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 
 public class InitialData {
-
+	
 	public static List<Institution> getInstitutions() throws IOException {
 		List<Institution> instList = new ArrayList<Institution>();
 		ReadCSV readInst = new ReadCSV("institution.csv");
@@ -23,7 +23,11 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				Institution inst = new Institution(null, 0, 0, 0);
 				inst.setInstId(Integer.parseInt(i.next()));
-				inst.setName(i.next());
+				//inst.setName(i.next());
+				// For testing:
+				String test = i.next();
+				System.out.println(test);
+				inst.setName(test);
 			}
 			return instList;
 		}

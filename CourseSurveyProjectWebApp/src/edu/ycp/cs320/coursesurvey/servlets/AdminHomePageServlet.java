@@ -6,8 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import edu.ycp.cs320.coursesurvey.model.AdminAccount;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 
 public class AdminHomePageServlet extends HttpServlet {

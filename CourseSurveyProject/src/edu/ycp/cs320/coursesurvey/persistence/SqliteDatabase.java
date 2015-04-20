@@ -67,7 +67,7 @@ public class SqliteDatabase implements IDatabase{
 	}
 	private Connection connect() throws SQLException {
 		String homeDir = System.getProperty("user.home");
-			Connection conn = DriverManager.getConnection("jbdc:sqlite:" + homeDir + "/sexycoursesurvey.db");
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + homeDir + "/sexycoursesurvey.db");
 
 			//Set autocommit to false to allow multiple the execution of
 			// multiple queries/statements as part of the same transaction.
@@ -214,7 +214,7 @@ public class SqliteDatabase implements IDatabase{
 			return doExecuteTransation(txn);
 		}
 		catch (SQLException e) {
-			throw new PersistenceException ("Tranaction failed", e);
+			throw new PersistenceException ("Transaction failed", e);
 		}
 	}
 	public void loadInitialData() {

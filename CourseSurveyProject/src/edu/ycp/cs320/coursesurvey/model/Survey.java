@@ -1,10 +1,12 @@
 package edu.ycp.cs320.coursesurvey.model;
 
 public class Survey {
+
 	private int courseID;
 	private int creatorID;
 	private int templateTableID;
 	private int responseTableID;
+	private String surveyName;
 	
 	public void setCourseID(int courseID){
 		this.courseID = courseID;
@@ -37,4 +39,14 @@ public class Survey {
 	public int getResponseID(){
 		return this.responseTableID;
 	}
+
+	public String getSurveyName() {
+		return surveyName;
+	}
+
+	public void setSurveyName(String surveyName) {
+		this.surveyName = surveyName;
+	}
+
+
 }

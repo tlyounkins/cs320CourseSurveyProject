@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.coursesurvey.model.User;
-import edu.ycp.cs320.coursesurvey.model.AdminAccount;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.model.Section;
@@ -68,7 +67,7 @@ public class SqliteDatabase implements IDatabase{
 	}
 	private Connection connect() throws SQLException {
 		String homeDir = System.getProperty("user.home");
-			Connection conn = DriverManager.getConnection("jbdc:sqlite:" + homeDir + "/sexycoursesurvey.db");
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + homeDir + "/sexycoursesurvey.db");
 
 			//Set autocommit to false to allow multiple the execution of
 			// multiple queries/statements as part of the same transaction.
@@ -97,6 +96,7 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	@Override
+	/*
 	public User findUserAccountByName (final String accountName, int instID) {
 		return executeTransaction(new Transaction<User>() {
 			@Override
@@ -112,7 +112,7 @@ public class SqliteDatabase implements IDatabase{
 							);
 					stmt.setString(1, accountName);
 
-					AdminAccount result  = new AdminAccount();
+					User result  = new User();
 					resultSet = stmt.executeQuery();
 
 					if (resultSet.next()) {
@@ -129,35 +129,26 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
+	*/
 
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
 
 				try {
+
 					stmt1 = conn.prepareStatement(
-							"create table admin_acount (" +
+							"create table institution_table1 (" +
 									"    id integer primary key," +
-									"    name varchar(20)," +
-									"    password varchar(20)" +
-									"    inst_id integer," +
+									"    name varchar(40)" +
 							")");
 					stmt1.executeUpdate();
-
-					stmt2 = conn.prepareStatement(
-							"create table institution (" +
-									"    id integer primary key," +
-									"    name varchar(40)," +
-							")");
-					stmt2.executeUpdate();
 
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
-					DBUtil.closeQuietly(stmt2);
 				}
 			}
 		});
@@ -187,7 +178,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createUserTable(int userTableID) {
+	public void createUserTable(final int userTableID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -211,29 +202,30 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 
-
+	/*
 	private void loadAdminAccount(AdminAccount admin, ResultSet resultSet, int index) throws SQLException {
 		admin.setAdminId(resultSet.getInt(index++));
 		admin.setAccountName(resultSet.getString(index++));
 		admin.setPassword(resultSet.getString(index++));
 	}
+	*/
 	public <ResultType> ResultType executeTransaction (Transaction<ResultType> txn) {
 		try {
 			return doExecuteTransation(txn);
 		}
 		catch (SQLException e) {
-			throw new PersistenceException ("Tranaction failed", e);
+			throw new PersistenceException ("Transaction failed", e);
 		}
 	}
 	public void loadInitialData() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				List<AdminAccount> adminList;
+				//List<AdminAccount> adminList;
 				List<Institution> instList;
 
 				try {
-					adminList = InitialData.getAdminAccounts();
+					//adminList = InitialData.getAdminAccounts();
 					instList = InitialData.getInstitutions();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
@@ -243,7 +235,9 @@ public class SqliteDatabase implements IDatabase{
 				PreparedStatement insertInstitution = null;
 
 				try {
-					insertAdminAccount = conn.prepareStatement("insert into AdminAccounts values (?, ?, ?)");
+					 // Creating an iterator for creating an admin account for loading the initial data
+					/*
+					insertAdminAccount = conn.prepareStatement("insert into admin_account1 values (?, ?, ?)");
 					for (AdminAccount adminItr : adminList) {
 						insertAdminAccount.setInt(1, adminItr.getAdminId());
 						insertAdminAccount.setString(2, adminItr.getAccountName());
@@ -252,8 +246,8 @@ public class SqliteDatabase implements IDatabase{
 						insertAdminAccount.addBatch();
 					}
 					insertAdminAccount.executeBatch();
-
-					insertInstitution = conn.prepareStatement("insert into Institutions values (?, ?, ?, ?)");
+					*/
+					insertInstitution = conn.prepareStatement("insert into institution1 values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
 						insertInstitution.setInt(1, instItr.getInstId());
 						insertInstitution.setString(3,instItr.getName());
@@ -264,7 +258,7 @@ public class SqliteDatabase implements IDatabase{
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertInstitution);
-					DBUtil.closeQuietly(insertAdminAccount);
+					//DBUtil.closeQuietly(insertAdminAccount);
 				}
 			}
 		});
@@ -296,6 +290,15 @@ public class SqliteDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		
 	}
-		
-
+	@Override
+	public int addCourse(int instID, String title, String dept, int year,
+			String term) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public User findUserAccountByName(String accountName, int instID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

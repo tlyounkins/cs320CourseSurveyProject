@@ -75,13 +75,11 @@ public class FakeDatabase  implements IDatabase{
 		ArrayList<User> userTable = this.userTables.get(this.institutionTable.get(instId-1).getUserTableID()-1);
 		int newID = userTable.size() + 1;
 		
-		userTable.add(new User(userName, password, newID, student, prof, admin));
-		
 		System.out.println("user name is " + userTable.get(newID-1).getUserName() );
 		System.out.println("user id is " + userTable.get(newID-1).getUserID());
 		System.out.println("user password is " + userTable.get(newID-1).getPassword());
 		if (student) System.out.println("user is a student");
-		if (prof) System.out.println("user is a proffesor");
+		if (prof) System.out.println("user is a profesor");
 		if (admin) System.out.println("user is an admin");
 		
 		return newID;
@@ -113,6 +111,11 @@ public class FakeDatabase  implements IDatabase{
 	}
 	@Override
 	public void addSurvey(String surveyName) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void createTables() {
 		// TODO Auto-generated method stub
 		
 	}

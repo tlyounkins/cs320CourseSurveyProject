@@ -66,7 +66,7 @@ public class SqliteDatabase implements IDatabase{
 		}
 	}
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jbdc:sqlite:test.db");
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
 
 		//Set autocommit to false t
 		conn.setAutoCommit(false);
@@ -131,21 +131,21 @@ public class SqliteDatabase implements IDatabase{
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
-
+				System.out.println("create tables execute");
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table admin_acount (" +
+							"create table admin_account (" +
 									"    id integer primary key," +
 									"    name varchar(20)," +
-									"    password varchar(20)" +
-									"    inst_id integer," +
-							")");
+									"    password varchar(20)," +
+									"    inst_id integer" +
+									")");
 					stmt1.executeUpdate();
 
 					stmt2 = conn.prepareStatement(
 							"create table institution (" +
 									"    id integer primary key," +
-									"    name varchar(40)," +
+									"    name varchar(40)" +
 							")");
 					stmt2.executeUpdate();
 
@@ -216,18 +216,16 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
-
 	// The main method creates the database tables and loads the initial data.
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		SqliteDatabase db = new SqliteDatabase();
 		db.createTables();
-		
+
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
-		
+
 		System.out.println("Success!");
 	}
-		
 
 }

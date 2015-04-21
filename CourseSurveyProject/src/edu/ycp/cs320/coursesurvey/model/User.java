@@ -10,10 +10,10 @@ public class User {
 	private boolean admin;
 	
 
-	public User (String userName, String userPassword, int userID, int instID, boolean isStudent, boolean isProf, boolean isAdmin) {
+	public User (String userName, String userPassword, int userID, /*int instID,*/ boolean isStudent, boolean isProf, boolean isAdmin) {
 		this.userName = userName;
 		this.userPassword = userPassword;
-		this.instID = instID;
+		//this.instID = instID;
 		this.userID = userID;
 		this.student = isStudent;
 		this.proffesor = isProf;

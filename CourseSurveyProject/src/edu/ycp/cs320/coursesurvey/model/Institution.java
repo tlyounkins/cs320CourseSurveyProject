@@ -15,6 +15,7 @@ public class Institution {
 	private String name;
 	private int userTableID;
 	private int courseTableID;
+	private int surveyTableID;
 
 
 	/*public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
@@ -100,4 +101,20 @@ public class Institution {
 		return this.courseTableID;
 	}
 
+	
+	/**
+	 * set Survey Table ID
+	 * @param courseTableID
+	 */
+	public void setSurveyTableID(int surveyTableID){
+		this.surveyTableID = surveyTableID;
+	}
+	
+	/**
+	 * Get Survey Table ID
+	 * @return SurveyTableID
+	 */
+	public int getSurveyTableID(){
+		return this.surveyTableID;
+	}
 }

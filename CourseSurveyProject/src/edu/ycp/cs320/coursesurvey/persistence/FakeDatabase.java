@@ -3,10 +3,7 @@ package edu.ycp.cs320.coursesurvey.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.coursesurvey.model.User;
-import edu.ycp.cs320.coursesurvey.model.Course;
-import edu.ycp.cs320.coursesurvey.model.Institution;
-import edu.ycp.cs320.coursesurvey.model.Section;
+import edu.ycp.cs320.coursesurvey.model.*;
 
 public class FakeDatabase  implements IDatabase{
 
@@ -14,15 +11,14 @@ public class FakeDatabase  implements IDatabase{
 	private List<ArrayList<User>> userTables;
 	private List<ArrayList<Course>> courseTables;
 	private List<ArrayList<Section>> sectionTables;
-	//private List<Section> sectionList;
+	private List<ArrayList<Survey>> surveyTables;
 
 	public FakeDatabase() {
 		this.institutionTable = new ArrayList<Institution>();
 		this.userTables = new ArrayList <ArrayList<User>>();
 		this.courseTables = new ArrayList <ArrayList<Course>>();
 		this.sectionTables = new ArrayList <ArrayList<Section>>();
-		
-
+		this.surveyTables = new ArrayList <ArrayList<Survey>>();
 	}
 	@Override
 	public User findUserAccountByName(String accountName, int instID) {
@@ -57,6 +53,7 @@ public class FakeDatabase  implements IDatabase{
 		int instID = this.institutionTable.size()+1;
 		int courseTableID = this.courseTables.size()+1;
 		int userTableID = this.userTables.size()+1;
+		int surveyTableID = this.surveyTables.size()+1;
 		
 		
 		//institutionList.get(index).setName(instName);
@@ -65,6 +62,7 @@ public class FakeDatabase  implements IDatabase{
 		this.institutionTable.add(new Institution(instName, instID, courseTableID, userTableID));
 		this.courseTables.add(new ArrayList<Course>());
 		this.userTables.add(new ArrayList<User>());
+		this.surveyTables.add(new ArrayList<Survey>());
 		
 		System.out.println("Institution Name is " + this.institutionTable.get(instID-1).getName());
 		System.out.println("institution id is " + this.institutionTable.get(instID-1).getInstId());

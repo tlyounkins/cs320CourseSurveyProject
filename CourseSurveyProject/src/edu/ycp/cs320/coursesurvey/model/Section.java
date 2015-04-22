@@ -16,12 +16,12 @@ public class Section {
 	//ArrayList<User> teacherList;
 	
 
-	public Section (int sectID, int userID, boolean student, boolean proffesor) {
+	/*public Section (int sectID, int userID, boolean student, boolean proffesor) {
 		this.setSectID(sectID);
 		this.setUserID(userID);
 		this.setStudent(student);
 		this.setProf(proffesor);
-	}
+	}*/
 
 	public int getSectID () {
 		return this.sectID;

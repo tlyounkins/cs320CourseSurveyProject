@@ -265,6 +265,7 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	// The main method creates the database tables and loads the initial data.
+	//For testing only
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		SqliteDatabase db = new SqliteDatabase();

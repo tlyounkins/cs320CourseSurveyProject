@@ -89,7 +89,7 @@ public class FakeDatabase  implements IDatabase{
 	public int addCourse(int instID, String title, String dept, int year, String term){
 		ArrayList<Course> courseTable = this.courseTables.get(this.institutionTable.get(instID-1).getCourseTableID()-1);
 		
-		int newCourseID = courseTable.size() + 1;
+		//int newCourseID = courseTable.size() + 1;
 		int newSectionTableID = this.sectionTables.size() + 1;
 		
 		this.sectionTables.add(new ArrayList<Section>());
@@ -98,6 +98,22 @@ public class FakeDatabase  implements IDatabase{
 		
 		return newSectionTableID;
 	}
+
+	//@Overide
+	public void addToSectionTable(int instID, int courseID, int sectID, int userID, boolean student, boolean prof){
+		ArrayList<Course> courseTable = this.courseTables.get(this.institutionTable.get(instID-1).getCourseTableID()-1);
+		ArrayList<Section> sectionTable = this.sectionTables.get(courseTable.get(courseID-1).getSectionTableID()-1);
+		
+		Section newEntry = new Section();
+		newEntry.setSectID(sectID);
+		newEntry.setUserID(userID);
+		newEntry.setStudent(student);
+		newEntry.setProf(prof);
+		
+		sectionTable.add(newEntry);
+	}
+	
+	
 	
 	@Override
 	public Course findCourse(String course) {

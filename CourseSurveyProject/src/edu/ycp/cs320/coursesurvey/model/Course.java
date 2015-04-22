@@ -1,7 +1,7 @@
 package edu.ycp.cs320.coursesurvey.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.ArrayList;
+//import java.util.Iterator;
 
 public class Course {
 
@@ -9,14 +9,14 @@ public class Course {
 	private String dept;
 	private int schoolYear;
 	private String term;
-	private ArrayList<Section> sectionList;
+	private int sectionTableID;
 
-	public Course (String courseTitle, String dept, int schoolYear, String term) {
+	public Course (String courseTitle, String dept, int schoolYear, String term, int sectionTableID) {
 		this.courseTitle = courseTitle;
 		this.dept = dept;
 		this.schoolYear = schoolYear;
 		this.term = term;
-		sectionList = new ArrayList<Section>();
+		this.sectionTableID = sectionTableID;
 	}
 
 	public String getCourseTitle () {
@@ -51,11 +51,13 @@ public class Course {
 		this.term = term;
 	}
 
-	public ArrayList<Section> getSectionList () {
-		return sectionList;
+	public int getSectionTableID () {
+		return sectionTableID;
 	}
+	
+	
 
-	public void addSection (int section) {
+	/*public void addSection (int section) {
 		Section newSection = new Section(section);
 		sectionList.add(newSection);
 	}
@@ -68,6 +70,6 @@ public class Course {
 			}
 		}
 		return -1;
-	}
+	}*/
 	
 }

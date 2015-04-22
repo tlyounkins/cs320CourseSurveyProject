@@ -10,9 +10,7 @@
 	<body>
 		Welcome, Admin!
 		<p>
-		<!--
-		<a href="surveyCreation.jsp">Survey Creation Page</a>
-		  -->
 		<a href="${pageContext.servletContext.contextPath}/surveyCreation">Survey Creation Page</a>
+		</p>
 	</body>
 </html>

@@ -28,7 +28,6 @@ public class AccountCreationServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		//Institution nInstitution = new Institution (req.getParameter("institutionName"));
 
 		//initialize variables to receive input from form
 		String instName = req.getParameter("institutionName");
@@ -37,7 +36,7 @@ public class AccountCreationServlet extends HttpServlet{
 		String passwordCheck = req.getParameter("passwordConfirm");
 		String error = null;
 		
-		//initiailizes the controller class
+		//initializes the controller class
 		AccountCreationController controller = new AccountCreationController();
 		
 		//make sure password is as intended then create account for the institution
@@ -62,7 +61,7 @@ public class AccountCreationServlet extends HttpServlet{
 			}
 			if (controller.instAlreadyExists()){
 				if (error == null) error = "Errors :";
-				error += "*This institution already exists, please conact admin to create a new account \n";
+				error += "*This institution already exists, please contact admin to create a new account \n";
 			}
 
 			req.setAttribute("errorMessage", error);

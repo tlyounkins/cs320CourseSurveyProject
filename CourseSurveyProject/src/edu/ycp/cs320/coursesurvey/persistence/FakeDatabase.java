@@ -93,7 +93,7 @@ public class FakeDatabase  implements IDatabase{
 		int newSectionTableID = this.sectionTables.size() + 1;
 		
 		this.sectionTables.add(new ArrayList<Section>());
-		courseTable.add(new Course(title, dept, year, term, newSectionTableID));
+		courseTable.add(new Course());
 		System.out.println(title + " has been added to the courses");
 		
 		return newSectionTableID;

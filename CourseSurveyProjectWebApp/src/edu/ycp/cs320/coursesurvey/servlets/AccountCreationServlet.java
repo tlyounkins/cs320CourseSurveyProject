@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
@@ -41,7 +42,9 @@ public class AccountCreationServlet extends HttpServlet{
 		
 		//make sure password is as intended then create account for the institution
 		controller.createAccount(instName, accountName, password, passwordCheck);
-		
+
+		//For logging user session *req.getSession(bool) can also be used here
+		HttpSession session = req.getSession();
 		
 		//req.setAttribute("create", controller);
 		
@@ -50,6 +53,10 @@ public class AccountCreationServlet extends HttpServlet{
 	
 		//goes to admin home page if account info is incorrect
 		if (controller.passwordsMatching() && controller.done()){
+			//Set user name to session attribute 
+			//"user" is currently a string (accountName) should be changed to a User Object later
+			session.setAttribute("user", accountName);
+			System.out.println("testing session value " + session.getAttribute("user"));
 			System.out.println("done");
 			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 		}

@@ -43,7 +43,7 @@ public class AccountCreationServlet extends HttpServlet{
 		controller.createAccount(instName, accountName, password, passwordCheck);
 		
 		
-		req.setAttribute("create", controller);
+		//req.setAttribute("create", controller);
 		
 		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 		
@@ -51,7 +51,9 @@ public class AccountCreationServlet extends HttpServlet{
 		//goes to admin home page if account info is incorrect
 		if (controller.passwordsMatching() && controller.done()){
 			System.out.println("done");
-			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+			//req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/adminHomePage");
+			return;
 		}
 		//will remain on account creation if institution already exist or the passwords do not match
 		else{

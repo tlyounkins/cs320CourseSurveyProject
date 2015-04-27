@@ -16,8 +16,6 @@
     }
     </style>
   </head>
-
-  <body>
   	<body>
         <div id="wrapper">
             <header><h1>Web Survey</h1></header>

@@ -163,10 +163,11 @@ public class SqliteDatabase implements IDatabase{
 				try {
 					stmt1 = conn.prepareStatement(
 							"create table institution (" +
-									"    id integer primary key," +
+									"    instId integer primary key," +
 									"    name varchar(40)," +
 									"    courseTableID integer primary key," +
-									"    userTableID integer primary key" +
+									"    userTableID integer primary key," +
+									"    surveyTableID integer primary key" +
 							")");
 					stmt1.executeUpdate();
 
@@ -186,11 +187,161 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table course_" + userTableID +  " (" +
-									"    id integer primary key," +
-									"    name varchar(40)," +
-									"    courseTableID integer primary key," +
-									"    userTableID integer primary key" +
+							"create table user_" + userTableID +  " (" +
+									"    userID integer primary key," +
+									"    userName varchar(40)," +
+									"    userPassword varchar(16)," +
+									"    instID integer primary key," +
+									"    student BOOLEAN," +
+									"    proffesor BOOLEAN," +
+									"    admin BOOLEAN" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createCourseTable(final int courseTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table course_" + courseTableID +  " (" +
+									"    courseID integer primary key," +
+									"    courseTitle varchar(60)," +
+									"    dept varchar(40)," +
+									"    schoolYear integer," +
+									"    sectionTableID integer primary key," +
+									"    term varchar(40)" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createSectionTable(final int sectionTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table section_" + sectionTableID +  " (" +
+									"    sectID integer primary key," +
+									"    userID integer primary key," +
+									"    student BOOLEAN," +
+									"    proffesor BOOLEAN" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createSurveyTable(final int surveyTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table survey_" + surveyTableID +  " (" +
+									"    courseID integer primary key," +
+									"    creatorID integer primary key," +
+									"    responseTableID integer primary key," +
+									"    surveyName varchar(40)," +
+									"    templateTableID integer primary key" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createTemplateTable(final int templateTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table template_" + templateTableID +  " (" +
+									"    questionNum integer primary key," +
+									"    questionType integer primary key," +
+									"    question varchar(255)," +
+									"    option0 varchar(255)," +
+									"    option1 varchar(255)," +
+									"    option2 varchar(255)," +
+									"    option3 varchar(255)," +
+									"    option4 varchar(255)" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createResponseIndexTable(final int responseIndexTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table responseIndex_" + responseIndexTableID +  " (" +
+									"    responseID integer primary key," +
+									"    responseNum integer primary key" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createResponseTable(final int responseTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table response_" + responseTableID +  " (" +
+									"    questionNum integer primary key," +
+									"    answer varchar(255)" +
 							")");
 					stmt1.executeUpdate();
 

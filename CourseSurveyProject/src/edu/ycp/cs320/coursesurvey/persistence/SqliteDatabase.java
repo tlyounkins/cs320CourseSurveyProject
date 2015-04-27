@@ -247,7 +247,7 @@ public class SqliteDatabase implements IDatabase{
 					}
 					insertAdminAccount.executeBatch();
 					*/
-					insertInstitution = conn.prepareStatement("insert into institution1 values (?, ?, ?, ?)");
+					insertInstitution = conn.prepareStatement("insert into institution values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
 						insertInstitution.setInt(1, instItr.getInstId());
 						insertInstitution.setString(3,instItr.getName());

@@ -58,7 +58,9 @@ public class AccountCreationServlet extends HttpServlet{
 			session.setAttribute("user", accountName);
 			System.out.println("testing session value " + session.getAttribute("user"));
 			System.out.println("done");
-			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+			//req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/adminHomePage");
+			return;
 		}
 		//will remain on account creation if institution already exist or the passwords do not match
 		else{

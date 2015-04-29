@@ -10,9 +10,9 @@ public class SurveyCreationController {
 		if (DatabaseProvider.getInstance().findCourse(course) != null && 
 				DatabaseProvider.getInstance().findSection(section) != null) {
 				
-				// Add survey
-				DatabaseProvider.getInstance().addSurvey(surveyName);
-				done = true;
+			// Add survey
+			DatabaseProvider.getInstance().addSurvey(surveyName);
+			done = true;
 		} else {
 			done = false;
 		}

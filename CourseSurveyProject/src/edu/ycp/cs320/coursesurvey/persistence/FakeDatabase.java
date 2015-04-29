@@ -37,6 +37,7 @@ public class FakeDatabase  implements IDatabase{
 		
 		for (User user : instUserTable) {
 			if (user.getUserName().equals(accountName)) {
+				System.out.println(accountName);
 				return user;
 			}
 		}

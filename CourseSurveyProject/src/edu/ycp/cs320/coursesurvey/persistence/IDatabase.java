@@ -31,5 +31,7 @@ public interface IDatabase {
 	public void addToSectionTable(int instID, int courseID, int sectID, int userID, boolean student, boolean prof);
 	
 	public int addSurvey(int instID, int courseID, int creatorID, String surveyName);
+	
+	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]);
 		
 }

@@ -184,6 +184,45 @@ public class FakeDatabase  implements IDatabase{
 		return newID;
 	}
 	
+	@Override
+	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
+		ArrayList<Template> template = this.templateTables.get(instID-1).get(surveyID-1);
+		int questionNum = template.size();
+		
+		Template newQuestion = new Template();
+		newQuestion.setQuestionNum(questionNum);
+		newQuestion.setQuestionType(questionType);
+		newQuestion.setQuestion(question);
+		if (options != null){
+			if (options.length >= 1) newQuestion.setOption(0, options[0]);
+			if (options.length >= 2) newQuestion.setOption(1, options[1]);
+			if (options.length >= 3) newQuestion.setOption(2, options[2]);
+			if (options.length >= 4) newQuestion.setOption(3, options[3]);
+			if (options.length >= 5) newQuestion.setOption(4, options[4]);
+		}
+		
+		template.add(newQuestion);
+	}
+	
+	
+	//due to maintaining anonymity of the user, we cannot keep track of which table an individual users responses are in, so all responses must be submitted 
+	//bundled into an arraylist
+	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses){
+		ArrayList<ResponseIndex> responseIndex = this.responseIndexTables.get(instID-1).get(surveyID-1);
+		ArrayList<ArrayList<Response>> rTables = this.responseTables.get(instID-1).get(surveyID-1);
+		Institution institute = this.institutionTable.get(instID-1);
+		
+		int newID = rTables.size()+1;
+		//adds response to the tables
+		rTables.add(responses);
+		
+		//create and add responseIndex entry for finding the repsonse later
+		ResponseIndex newEntry = new ResponseIndex();
+		newEntry.setResponseID(newID);
+		
+		responseIndex.add(newEntry);
+	}
+	
 	
 	
 	@Override

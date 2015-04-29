@@ -4,8 +4,7 @@ public class Survey {
 
 	private int courseID;
 	private int creatorID;
-	private int templateTableID;
-	private int responseTableID;
+	private int surveyID;
 	private String surveyName;
 	
 	public void setCourseID(int courseID){
@@ -24,20 +23,12 @@ public class Survey {
 		return this.creatorID;
 	}
 	
-	public void setTemplateTableID(int templateTableID){
-		this.templateTableID = templateTableID;
+	public void setSurveyID(int surveyTableID){
+		this.surveyID = surveyTableID;
 	}
 	
-	public int getTemplateID(){
-		return this.templateTableID;
-	}
-	
-	public void setResponseTableID(int responseTableID){
-		this.responseTableID = responseTableID;
-	}
-	
-	public int getResponseID(){
-		return this.responseTableID;
+	public int getSurveyID(){
+		return this.surveyID;
 	}
 
 	public String getSurveyName() {

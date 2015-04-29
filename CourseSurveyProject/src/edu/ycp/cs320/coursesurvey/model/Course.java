@@ -9,7 +9,7 @@ public class Course {
 	private String dept;
 	private int schoolYear;
 	private String term;
-	private int sectionTableID;
+	//private int sectionTableID;
 	private int courseID;
 
 	/*public Course (String courseTitle, String dept, int schoolYear, String term, int sectionTableID) {
@@ -60,9 +60,9 @@ public class Course {
 		this.term = term;
 	}
 
-	public int getSectionTableID () {
+	/*public int getSectionTableID () {
 		return sectionTableID;
-	}
+	}*/
 	
 	
 

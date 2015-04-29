@@ -5,10 +5,22 @@
 <html>
 	<head>
 		<title>Admin Home</title>
-	</head>
+    <link rel="stylesheet" type="text/css" href="/survey/_view/web_survey.css"  >
+    <style type="text/css">
+    .error {
+      color: red;
+    }
 
-	<body>
-		Welcome, Admin!
+    td.label {
+      text-align: right;
+    }
+    </style>
+  </head>
+  	<body>
+        <div id="wrapper">
+            <header><h1>Web Survey</h1></header>
+             <div id="content">
+              <h2>Welcome, Admin!</h2>
 		<p>
 		<a href="${pageContext.servletContext.contextPath}/surveyCreation">Survey Creation Page</a>
 		</p>

@@ -28,7 +28,22 @@ public class SurveyCreationServlet extends HttpServlet {
 		String courseID = req.getParameter("courseID");
 		String sectionID = req.getParameter("sectionID");
 		String surveyName = req.getParameter("surveyName");
-
+		
+		String question1_type = req.getParameter("Question1_type");
+		System.out.println("Question1 is: " + question1_type);
+		String question1 = req.getParameter("Question1");
+		System.out.println("question1 is: " + question1);
+		
+		String question2_type = req.getParameter("Question2_type");
+		System.out.println("Question2 is: " + question2_type);
+		String question2 = req.getParameter("Question2");
+		System.out.println("question2 is: " + question2);
+		
+		String question3_type = req.getParameter("Question3_type");
+		System.out.println("Question3 is: " + question3_type);
+		String question3 = req.getParameter("Question3");
+		System.out.println("question3 is: " + question3);
+		
 		//initializes the controller class
 		SurveyCreationController controller = new SurveyCreationController();
 		

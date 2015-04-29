@@ -43,22 +43,23 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Login Controller created");
 		
 		//For logging user session *req.getSession(bool) can also be used here
+		
 		HttpSession session = req.getSession();
+		session.setAttribute("user", controller.createUserSession(accountName, instName));
 		System.out.println("Session Created");
+		
+	
+		
+		User sessionUser = (User) session.getAttribute("user");
+		System.out.println(sessionUser.getUserID());
+		
 		if (controller.login(instName,accountName, password)) {
-			if (controller.isAdmin(accountName, password)) {
-				//Create session with new User Object
-				int tempInstId = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
-				User sessionUser = DatabaseProvider.getInstance().findUserAccountByName(accountName, tempInstId);
+			if (controller.isAdminTest(sessionUser)) {
 				
-				session.setAttribute("user", sessionUser);
-				//System.out.println("testing session value " + session.getAttribute("user"));
-				System.out.println("testing session value" + sessionUser.getUserName());
-				System.out.println("done");
 				System.out.println("Login forwarding to adminHomePage.jsp");
 				resp.sendRedirect(req.getContextPath() + "/adminHomePage");
 				return;
-			} else if (controller.isProf(accountName, password)) { // admins and profs go to the same page for now
+			} else if (controller.isProfTest(sessionUser)) { // admins and profs go to the same page for now
 				System.out.println("Login forwarding to adminHomePage.jsp");
 				resp.sendRedirect(req.getContextPath() + "/adminHomePage");
 				return;

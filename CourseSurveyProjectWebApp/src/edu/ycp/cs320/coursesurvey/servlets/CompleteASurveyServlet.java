@@ -7,16 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GeneralUserHomePageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class CompleteASurveyServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.getRequestDispatcher("/_view/generalUserHomePage.jsp").forward(req, resp);
+		// Just forward to the surveyCreation
+		req.getRequestDispatcher("/_view/completeAsurvey.jsp").forward(req, resp);
 	}
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		// Just forward to the view
+		
 		req.getRequestDispatcher("/_view/generalUserHomePage.jsp").forward(req, resp);
+
+		
 	}
+
 }

@@ -21,6 +21,12 @@
   </servlet><servlet>
    	<servlet-name>SurveyCreationServlet</servlet-name>
    	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.SurveyCreationServlet</servlet-class>
+  </servlet><servlet>
+  <servlet-name>GeneralUserHomePageServlet</servlet-name>
+  	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.GeneralUserHomePageServlet</servlet-class>
+  </servlet><servlet>
+  <servlet-name>CompleteASurveyServlet</servlet-name>
+  	<servlet-class>edu.ycp.cs320.coursesurvey.servlets.CompleteASurveyServlet</servlet-class>
   </servlet>
   
 
@@ -44,6 +50,14 @@
   <servlet-mapping>
   	<servlet-name>SurveyCreationServlet</servlet-name>
    	<url-pattern>/surveyCreation</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GeneralUserHomePageServlet</servlet-name>
+   	<url-pattern>/generalUserHomePage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CompleteASurveyServlet</servlet-name>
+   	<url-pattern>/completeAsurvey</url-pattern>
   </servlet-mapping>
   
   <!-- listeners -->

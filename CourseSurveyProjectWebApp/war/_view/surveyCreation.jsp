@@ -28,15 +28,15 @@
 		        <table>
     		        <tr>
     		          <td class="label">Course Id:</td>
-    		          <td><input type="text" name="CourseId" size="16" value="${courseId}" /></td>
+    		          <td><input type="text" name="CourseId" required size="16" value="${courseId}" /></td>
     		        </tr>
     		        <tr>
     		          <td class="label">Section Id:</td>
-    		          <td><input type="text" name="SectionId" size="16" value="${sectionId}" /></td>
+    		          <td><input type="text" name="SectionId" required size="16" value="${sectionId}" /></td>
     		        </tr>
     		        <tr>
     		          <td class="label">Survey Name:</td>
-    		          <td><input type="text" name="SurveyName" size="16" value="${surveyName}" /></td>
+    		          <td><input type="text" name="SurveyName" required size="16" value="${surveyName}" /></td>
     		        </tr>
     		        <tr>
     		        	<td class = "label">Question 1 Type:</td>
@@ -50,7 +50,7 @@
 					<td class = "label" > Question 1</td>
 					<td> <textarea rows="5" cols="30" name="Question2"></textarea> </td>
 					</tr>
-					    <tr>
+					<tr>
     		        	<td class = "label">Question 2 Type:</td>
 						<td> <select name="Question2_type"> 
     					<option value="Freeform">FreeForm</option>
@@ -62,7 +62,7 @@
 					<td class = "label" > Question 2</td>
 					<td> <textarea rows="5" cols="30" name="Question1"></textarea> </td>
 					</tr>
-					    <tr>
+					<tr>
     		        	<td class = "label">Question 3 Type:</td>
 						<td> <select name="Question1_type"> 
     					<option value="Freeform">FreeForm</option>

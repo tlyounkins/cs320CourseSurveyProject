@@ -183,7 +183,7 @@ public class FakeDatabase  implements IDatabase{
 		
 		return newID;
 	}
-	
+	// Option arguement is for multiple choice, 5 element array with different multiple choice options in there
 	@Override
 	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
 		ArrayList<Template> template = this.templateTables.get(instID-1).get(surveyID-1);
@@ -216,7 +216,7 @@ public class FakeDatabase  implements IDatabase{
 		//adds response to the tables
 		rTables.add(responses);
 		
-		//create and add responseIndex entry for finding the repsonse later
+		//create and add responseIndex entry for finding the response later
 		ResponseIndex newEntry = new ResponseIndex();
 		newEntry.setResponseID(newID);
 		

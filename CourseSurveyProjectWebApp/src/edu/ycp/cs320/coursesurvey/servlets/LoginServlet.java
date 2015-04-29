@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.controller.LoginController;
+import edu.ycp.cs320.coursesurvey.model.User;
+import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 
 public class LoginServlet extends HttpServlet {
@@ -37,12 +39,18 @@ public class LoginServlet extends HttpServlet {
 		//Initializes the controller class
 		LoginController controller = new LoginController();
 		System.out.println("Login Controller created");
+		
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
 		System.out.println("Session Created");
 		if (controller.login(instName,accountName, password)) {
 			if (controller.isAdmin(accountName, password)) {
-				session.setAttribute("user", accountName);
+				//Create session with new User Object
+				int tempInstId = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
+				User sessionUser = DatabaseProvider.getInstance().findUserAccountByName(accountName, tempInstId);
+				
+				session.setAttribute("user", sessionUser);
+				
 				System.out.println("testing session value " + session.getAttribute("user"));
 				System.out.println("done");
 				System.out.println("Login forwarding to adminHomePage.jsp");

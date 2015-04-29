@@ -51,4 +51,25 @@ public class LoginController {
 		}
 		return false;
 	}
+	//Testing User session
+	public boolean isSessionStudent (User sessionUser) {
+		if (sessionUser.isStudent()) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isSessionProf (User sessionUser) {
+		if (sessionUser.isProf()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isSessionAdmin (User sessionUser) {
+		if (sessionUser.isAdmin()) {
+			return true;
+		}
+		return false;
+	}
 }

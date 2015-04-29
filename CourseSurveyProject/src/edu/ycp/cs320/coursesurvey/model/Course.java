@@ -1,7 +1,7 @@
 package edu.ycp.cs320.coursesurvey.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.ArrayList;
+//import java.util.Iterator;
 
 public class Course {
 
@@ -54,6 +54,8 @@ public class Course {
 	public int getSectionTableID () {
 		return sectionTableID;
 	}
+	
+	
 
 	/*public void addSection (int section) {
 		Section newSection = new Section(section);

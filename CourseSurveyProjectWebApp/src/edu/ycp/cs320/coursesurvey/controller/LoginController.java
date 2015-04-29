@@ -9,20 +9,11 @@ import edu.ycp.cs320.coursesurvey.model.User;
 
 public class LoginController {
 
-<<<<<<< HEAD
-
-	public boolean login(String accountName, String password){
-		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1); //TODO: add inst field
-		System.out.println("testing");
-		if (user != null){
-			if (user.getPassword().equals(password)) return true;
-=======
 	public boolean login(String inst,String accountName, String password){
 		Institution instName = DatabaseProvider.getInstance().findInstitution(inst);
 		if (instName == null) {
 			//System.out.println("Institution doesn't exist");
 			return false;
->>>>>>> branch 'master' of https://github.com/tlyounkins/cs320CourseSurveyProject.git
 		}
 		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1); 
 		if (user != null){

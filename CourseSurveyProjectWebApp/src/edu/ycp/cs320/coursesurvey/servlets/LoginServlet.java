@@ -36,24 +36,6 @@ public class LoginServlet extends HttpServlet {
 		
 		//Initializes the controller class
 		LoginController controller = new LoginController();
-<<<<<<< HEAD
-		System.out.println("Step .5");
-		//make sure password is as intended then create account for the institution
-		if (controller.login(accountName, password)){
-		System.out.println("Step 1");
-			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
-		}
-		
-		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
-		
-	
-		//goes to admin home page if account info is incorrect
-		//if (controller.passwordsMatching() && controller.done()){
-		//	System.out.println("done");
-		//	req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
-		//}
-	
-=======
 		System.out.println("Login Controller created");
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
@@ -88,7 +70,6 @@ public class LoginServlet extends HttpServlet {
 				//resp.sendRedirect(req.getContextPath() + "/login");
 				//return;
 			}
->>>>>>> branch 'master' of https://github.com/tlyounkins/cs320CourseSurveyProject.git
 			
 	}
 

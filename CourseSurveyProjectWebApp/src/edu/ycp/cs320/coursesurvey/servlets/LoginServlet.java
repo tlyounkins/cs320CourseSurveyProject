@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.controller.LoginController;
+import edu.ycp.cs320.coursesurvey.model.User;
+import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 
 public class LoginServlet extends HttpServlet {
@@ -38,17 +40,23 @@ public class LoginServlet extends HttpServlet {
 		LoginController controller = new LoginController();
 		System.out.println("Login Controller created");
 		//For logging user session *req.getSession(bool) can also be used here
+		
 		HttpSession session = req.getSession();
+		session.setAttribute("user", controller.createUserSession(accountName, instName));
 		System.out.println("Session Created");
+		
+	
+		
+		User sessionUser = (User) session.getAttribute("user");
+		System.out.println(sessionUser.getUserID());
+		
 		if (controller.login(instName,accountName, password)) {
-			if (controller.isAdmin(accountName, password)) {
-				session.setAttribute("user", accountName);
-				System.out.println("testing session value " + session.getAttribute("user"));
-				System.out.println("done");
+			if (controller.isAdminTest(sessionUser)) {
+				
 				System.out.println("Login forwarding to adminHomePage.jsp");
 				resp.sendRedirect(req.getContextPath() + "/adminHomePage");
 				return;
-			} else if (controller.isProf(accountName, password)) { // admins and profs go to the same page for now
+			} else if (controller.isProfTest(sessionUser)) { // admins and profs go to the same page for now
 				System.out.println("Login forwarding to adminHomePage.jsp");
 				resp.sendRedirect(req.getContextPath() + "/adminHomePage");
 				return;

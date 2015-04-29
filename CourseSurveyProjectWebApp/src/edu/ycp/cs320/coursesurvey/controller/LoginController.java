@@ -32,7 +32,7 @@ public class LoginController {
 				System.out.println("User is an admin");
 				return true;
 			}
-		
+
 		}
 		System.out.println("User is not an admin");
 		return false;
@@ -51,4 +51,34 @@ public class LoginController {
 		}
 		return false;
 	}
+
+	public boolean isAdminTest (User sessionUser) {
+		if (sessionUser.isAdmin()){
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isStudentTest (User sessionUser) {
+		if (sessionUser.isStudent()) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public boolean isProfTest (User sessionUser) {
+		if (sessionUser.isProf()) {
+			return true;
+		}
+		return false;
+
+	}
+	
+	public User createUserSession (String accountName, String instName) {
+		int instID = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
+		User sessionUser = DatabaseProvider.getInstance().findUserAccountByName(accountName, instID);
+		return sessionUser;
+	}
+
 }

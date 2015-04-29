@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sun.org.apache.commons.logging.Log;
+
 import edu.ycp.cs320.coursesurvey.controller.LoginController;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
@@ -50,8 +52,8 @@ public class LoginServlet extends HttpServlet {
 				User sessionUser = DatabaseProvider.getInstance().findUserAccountByName(accountName, tempInstId);
 				
 				session.setAttribute("user", sessionUser);
-				
-				System.out.println("testing session value " + session.getAttribute("user"));
+				//System.out.println("testing session value " + session.getAttribute("user"));
+				System.out.println("testing session value" + sessionUser.getUserName());
 				System.out.println("done");
 				System.out.println("Login forwarding to adminHomePage.jsp");
 				resp.sendRedirect(req.getContextPath() + "/adminHomePage");

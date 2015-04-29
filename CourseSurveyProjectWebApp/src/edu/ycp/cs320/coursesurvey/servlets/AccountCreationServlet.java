@@ -46,7 +46,7 @@ public class AccountCreationServlet extends HttpServlet{
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
 		
-		req.setAttribute("create", controller);
+		//req.setAttribute("create", controller);
 		
 		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 		
@@ -58,8 +58,13 @@ public class AccountCreationServlet extends HttpServlet{
 			session.setAttribute("user", accountName);
 			System.out.println("testing session value " + session.getAttribute("user"));
 			System.out.println("done");
+<<<<<<< HEAD
 			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 			session.getAttribute("user");
+=======
+			resp.sendRedirect(req.getContextPath() + "/adminHomePage");
+			return;
+>>>>>>> branch 'master' of https://github.com/tlyounkins/cs320CourseSurveyProject.git
 		}
 		//will remain on account creation if institution already exist or the passwords do not match
 		else{

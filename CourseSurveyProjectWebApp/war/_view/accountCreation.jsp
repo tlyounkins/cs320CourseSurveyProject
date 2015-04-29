@@ -16,8 +16,6 @@
     }
     </style>
   </head>
-
-  <body>
   	<body>
         <div id="wrapper">
             <header><h1>Web Survey</h1></header>
@@ -47,7 +45,7 @@
 				    		          <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="passwordConfirm" size="16" value="${passwordConfirm}" /></td>
 				    		        </tr>
 				                </table>
-					            <input name="Submit" type="submit" value="Create Institution">
+					            <input name="Submit" type="submit" value="Create Institutional Account">
 					     </form>
 					     <p> 
 					     <button type="button" onclick="alert('Password must contain 1 upper case letter, 1 number, and be at least 6 characters in length')">Need Help?</button>

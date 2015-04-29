@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -92,10 +94,47 @@ public class SqliteDatabase implements IDatabase{
 	@Override
 	public int addInstitution(String instName) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
-
-	@Override
+	
+	
+	//TODO- work in progress
+	/*
+	public int getNextInstID(){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select max(instID) as max from institution"   //should obtain the largest institution ID
+					);
+					stmt.setString(1, title);
+					
+					List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
+					
+					resultSet = stmt.executeQuery();
+					while (resultSet.next()) {
+						Author author = new Author();
+						loadAuthor(author, resultSet, 1);
+						Book book = new Book();
+						loadBook(book, resultSet, 4);
+						
+						result.add(new Pair<Author, Book>(author, book));
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	*/
 	/*
 	public User findUserAccountByName (final String accountName, int instID) {
 		return executeTransaction(new Transaction<User>() {
@@ -130,6 +169,8 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	*/
+	@Override
+	
 
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -154,6 +195,8 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
+	
+	//various functions for creating tables
 	public void createInstitutionTable() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -165,9 +208,9 @@ public class SqliteDatabase implements IDatabase{
 							"create table institution (" +
 									"    instId integer primary key," +
 									"    name varchar(40)," +
-									"    courseTableID integer primary key," +
-									"    userTableID integer primary key," +
-									"    surveyTableID integer primary key" +
+									"    numUsers integer," +
+									"    numCourses integer," +
+									"    numSurveys integer" +
 							")");
 					stmt1.executeUpdate();
 
@@ -179,7 +222,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createUserTable(final int userTableID) {
+	public void createUserTable(final int instTableID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -187,11 +230,11 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table user_" + userTableID +  " (" +
+							"create table user_" + instTableID +  " (" +
 									"    userID integer primary key," +
 									"    userName varchar(40)," +
 									"    userPassword varchar(16)," +
-									"    instID integer primary key," +
+									"    instTableID integer," +
 									"    student BOOLEAN," +
 									"    proffesor BOOLEAN," +
 									"    admin BOOLEAN" +
@@ -219,7 +262,7 @@ public class SqliteDatabase implements IDatabase{
 									"    courseTitle varchar(60)," +
 									"    dept varchar(40)," +
 									"    schoolYear integer," +
-									"    sectionTableID integer primary key," +
+									"    sectionTableID integer," +
 									"    term varchar(40)" +
 							")");
 					stmt1.executeUpdate();
@@ -242,7 +285,7 @@ public class SqliteDatabase implements IDatabase{
 					stmt1 = conn.prepareStatement(
 							"create table section_" + sectionTableID +  " (" +
 									"    sectID integer primary key," +
-									"    userID integer primary key," +
+									"    userID integer," +
 									"    student BOOLEAN," +
 									"    proffesor BOOLEAN" +
 							")");
@@ -265,11 +308,10 @@ public class SqliteDatabase implements IDatabase{
 				try {
 					stmt1 = conn.prepareStatement(
 							"create table survey_" + surveyTableID +  " (" +
-									"    courseID integer primary key," +
-									"    creatorID integer primary key," +
-									"    responseTableID integer primary key," +
+									"    courseID integer," +
+									"    creatorID integer," +
 									"    surveyName varchar(40)," +
-									"    templateTableID integer primary key" +
+									"    surveyID integer primary key" + 
 							")");
 					stmt1.executeUpdate();
 
@@ -400,7 +442,7 @@ public class SqliteDatabase implements IDatabase{
 					*/
 					insertInstitution = conn.prepareStatement("insert into institution values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
-						insertInstitution.setInt(1, instItr.getInstId());
+						insertInstitution.setInt(1, instItr.getInstTableID());
 						insertInstitution.setString(3,instItr.getName());
 						insertInstitution.addBatch();
 					}
@@ -452,5 +494,17 @@ public class SqliteDatabase implements IDatabase{
 	public User findUserAccountByName(String accountName, int instID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public void addToSectionTable(int instID, int courseID, int sectID,
+			int userID, boolean student, boolean prof) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public int addSurvey(int instID, int courseID, int creatorID,
+			String surveyName) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

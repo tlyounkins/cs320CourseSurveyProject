@@ -11,11 +11,12 @@ package edu.ycp.cs320.coursesurvey.model;
  */
 
 public class Institution {
-	private int instId;
+	private int instID; //only need one ID for all sub tables that there is only one occurence of.
 	private String name;
-	private int userTableID;
-	private int courseTableID;
-	private int surveyTableID;
+	private int numUsers = 0;
+	private int numCourses = 0;
+	private int numSurveys = 0;
+	
 
 
 	/*public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
@@ -28,13 +29,6 @@ public class Institution {
 		//teacherList = new ArrayList<User>();
 		
 	}*/
-
-	public Institution (String name, int instID, int userTableID, int courseTableID){
-		this.setName(name);
-		this.setInstId(instID);
-		this.setCourseTableID(courseTableID);
-		this.setUserTableID(userTableID);
-	}
 
 
 	/**
@@ -57,64 +51,40 @@ public class Institution {
 	 * Get Institution ID
 	 * @return instId
 	 */
-	public int getInstId () {
-		return this.instId;
+	public int getInstID () {
+		return this.instID;
 	}
 
 	/**
 	 * Set Institution ID#
 	 * @param instId
 	 */
-	public void setInstId (int instId) {
-		this.instId = instId;
+	public void setInstID (int instId) {
+		this.instID = instId;
 	}
 	
-	/**
-	 * set User Table ID
-	 * @param userTableID
-	 */
-	public void setUserTableID(int userTableID){
-		this.userTableID = userTableID;
+	
+	public int getNumUsers(){
+		return this.numUsers;
 	}
 	
-	/**
-	 * Get User Table ID
-	 * @return userTableID
-	 */
-	public int getUserTableID(){
-		return this.userTableID;
+	public int getNumCourses(){
+		return this.numCourses;
 	}
 	
-	/**
-	 * set Course Table ID
-	 * @param courseTableID
-	 */
-	public void setCourseTableID(int courseTableID){
-		this.courseTableID = courseTableID;
+	public int getNumSurveys(){
+		return this.numSurveys;
 	}
 	
-	/**
-	 * Get Course Table ID
-	 * @return courseTableID
-	 */
-	public int getCourseTableID(){
-		return this.courseTableID;
-	}
-
-	
-	/**
-	 * set Survey Table ID
-	 * @param courseTableID
-	 */
-	public void setSurveyTableID(int surveyTableID){
-		this.surveyTableID = surveyTableID;
+	public void setNumUsers(int num){
+		this.numUsers = num;
 	}
 	
-	/**
-	 * Get Survey Table ID
-	 * @return SurveyTableID
-	 */
-	public int getSurveyTableID(){
-		return this.surveyTableID;
+	public void setNumCourses(int num){
+		this.numCourses = num;
+	}
+	
+	public void setNumSurveys(int num){
+		this.numSurveys = num;
 	}
 }

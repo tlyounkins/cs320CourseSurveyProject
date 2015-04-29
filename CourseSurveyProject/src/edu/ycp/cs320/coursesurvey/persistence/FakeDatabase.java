@@ -10,15 +10,22 @@ public class FakeDatabase  implements IDatabase{
 	private List<Institution> institutionTable;
 	private List<ArrayList<User>> userTables;
 	private List<ArrayList<Course>> courseTables;
-	private List<ArrayList<Section>> sectionTables;
+	private List<ArrayList<ArrayList<Section>>> sectionTables;
 	private List<ArrayList<Survey>> surveyTables;
+	private List<ArrayList<ArrayList<ResponseIndex>>> responseIndexTables;
+	private List<ArrayList<ArrayList<Template>>> templateTables;
+	private List<ArrayList<ArrayList<ArrayList<Response>>>> responseTables;
 
 	public FakeDatabase() {
 		this.institutionTable = new ArrayList<Institution>();
 		this.userTables = new ArrayList <ArrayList<User>>();
 		this.courseTables = new ArrayList <ArrayList<Course>>();
-		this.sectionTables = new ArrayList <ArrayList<Section>>();
+		this.sectionTables = new ArrayList <ArrayList<ArrayList<Section>>>();
 		this.surveyTables = new ArrayList <ArrayList<Survey>>();
+		this.responseIndexTables = new ArrayList <ArrayList<ArrayList<ResponseIndex>>>();
+		this.templateTables = new ArrayList <ArrayList<ArrayList<Template>>>();
+		this.responseTables = new ArrayList <ArrayList<ArrayList<ArrayList<Response>>>>();
+		
 	}
 	@Override
 	public User findUserAccountByName(String accountName, int instID) {
@@ -26,10 +33,11 @@ public class FakeDatabase  implements IDatabase{
 		Institution inst = this.institutionTable.get(instID-1);
 		
 		//grabs the user table for the institution
-		ArrayList<User> instUserTable = this.userTables.get(inst.getUserTableID()-1); 
+		ArrayList<User> instUserTable = this.userTables.get(inst.getInstID()-1); 
 		
 		for (User user : instUserTable) {
 			if (user.getUserName().equals(accountName)) {
+				System.out.println(accountName);
 				return user;
 			}
 		}
@@ -51,29 +59,50 @@ public class FakeDatabase  implements IDatabase{
 		
 		//creates ID values for pertinent tables
 		int instID = this.institutionTable.size()+1;
-		int courseTableID = this.courseTables.size()+1;
-		int userTableID = this.userTables.size()+1;
-		int surveyTableID = this.surveyTables.size()+1;
 		
 		
 		//institutionList.get(index).setName(instName);
 		//institutionList.get(index).setInstId(instId);
 		
-		this.institutionTable.add(new Institution(instName, instID, courseTableID, userTableID));
+		this.institutionTable.add(new Institution());
+		this.institutionTable.get(instID - 1).setInstID(instID);
+		this.institutionTable.get(instID - 1).setName(instName);
+		this.institutionTable.get(instID - 1).setNumUsers(0);
+		this.institutionTable.get(instID - 1).setNumCourses(0);
+		this.institutionTable.get(instID - 1).setNumSurveys(0);
+		
 		this.courseTables.add(new ArrayList<Course>());
 		this.userTables.add(new ArrayList<User>());
 		this.surveyTables.add(new ArrayList<Survey>());
+		this.sectionTables.add(new ArrayList<ArrayList<Section>>());
 		
 		System.out.println("Institution Name is " + this.institutionTable.get(instID-1).getName());
-		System.out.println("institution id is " + this.institutionTable.get(instID-1).getInstId());
+		System.out.println("institution id is " + this.institutionTable.get(instID-1).getInstID());
 		
 		//returns the id to be stored if needed (look at account creation controller for an ex.)
 		return instID;
 	}
+	
 	@Override
 	public int addUser (String userName, String password, int instId, boolean student, boolean prof, boolean admin) {
-		ArrayList<User> userTable = this.userTables.get(this.institutionTable.get(instId-1).getUserTableID()-1);
-		int newID = userTable.size() + 1;
+		
+		ArrayList<User> userTable = this.userTables.get(instId-1);
+		Institution institute  = this.institutionTable.get(instId-1);
+		//generates new userID
+		int newID = institute.getNumUsers()+1;
+		
+		//updates number of users
+		institute.setNumUsers(newID);
+		
+		userTable.add(new User());
+		userTable.get(newID-1).setInstID(instId);
+		userTable.get(newID-1).setUserID(newID);
+		userTable.get(newID-1).setUserName(userName);
+		userTable.get(newID-1).setPassword(password);
+		userTable.get(newID-1).setStudent(student);
+		userTable.get(newID-1).setProf(prof);
+		userTable.get(newID-1).setAdmin(admin);
+		
 		
 		System.out.println("user name is " + userTable.get(newID-1).getUserName() );
 		System.out.println("user id is " + userTable.get(newID-1).getUserID());
@@ -87,22 +116,33 @@ public class FakeDatabase  implements IDatabase{
 	
 	@Override
 	public int addCourse(int instID, String title, String dept, int year, String term){
-		ArrayList<Course> courseTable = this.courseTables.get(this.institutionTable.get(instID-1).getCourseTableID()-1);
+		ArrayList<Course> courseTable = this.courseTables.get(instID-1);
 		
-		//int newCourseID = courseTable.size() + 1;
-		int newSectionTableID = this.sectionTables.size() + 1;
+		Institution institute  = this.institutionTable.get(instID-1);
+		//generates new userID
+		int newID = institute.getNumCourses()+1;
 		
-		this.sectionTables.add(new ArrayList<Section>());
-		courseTable.add(new Course(title, dept, year, term, newSectionTableID));
+		//updates number of users
+		institute.setNumCourses(newID);
+		
+		this.sectionTables.get(instID-1).add(new ArrayList<Section>());
+		courseTable.add(new Course());
+		courseTable.get(newID-1).setCourseID(newID);
+		courseTable.get(newID-1).setCourseTitle(title);
+		courseTable.get(newID-1).setDept(dept);
+		courseTable.get(newID-1).setSchoolYear(year);
+		courseTable.get(newID-1).setTerm(term);
+		
 		System.out.println(title + " has been added to the courses");
 		
-		return newSectionTableID;
+		return newID;
 	}
 
-	//@Overide
+	//this function is used to add an already existing user to a course
+	@Override
 	public void addToSectionTable(int instID, int courseID, int sectID, int userID, boolean student, boolean prof){
-		ArrayList<Course> courseTable = this.courseTables.get(this.institutionTable.get(instID-1).getCourseTableID()-1);
-		ArrayList<Section> sectionTable = this.sectionTables.get(courseTable.get(courseID-1).getSectionTableID()-1);
+		//ArrayList<Course> courseTable = this.courseTables.get(instID-1);
+		ArrayList<Section> sectionTable = this.sectionTables.get(instID-1).get(courseID-1);
 		
 		Section newEntry = new Section();
 		newEntry.setSectID(sectID);
@@ -111,6 +151,76 @@ public class FakeDatabase  implements IDatabase{
 		newEntry.setProf(prof);
 		
 		sectionTable.add(newEntry);
+	}
+	
+	@Override
+	public int addSurvey(int instID, int courseID, int creatorID, String surveyName){
+		ArrayList<Survey> surveyTable = this.surveyTables.get(instID-1);
+		
+		Institution institute  = this.institutionTable.get(instID-1);
+		//generates new surveyID
+		int newID = institute.getNumSurveys()+1;
+		
+		//updates number of survey
+		institute.setNumSurveys(newID);
+		
+		//create new Survey
+		Survey newSurvey = new Survey();
+		
+		//set surveyInfo
+		newSurvey.setSurveyID(newID);
+		newSurvey.setCourseID(courseID);
+		newSurvey.setCreatorID(creatorID);
+		newSurvey.setSurveyName(surveyName);
+		
+		//create responseIndex table and template table based on newID
+		this.templateTables.get(instID-1).add(new ArrayList<Template>());
+		this.responseIndexTables.get(instID-1).add(new ArrayList<ResponseIndex>());
+		
+		surveyTable.add(newSurvey);
+		
+		System.out.println(surveyName + " has been added to the surveys");
+		
+		return newID;
+	}
+	
+	@Override
+	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
+		ArrayList<Template> template = this.templateTables.get(instID-1).get(surveyID-1);
+		int questionNum = template.size();
+		
+		Template newQuestion = new Template();
+		newQuestion.setQuestionNum(questionNum);
+		newQuestion.setQuestionType(questionType);
+		newQuestion.setQuestion(question);
+		if (options != null){
+			if (options.length >= 1) newQuestion.setOption(0, options[0]);
+			if (options.length >= 2) newQuestion.setOption(1, options[1]);
+			if (options.length >= 3) newQuestion.setOption(2, options[2]);
+			if (options.length >= 4) newQuestion.setOption(3, options[3]);
+			if (options.length >= 5) newQuestion.setOption(4, options[4]);
+		}
+		
+		template.add(newQuestion);
+	}
+	
+	
+	//due to maintaining anonymity of the user, we cannot keep track of which table an individual users responses are in, so all responses must be submitted 
+	//bundled into an arraylist
+	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses){
+		ArrayList<ResponseIndex> responseIndex = this.responseIndexTables.get(instID-1).get(surveyID-1);
+		ArrayList<ArrayList<Response>> rTables = this.responseTables.get(instID-1).get(surveyID-1);
+		Institution institute = this.institutionTable.get(instID-1);
+		
+		int newID = rTables.size()+1;
+		//adds response to the tables
+		rTables.add(responses);
+		
+		//create and add responseIndex entry for finding the repsonse later
+		ResponseIndex newEntry = new ResponseIndex();
+		newEntry.setResponseID(newID);
+		
+		responseIndex.add(newEntry);
 	}
 	
 	

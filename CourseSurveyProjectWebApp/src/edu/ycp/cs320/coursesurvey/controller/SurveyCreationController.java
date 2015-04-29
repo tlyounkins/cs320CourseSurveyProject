@@ -13,11 +13,12 @@ public class SurveyCreationController {
 			// Add survey
 			DatabaseProvider.getInstance().addSurvey(surveyName);
 			done = true;
+			System.out.println("survey sucessfully created!");
 		} else {
 			done = false;
 		}
 		
-		System.out.println("survey sucessfully created!");
+		
 	}
 	public boolean done(){
 		return this.done;

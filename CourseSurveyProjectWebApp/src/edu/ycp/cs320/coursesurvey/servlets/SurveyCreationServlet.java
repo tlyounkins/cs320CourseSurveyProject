@@ -33,7 +33,7 @@ public class SurveyCreationServlet extends HttpServlet {
 		SurveyCreationController controller = new SurveyCreationController();
 		
 		controller.createSurvey(courseID,sectionID,surveyName);
-		req.setAttribute("create", controller);
+		//req.setAttribute("create", controller);
 		
 		//goes to admin home page if survey has been created 
 		if (controller.done()){

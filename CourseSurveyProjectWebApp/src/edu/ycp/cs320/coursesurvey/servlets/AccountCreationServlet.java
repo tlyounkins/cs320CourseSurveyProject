@@ -58,7 +58,6 @@ public class AccountCreationServlet extends HttpServlet{
 			session.setAttribute("user", accountName);
 			System.out.println("testing session value " + session.getAttribute("user"));
 			System.out.println("done");
-			//req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 			resp.sendRedirect(req.getContextPath() + "/adminHomePage");
 			return;
 		}

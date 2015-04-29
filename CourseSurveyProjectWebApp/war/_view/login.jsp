@@ -28,15 +28,16 @@
            		 </c:if>     
            		 
            		      		
-            	    <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">	
+            	   <!--   <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">	-->
+            	   	<form method = "post">
             		    <table>
             		        <tr>
             		            <td class="label">Institution:</td>
-            		            <td><input type="text" name="password" size="16" value="${institutionName}" /></td>
+            		            <td><input type="text" name="institutionName" required size="16" value="${institutionName}" /></td>
             		        </tr>
             		        <tr>
             		            <td class="label">Account Name:</td>
-            		            <td><input type="text" name="accountName" size="16" value="${accountName}" /></td>
+            		            <td><input type="text" name="accountName" required size="16" value="${accountName}" /></td>
             		        </tr>
             		        <tr>
             		            <td class="label">Password:</td>

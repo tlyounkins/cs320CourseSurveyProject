@@ -9,11 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.Pair;
-import edu.ycp.cs320.booksdb.persist.DBUtil;
-import edu.ycp.cs320.booksdb.persist.SqliteDatabase.Transaction;
+
+
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -103,6 +100,7 @@ public class SqliteDatabase implements IDatabase{
 	
 	
 	//TODO- work in progress
+	/*
 	public int getNextInstID(){
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
@@ -136,6 +134,7 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
+	*/
 	/*
 	public User findUserAccountByName (final String accountName, int instID) {
 		return executeTransaction(new Transaction<User>() {
@@ -495,5 +494,17 @@ public class SqliteDatabase implements IDatabase{
 	public User findUserAccountByName(String accountName, int instID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public void addToSectionTable(int instID, int courseID, int sectID,
+			int userID, boolean student, boolean prof) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public int addSurvey(int instID, int courseID, int creatorID,
+			String surveyName) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

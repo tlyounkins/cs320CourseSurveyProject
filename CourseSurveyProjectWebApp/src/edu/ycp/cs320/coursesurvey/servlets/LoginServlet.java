@@ -34,10 +34,11 @@ public class LoginServlet extends HttpServlet {
 		
 		//initiailizes the controller class
 		LoginController controller = new LoginController();
-		
+		System.out.println("Step .5");
 		//make sure password is as intended then create account for the institution
 		if (controller.login(accountName, password)){
-			req.getRequestDispatcher("/_view/adminHomePages.jsp").forward(req, resp);
+		System.out.println("Step 1");
+			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 		}
 		
 		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);

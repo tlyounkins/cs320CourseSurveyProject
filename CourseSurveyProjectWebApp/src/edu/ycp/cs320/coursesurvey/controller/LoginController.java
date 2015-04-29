@@ -12,7 +12,7 @@ public class LoginController {
 
 	public boolean login(String accountName, String password){
 		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1); //TODO: add inst field
-		
+		System.out.println("testing");
 		if (user != null){
 			if (user.getPassword().equals(password)) return true;
 		}

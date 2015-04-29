@@ -28,7 +28,7 @@
             <div id="content">
                 <h2>Login</h2>
             		
-            	    <form action="${pageContext.servletContext.contextPath}/accountCreation" method="post">
+            	    <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">
             	    	
             		    <table>
             		        <tr>

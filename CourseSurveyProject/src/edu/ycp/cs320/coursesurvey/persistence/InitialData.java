@@ -21,8 +21,8 @@ public class InitialData {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				Institution inst = new Institution(null, 0, 0, 0);
-				inst.setInstId(Integer.parseInt(i.next()));
+				Institution inst = new Institution(null, 0, 0, 0);c
+				inst.setInstID(Integer.parseInt(i.next()));
 				//inst.setName(i.next());
 				// For testing:
 				String test = i.next();

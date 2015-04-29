@@ -5,14 +5,26 @@
 <html>
 	<head>
 		<title>Survey Creation</title>
-	</head>
+		<link rel="stylesheet" type="text/css" href="/survey/_view/web_survey.css"  >
+    <style type="text/css">
+    .error {
+      color: red;
+    }
 
-	<body>
-		<header><h1>Create a survey</h1></header>
+    td.label {
+      text-align: right;
+    }
+    </style>
+  </head>
+  	<body>
+        <div id="wrapper">
+            <header><h1>Web Survey</h1></header>
+             <div id="content">
+   		<h2>Create a Survey</h2>
 	 	<c:if test="${! empty errorMessage}">
      	<div class="error">${errorMessage}</div>
    		</c:if>
-		 <form action="${pageContext.servletContext.contextPath}/surveyCreation" method="post">
+		 <form method="post">
 		        <table>
     		        <tr>
     		          <td class="label">Course Id:</td>
@@ -26,6 +38,42 @@
     		          <td class="label">Survey Name:</td>
     		          <td><input type="text" name="SurveyName" size="16" value="${surveyName}" /></td>
     		        </tr>
+    		        <tr>
+    		        	<td class = "label">Question 1 Type:</td>
+						<td> <select name="Question1_type"> 
+    					<option value="Freeform">FreeForm</option>
+    					<option value="Multiple_Choice">Multiple Choice</option>
+				   	 	<option value="Fill_in_the_blank">Fill in the Blank</option>
+						</select> </td>
+					</tr>
+					<tr> 
+					<td class = "label" > Question 1</td>
+					<td> <textarea rows="5" cols="30" name="Question2"></textarea> </td>
+					</tr>
+					    <tr>
+    		        	<td class = "label">Question 2 Type:</td>
+						<td> <select name="Question2_type"> 
+    					<option value="Freeform">FreeForm</option>
+    					<option value="Multiple_Choice">Multiple Choice</option>
+				   	 	<option value="Fill_in_the_blank">Fill in the Blank</option>
+						</select> </td>
+					</tr>
+					<tr> 
+					<td class = "label" > Question 2</td>
+					<td> <textarea rows="5" cols="30" name="Question1"></textarea> </td>
+					</tr>
+					    <tr>
+    		        	<td class = "label">Question 3 Type:</td>
+						<td> <select name="Question1_type"> 
+    					<option value="Freeform">FreeForm</option>
+    					<option value="Multiple_Choice">Multiple Choice</option>
+				   	 	<option value="Fill_in_the_blank">Fill in the Blank</option>
+						</select> </td>
+					</tr>
+					<tr> 
+					<td class = "label" > Question 3</td>
+					<td> <textarea rows="5" cols="30" name="Question3"></textarea> </td>
+					</tr>
     		    </table>
 	     </form>
 	     <p>

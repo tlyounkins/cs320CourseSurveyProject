@@ -9,15 +9,16 @@ public class Course {
 	private String dept;
 	private int schoolYear;
 	private String term;
-	private int sectionTableID;
+	//private int sectionTableID;
+	private int courseID;
 
-	public Course (String courseTitle, String dept, int schoolYear, String term, int sectionTableID) {
+	/*public Course (String courseTitle, String dept, int schoolYear, String term, int sectionTableID) {
 		this.courseTitle = courseTitle;
 		this.dept = dept;
 		this.schoolYear = schoolYear;
 		this.term = term;
 		this.sectionTableID = sectionTableID;
-	}
+	}*/
 
 	public String getCourseTitle () {
 		return courseTitle;
@@ -25,6 +26,14 @@ public class Course {
 
 	public void setCourseTitle(String courseTitle) {
 		this.courseTitle = courseTitle;
+	}
+	
+	public int getCourseID () {
+		return courseID;
+	}
+
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
 	}
 
 	public String getDept () {
@@ -51,9 +60,9 @@ public class Course {
 		this.term = term;
 	}
 
-	public int getSectionTableID () {
+	/*public int getSectionTableID () {
 		return sectionTableID;
-	}
+	}*/
 	
 	
 

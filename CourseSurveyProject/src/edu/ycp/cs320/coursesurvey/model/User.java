@@ -4,11 +4,12 @@ public class User {
 
 	private String userName, userPassword;
 	private int userID;
-	private int instID;
+    private int instID;
 	private boolean student;
 	private boolean proffesor;
 	private boolean admin;
 	
+
 	public int instID(){
 		return this.instID;
 	}

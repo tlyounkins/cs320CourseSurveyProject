@@ -21,31 +21,29 @@
     <body>
         <div id="wrapper">
             <header><h1>Web Survey</h1></header>
-            <c:if test="${! empty errorMessage}">
-              <div class="error">${errorMessage}</div>
-            </c:if>
-            
-            <div id="content">
-                <h2>Login</h2>
-            		
-            	    <form action="${pageContext.servletContext.contextPath}/accountCreation" method="post">
-            	    	
+             <div id="content">
+           	  <h2>Login</h2>
+           		 <c:if test="${! empty errorMessage}">
+              		<div class="error">${errorMessage}</div>
+           		 </c:if>     
+           		 
+           		      		
+            	   <!--   <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">	-->
+            	   	<form method = "post">
             		    <table>
             		        <tr>
-            		            <td class="label">User Name:</td>
-            		            <td><input type="text" name="user" size="16" value="${userName}" /></td>
+            		            <td class="label">Institution:</td>
+            		            <td><input type="text" name="institutionName" required size="16" value="${institutionName}" /></td>
             		        </tr>
             		        <tr>
-            		            <td class="label">Institution:</td>
-            		            <td><input type="text" name="password" size="16" value="${institution}" /></td>
+            		            <td class="label">Account Name:</td>
+            		            <td><input type="text" name="accountName" required size="16" value="${accountName}" /></td>
             		        </tr>
-            		   
             		        <tr>
             		            <td class="label">Password:</td>
-            		            <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
+            		            <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" size="16" value="${password}" /></td>
             		        </tr>
             		    </table>
-            		    
             	        <input name="Submit" type="submit" value="Login">
             	    </form>
             
@@ -54,6 +52,5 @@
 		        <a href="${pageContext.servletContext.contextPath}/accountCreation">here</a>
             </div>
         </div>
-        <br>
     </body>
 </html>

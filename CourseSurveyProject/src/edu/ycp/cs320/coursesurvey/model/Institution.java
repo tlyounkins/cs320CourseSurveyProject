@@ -11,10 +11,11 @@ package edu.ycp.cs320.coursesurvey.model;
  */
 
 public class Institution {
-	private int instId;
+	private int instID; //only need one ID for all sub tables that there is only one occurence of.
 	private String name;
-	//private int userTableID;
-	//private int courseTableID;
+	private int numUsers = 0;
+	private int numCourses = 0;
+	private int numSurveys = 0;
 
 
 	/*public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
@@ -22,10 +23,10 @@ public class Institution {
 		this.name = name;
 		this.userTableID = userTableID;
 		this.courseTableID = courseTableID;
-		
+
 		//studentList = new ArrayList<User>();
 		//teacherList = new ArrayList<User>();
-		
+
 	}*/
 
 
@@ -49,50 +50,39 @@ public class Institution {
 	 * Get Institution ID
 	 * @return instId
 	 */
-	public int getInstId () {
-		return this.instId;
+	public int getInstID () {
+		return this.instID;
 	}
 
 	/**
 	 * Set Institution ID#
 	 * @param instId
 	 */
-	public void setInstId (int instId) {
-		this.instId = instId;
+	public void setInstID (int instId) {
+		this.instID = instId;
 	}
-	
-	/*
-	*//**
-	 * set User Table ID
-	 * @param userTableID
-	 *//*
-	
-	public void setUserTableID(int userTableID){
-		this.userTableID = userTableID;
-	}
-	
-	*//**
-	 * Get User Table ID
-	 * @return userTableID
-	 *//*
-	public int getUserTableID(){
-		return this.userTableID;
-	}
-	
-	*//**
-	 * set Course Table ID
-	 * @param courseTableID
-	 *//*
-	public void setCourseTableID(int courseTableID){
-		this.courseTableID = courseTableID;
-	}
-	
-	*//**
-	 * Get Course Table ID
-	 * @return courseTableID
-	 *//*
-	public int getCourseTableID(){
-		return this.courseTableID;
-	}*/
 
+	public int getNumUsers(){
+		return this.numUsers;
+	}
+
+	public int getNumCourses(){
+		return this.numCourses;
+	}
+
+	public int getNumSurveys(){
+		return this.numSurveys;
+	}
+
+	public void setNumUsers(int num){
+		this.numUsers = num;
+	}
+
+	public void setNumCourses(int num){
+		this.numCourses = num;
+	}
+
+	public void setNumSurveys(int num){
+		this.numSurveys = num;
+	}
 }

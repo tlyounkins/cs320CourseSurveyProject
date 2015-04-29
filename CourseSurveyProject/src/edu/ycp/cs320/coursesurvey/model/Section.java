@@ -12,7 +12,6 @@ public class Section {
 	private boolean student;
 	private boolean proffesor;
 
-
 	public int getSectID () {
 		return this.sectID;
 	}

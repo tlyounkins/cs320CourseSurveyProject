@@ -16,4 +16,10 @@ public class AdminHomePageServlet extends HttpServlet {
 		// Just forward to the view
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+			throws ServletException, IOException {
+		// Just forward to the view
+		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+	}
 }

@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -92,10 +95,47 @@ public class SqliteDatabase implements IDatabase{
 	@Override
 	public int addInstitution(String instName) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
-
-	@Override
+	
+	
+	//TODO- work in progress
+	/*
+	public int getNextInstID(){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select max(instID) as max from institution"   //should obtain the largest institution ID
+					);
+					stmt.setString(1, title);
+					
+					List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
+					
+					resultSet = stmt.executeQuery();
+					while (resultSet.next()) {
+						Author author = new Author();
+						loadAuthor(author, resultSet, 1);
+						Book book = new Book();
+						loadBook(book, resultSet, 4);
+						
+						result.add(new Pair<Author, Book>(author, book));
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	*/
 	/*
 	public User findUserAccountByName (final String accountName, int instID) {
 		return executeTransaction(new Transaction<User>() {
@@ -130,6 +170,8 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	*/
+	@Override
+	
 
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -154,6 +196,8 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
+	
+	//various functions for creating tables
 	public void createInstitutionTable() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -163,10 +207,11 @@ public class SqliteDatabase implements IDatabase{
 				try {
 					stmt1 = conn.prepareStatement(
 							"create table institution (" +
-									"    id integer primary key," +
+									"    instId integer primary key," +
 									"    name varchar(40)," +
-									"    courseTableID integer primary key," +
-									"    userTableID integer primary key" +
+									"    numUsers integer," +
+									"    numCourses integer," +
+									"    numSurveys integer" +
 							")");
 					stmt1.executeUpdate();
 
@@ -178,7 +223,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createUserTable(final int userTableID) {
+	public void createUserTable(final int instTableID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -186,11 +231,160 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table course_" + userTableID +  " (" +
-									"    id integer primary key," +
-									"    name varchar(40)," +
-									"    courseTableID integer primary key," +
-									"    userTableID integer primary key" +
+							"create table user_" + instTableID +  " (" +
+									"    userID integer primary key," +
+									"    userName varchar(40)," +
+									"    userPassword varchar(16)," +
+									"    instTableID integer," +
+									"    student BOOLEAN," +
+									"    proffesor BOOLEAN," +
+									"    admin BOOLEAN" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createCourseTable(final int courseTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table course_" + courseTableID +  " (" +
+									"    courseID integer primary key," +
+									"    courseTitle varchar(60)," +
+									"    dept varchar(40)," +
+									"    schoolYear integer," +
+									"    sectionTableID integer," +
+									"    term varchar(40)" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createSectionTable(final int sectionTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table section_" + sectionTableID +  " (" +
+									"    sectID integer primary key," +
+									"    userID integer," +
+									"    student BOOLEAN," +
+									"    proffesor BOOLEAN" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createSurveyTable(final int surveyTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table survey_" + surveyTableID +  " (" +
+									"    courseID integer," +
+									"    creatorID integer," +
+									"    surveyName varchar(40)," +
+									"    surveyID integer primary key" + 
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createTemplateTable(final int templateTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table template_" + templateTableID +  " (" +
+									"    questionNum integer primary key," +
+									"    questionType integer primary key," +
+									"    question varchar(255)," +
+									"    option0 varchar(255)," +
+									"    option1 varchar(255)," +
+									"    option2 varchar(255)," +
+									"    option3 varchar(255)," +
+									"    option4 varchar(255)" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createResponseIndexTable(final int responseIndexTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table responseIndex_" + responseIndexTableID +  " (" +
+									"    responseID integer primary key," +
+									"    responseNum integer primary key" +
+							")");
+					stmt1.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+				}
+			}
+		});
+	}
+	
+	public void createResponseTable(final int responseTableID) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				
+				try {
+					stmt1 = conn.prepareStatement(
+							"create table response_" + responseTableID +  " (" +
+									"    questionNum integer primary key," +
+									"    answer varchar(255)" +
 							")");
 					stmt1.executeUpdate();
 
@@ -247,9 +441,9 @@ public class SqliteDatabase implements IDatabase{
 					}
 					insertAdminAccount.executeBatch();
 					*/
-					insertInstitution = conn.prepareStatement("insert into institution1 values (?, ?, ?, ?)");
+					insertInstitution = conn.prepareStatement("insert into institution values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
-						insertInstitution.setInt(1, instItr.getInstId());
+						insertInstitution.setInt(1, instItr.getInstTableID());
 						insertInstitution.setString(3,instItr.getName());
 						insertInstitution.addBatch();
 					}
@@ -264,6 +458,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	// The main method creates the database tables and loads the initial data.
+	//For testing only
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		SqliteDatabase db = new SqliteDatabase();
@@ -299,5 +494,23 @@ public class SqliteDatabase implements IDatabase{
 	public User findUserAccountByName(String accountName, int instID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public void addToSectionTable(int instID, int courseID, int sectID,
+			int userID, boolean student, boolean prof) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public int addSurvey(int instID, int courseID, int creatorID,
+			String surveyName) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void addToTemplate(int instID, int surveyID, int questionType,
+			String question, String[] options) {
+		// TODO Auto-generated method stub
+		
 	}
 }

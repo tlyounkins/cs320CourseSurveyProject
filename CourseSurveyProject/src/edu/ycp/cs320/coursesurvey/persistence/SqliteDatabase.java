@@ -11,6 +11,9 @@ import java.util.List;
 
 
 
+
+
+import edu.ycp.cs320.coursesurvey.model.Response;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -100,7 +103,7 @@ public class SqliteDatabase implements IDatabase{
 	
 	
 	//TODO- work in progress
-	/*
+	
 	public int getNextInstID(){
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
@@ -112,19 +115,20 @@ public class SqliteDatabase implements IDatabase{
 					stmt = conn.prepareStatement(
 							"select max(instID) as max from institution"   //should obtain the largest institution ID
 					);
-					stmt.setString(1, title);
+					//stmt.setString(1, max);
 					
-					List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
+					int result;
 					
 					resultSet = stmt.executeQuery();
-					while (resultSet.next()) {
-						Author author = new Author();
-						loadAuthor(author, resultSet, 1);
-						Book book = new Book();
-						loadBook(book, resultSet, 4);
+					result = resultSet.getInt(1);
+					/*while (resultSet.next()) {
+						//Author author = new Author();
+						//loadAuthor(author, resultSet, 1);
+						//Book book = new Book();
+						//loadBook(book, resultSet, 4);
 						
 						result.add(new Pair<Author, Book>(author, book));
-					}
+					}*/
 					
 					return result;
 				} finally {
@@ -134,7 +138,18 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
-	*/
+	
+	@Override
+	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses){
+		//TODO
+	}
+	
+	
+	@Override
+	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
+		
+	}
+	
 	/*
 	public User findUserAccountByName (final String accountName, int instID) {
 		return executeTransaction(new Transaction<User>() {
@@ -442,7 +457,7 @@ public class SqliteDatabase implements IDatabase{
 					*/
 					insertInstitution = conn.prepareStatement("insert into institution values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
-						insertInstitution.setInt(1, instItr.getInstTableID());
+						insertInstitution.setInt(1, instItr.getInstID());
 						insertInstitution.setString(3,instItr.getName());
 						insertInstitution.addBatch();
 					}

@@ -207,10 +207,10 @@ public class FakeDatabase  implements IDatabase{
 	
 	//due to maintaining anonymity of the user, we cannot keep track of which table an individual users responses are in, so all responses must be submitted 
 	//bundled into an arraylist
+	@Override
 	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses){
 		ArrayList<ResponseIndex> responseIndex = this.responseIndexTables.get(instID-1).get(surveyID-1);
 		ArrayList<ArrayList<Response>> rTables = this.responseTables.get(instID-1).get(surveyID-1);
-		Institution institute = this.institutionTable.get(instID-1);
 		
 		int newID = rTables.size()+1;
 		//adds response to the tables

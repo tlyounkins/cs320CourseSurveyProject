@@ -1,7 +1,9 @@
 package edu.ycp.cs320.coursesurvey.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.ycp.cs320.coursesurvey.model.Response;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -33,5 +35,7 @@ public interface IDatabase {
 	public int addSurvey(int instID, int courseID, int creatorID, String surveyName);
 	
 	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]);
+	
+	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses);
 		
 }

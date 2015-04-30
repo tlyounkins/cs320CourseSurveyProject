@@ -20,6 +20,8 @@ public interface IDatabase {
 	
 	public int addInstitution (String instName);
 	
+	//public int getNextInstID();
+	
 	public int addCourse(int instID, String title, String dept, int year, String term);
 
 	public Course findCourse(String course);
@@ -37,5 +39,7 @@ public interface IDatabase {
 	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]);
 	
 	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses);
+	
+	public Boolean clearDB();
 		
 }

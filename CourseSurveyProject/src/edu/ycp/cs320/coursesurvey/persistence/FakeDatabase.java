@@ -245,4 +245,9 @@ public class FakeDatabase  implements IDatabase{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public Boolean clearDB(){
+		return false;
+	}
 }

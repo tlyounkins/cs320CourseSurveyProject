@@ -13,6 +13,12 @@ import java.util.List;
 
 
 
+
+/*import edu.ycp.cs320.booksdb.model.Author;
+import edu.ycp.cs320.booksdb.model.Book;
+import edu.ycp.cs320.booksdb.persist.DBUtil;
+import edu.ycp.cs320.booksdb.persist.InitialData;
+import edu.ycp.cs320.booksdb.persist.SqliteDatabase.Transaction;*/
 import edu.ycp.cs320.coursesurvey.model.Response;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
@@ -95,15 +101,65 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	@Override
-	public int addInstitution(String instName) {
+	public int addInstitution(final String instName) {
 		// TODO Auto-generated method stub
+		final int newID = getNextInstID() + 1;
+		createCourseTable(newID);
+		createUserTable(newID);
+		createSurveyTable(newID);
 		
-		return 0;
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+
+				PreparedStatement insertInst = null;
+
+				//for testing
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				
+				
+				try {
+					insertInst = conn.prepareStatement("insert into institution values (?, ?, ?, ?, ?)");
+					
+						insertInst.setInt(1, newID);
+						insertInst.setString(2, instName);
+						insertInst.setInt(3, 0);
+						insertInst.setInt(4, 0);
+						insertInst.setInt(5, 0);
+						insertInst.addBatch();
+						
+					insertInst.executeBatch();
+					
+					stmt = conn.prepareStatement(
+							"select institution.* " +
+							"  from institution " +
+							" where institution.instID = ? "
+					);
+					stmt.setInt(1, newID);
+					
+					resultSet = stmt.executeQuery();
+					
+					
+					
+					System.out.println("Inst added is: " + resultSet.getInt(1) + resultSet.getString(2) + resultSet.getInt(3) + resultSet.getInt(4) + resultSet.getInt(5));
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(insertInst);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				
+				
+			}
+		});
+		return newID;
 	}
 	
-	
-	//TODO- work in progress
-	
+
+	//@Override
 	public int getNextInstID(){
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
@@ -115,20 +171,13 @@ public class SqliteDatabase implements IDatabase{
 					stmt = conn.prepareStatement(
 							"select max(instID) as max from institution"   //should obtain the largest institution ID
 					);
-					//stmt.setString(1, max);
 					
 					int result;
 					
 					resultSet = stmt.executeQuery();
 					result = resultSet.getInt(1);
-					/*while (resultSet.next()) {
-						//Author author = new Author();
-						//loadAuthor(author, resultSet, 1);
-						//Book book = new Book();
-						//loadBook(book, resultSet, 4);
-						
-						result.add(new Pair<Author, Book>(author, book));
-					}*/
+					
+					System.out.println("The max val is:" + result);
 					
 					return result;
 				} finally {
@@ -185,8 +234,6 @@ public class SqliteDatabase implements IDatabase{
 	}
 	*/
 	@Override
-	
-
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -196,9 +243,12 @@ public class SqliteDatabase implements IDatabase{
 				try {
 
 					stmt1 = conn.prepareStatement(
-							"create table institution_table1 (" +
-									"    id integer primary key," +
-									"    name varchar(40)" +
+							"create table institution (" +
+									"    instId integer primary key," +
+									"    name varchar(40)," +
+									"    numUsers integer," +
+									"    numCourses integer," +
+									"    numSurveys integer" +
 							")");
 					stmt1.executeUpdate();
 
@@ -521,5 +571,31 @@ public class SqliteDatabase implements IDatabase{
 			String surveyName) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public Boolean clearDB(){
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"drop table institution"   
+					);
+					
+					
+					stmt.executeQuery();
+					
+					
+					System.out.println("Database is cleared");
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 }

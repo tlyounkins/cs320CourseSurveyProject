@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
+import edu.ycp.cs320.coursesurvey.persistence.SQLTest;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -21,6 +22,7 @@ public class Main {
 		
 		// Start the server
 		server.start();
+		SQLTest.test2();
 		
 		// Wait for the user to type "quit"
 		System.out.println("Web server started, type quit to shut down");

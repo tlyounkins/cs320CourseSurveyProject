@@ -1,8 +1,6 @@
 package edu.ycp.cs320.coursesurvey.controller;
 
-import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
-import edu.ycp.cs320.coursesurvey.persistence.FakeDatabase;
 
 public class AccountCreationController {
 	private boolean passwordMatch = false;

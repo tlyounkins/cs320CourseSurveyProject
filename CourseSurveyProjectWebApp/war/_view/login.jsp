@@ -27,8 +27,6 @@
               		<div class="error">${errorMessage}</div>
            		 </c:if>     
            		 
-           		      		
-            	   <!--   <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">	-->
             	   	<form method = "post">
             		    <table>
             		        <tr>

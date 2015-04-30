@@ -9,7 +9,7 @@ public class SurveyCreationController {
 		// Check if course and section to create a survey for exists. 
 		if (DatabaseProvider.getInstance().findCourse(course) != null && 
 				DatabaseProvider.getInstance().findSection(section) != null) {
-				
+			
 			// Add survey
 			DatabaseProvider.getInstance().addSurvey(surveyName);
 			done = true;
@@ -19,6 +19,13 @@ public class SurveyCreationController {
 		}
 		
 		
+	}
+	public void addQuestion(String instName, String survey, String question_type, String Question, String option[]) {
+		int instID = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
+		//int surveyID = 1;
+		//int Questiontype = 1;
+		
+		//DatabaseProvider.getInstance().addToTemplate(instID, surveyID, Questiontype, Question, option);;
 	}
 	public boolean done(){
 		return this.done;

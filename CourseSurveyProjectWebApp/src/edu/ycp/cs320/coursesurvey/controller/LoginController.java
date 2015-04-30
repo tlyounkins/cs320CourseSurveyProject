@@ -32,23 +32,62 @@ public class LoginController {
 				System.out.println("User is an admin");
 				return true;
 			}
-		
+
 		}
 		System.out.println("User is not an admin");
 		return false;
 	}
 	public boolean isProf(String accountName, String password) {
 		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1);
-		if (user.isProf()) {
-			return true;
+		if (user != null) {
+			if (user.isProf()) {
+				return true;
+			}
 		}
 		return false;
 	}
 	public boolean isStudent(String accountName, String password) {
 		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1);
-		if (user.isStudent()) {
-			return true;
+		if (user != null) {
+			if (user.isStudent()) {
+				return true;
+			}
 		}
 		return false;
 	}
+
+	public boolean isAdminTest (User sessionUser) {
+		if (sessionUser != null) {
+			if (sessionUser.isAdmin()){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isStudentTest (User sessionUser) {
+		if (sessionUser.isStudent()) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public boolean isProfTest (User sessionUser) {
+		if (sessionUser.isProf()) {
+			return true;
+		}
+		return false;
+
+	}
+	
+	public User createUserSession (String accountName, String instName) {
+		if (DatabaseProvider.getInstance().findInstitution(instName) == null) {
+			DatabaseProvider.getInstance().addInstitution(instName);
+		}
+		int instID = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
+		User sessionUser = DatabaseProvider.getInstance().findUserAccountByName(accountName, instID);
+		return sessionUser;
+	}
+
 }

@@ -4,6 +4,8 @@ import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 public class SurveyCreationController {
 	boolean done;
+	
+	//TODO make it so that this will choose a specific inst  and course
 	public void createSurvey(String course, String section, String surveyName) {
 		
 		// Check if course and section to create a survey for exists. 
@@ -11,7 +13,7 @@ public class SurveyCreationController {
 				DatabaseProvider.getInstance().findSection(section) != null) {
 			
 			// Add survey
-			DatabaseProvider.getInstance().addSurvey(surveyName);
+			DatabaseProvider.getInstance().addSurvey(1, 1, 1, surveyName);
 			done = true;
 			System.out.println("survey sucessfully created!");
 		} else {

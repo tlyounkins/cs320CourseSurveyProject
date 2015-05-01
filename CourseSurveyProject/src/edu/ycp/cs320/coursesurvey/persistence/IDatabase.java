@@ -28,7 +28,6 @@ public interface IDatabase {
 	
 	public Section findSection(String section);
 
-	public void addSurvey(String surveyName);
 
 	void createTables();
 	

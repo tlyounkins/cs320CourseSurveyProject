@@ -235,11 +235,7 @@ public class FakeDatabase  implements IDatabase{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public void addSurvey(String surveyName) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public void createTables() {
 		// TODO Auto-generated method stub

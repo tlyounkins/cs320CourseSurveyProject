@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 		
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
+		
 		session.setAttribute("user", controller.createUserSession(accountName, instName));
 		System.out.println("Session Created");
 		

@@ -48,6 +48,7 @@ public class AdminHomePageServlet extends HttpServlet {
 		String name = (String) session.getAttribute("user");
 		req.setAttribute("admin", name);
 		String inst = (String) session.getAttribute("institution");
+		System.out.println(inst);
 		AdminController controller = new AdminController();
 		if (!addedAccountName.isEmpty()) {
 			if (controller.userExists(inst, addedAccountName)) {

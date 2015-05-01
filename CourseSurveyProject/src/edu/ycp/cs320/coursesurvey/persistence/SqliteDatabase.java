@@ -96,15 +96,60 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	@Override
-	public int addUser(String userName, String password, int instId, boolean student, boolean prof, boolean admin){
+	public int addUser(final String userName, final String password, final int instID, final boolean student, final boolean prof, final boolean admin){
+		final int newID = getNumUsers(instID) + 1;
+		setNumUsers(instID, newID);
+		
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
 
-		// TODO Auto-generated method stub
-		return 0;
+				PreparedStatement insert = null;
+
+				//for testing
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+			
+				try {
+					insert = conn.prepareStatement("insert into user_"+ instID +" values (?, ?, ?, ?, ?, ?, ?)");
+						//creates reference to correct course Table
+						
+						//set values for new course
+						insert.setInt(1, newID);
+						insert.setString(2, userName);
+						insert.setString(3, password);
+						insert.setInt(4, instID);
+						insert.setBoolean(5, student);
+						insert.setBoolean(6, prof);
+						insert.setBoolean(7, admin);
+						insert.addBatch();
+						
+					insert.executeBatch();
+					
+					stmt = conn.prepareStatement(
+							"select user_"+ instID +".*" +
+							"  from user_"+ instID +
+							" where user_"+ instID +".userID" +" = ? "
+					);
+					stmt.setInt(1, newID);
+					
+					resultSet = stmt.executeQuery();
+
+					System.out.println("User added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getString(2) +" "+ resultSet.getInt(3) +" "+ resultSet.getInt(4) +" "+ resultSet.getInt(5)+" "+ resultSet.getInt(6));
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(insert);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}	
+			}
+		});
+		return newID;
 	}
 
 	@Override
 	public int addInstitution(final String instName) {
-		// TODO Auto-generated method stub
 		final int newID = getNextInstID() + 1;
 		createCourseTable(newID);
 		createUserTable(newID);
@@ -119,9 +164,7 @@ public class SqliteDatabase implements IDatabase{
 				//for testing
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-				
-				
-				
+
 				try {
 					insertInst = conn.prepareStatement("insert into institution values (?, ?, ?, ?, ?)");
 					
@@ -142,9 +185,7 @@ public class SqliteDatabase implements IDatabase{
 					stmt.setInt(1, newID);
 					
 					resultSet = stmt.executeQuery();
-					
-					
-					
+
 					System.out.println("Inst added is: " + resultSet.getInt(1) + resultSet.getString(2) + resultSet.getInt(3) + resultSet.getInt(4) + resultSet.getInt(5));
 					
 					return true;
@@ -153,14 +194,11 @@ public class SqliteDatabase implements IDatabase{
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
-				
-				
 			}
 		});
 		return newID;
 	}
 	
-
 	//@Override
 	public int getNextInstID(){
 		return executeTransaction(new Transaction<Integer>() {
@@ -198,7 +236,7 @@ public class SqliteDatabase implements IDatabase{
 	
 	@Override
 	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
-		
+		//TODO
 	}
 	
 	/*
@@ -261,7 +299,6 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
-	
 	
 	//various functions for creating tables
 	public void createInstitutionTable() {
@@ -342,7 +379,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createSectionTable(final int sectionTableID) {
+	public void createSectionTable(final int instID, final int sectionTableID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -350,7 +387,7 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table section_" + sectionTableID +  " (" +
+							"create table section_" + instID + "_" + sectionTableID +  " (" +
 									"    sectID integer primary key," +
 									"    userID integer," +
 									"    student BOOLEAN," +
@@ -390,7 +427,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createTemplateTable(final int templateTableID) {
+	public void createTemplateTable(final int instID, final int surveyID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -398,9 +435,9 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table template_" + templateTableID +  " (" +
+							"create table template_" + instID + "_" + surveyID +  " (" +
 									"    questionNum integer primary key," +
-									"    questionType integer primary key," +
+									"    questionType integer," +
 									"    question varchar(255)," +
 									"    option0 varchar(255)," +
 									"    option1 varchar(255)," +
@@ -418,7 +455,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createResponseIndexTable(final int responseIndexTableID) {
+	public void createResponseIndexTable(final int instID, final int surveyID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -426,9 +463,8 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table responseIndex_" + responseIndexTableID +  " (" +
-									"    responseID integer primary key," +
-									"    responseNum integer primary key" +
+							"create table responseIndex_" + instID + "_" + surveyID + " (" +
+									"    responseID integer primary key" +
 							")");
 					stmt1.executeUpdate();
 
@@ -529,12 +565,14 @@ public class SqliteDatabase implements IDatabase{
 		System.out.println("Creating tables...");
 		SqliteDatabase db = new SqliteDatabase();
 		db.createTables();
-
-		System.out.println("Loading initial data...");
-		db.loadInitialData();
-
+		
+		//System.out.println("Loading initial data...");
+		//db.loadInitialData();
+		
 		System.out.println("Success!");
 	}
+	
+	
 	@Override
 	public Course findCourseByName(String course, int instID) {
 		// TODO Auto-generated method stub
@@ -545,29 +583,331 @@ public class SqliteDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		return null;
 	}
-		
+	
+	
 	@Override
-	public int addCourse(int instID, String title, String dept, int year,
-			String term) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int addCourse(final int instID, final String title, final String dept, final int year, final String term){
+		final int newID = getNumCourses(instID) + 1;
+		setNumCourses(instID, newID);
+		createSectionTable(instID, newID);
+		
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+
+				PreparedStatement insert = null;
+
+				//for testing
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+			
+				try {
+					insert = conn.prepareStatement("insert into course_"+ instID +" values (?, ?, ?, ?, ?, ?)");
+						//creates reference to correct course Table
+						
+						
+						//set values for new course
+						insert.setInt(1, newID);
+						insert.setString(2, title);
+						insert.setString(3, dept);
+						insert.setInt(4, year);
+						insert.setString(5, term);
+						insert.setInt(4, newID);
+						insert.addBatch();
+						
+					insert.executeBatch();
+					
+					stmt = conn.prepareStatement(
+							"select course_"+ instID +".*" +
+							"  from course_"+ instID +
+							" where  course_"+ instID +".courseID" +" = ? "
+					);
+					stmt.setInt(1, newID);
+					
+					resultSet = stmt.executeQuery();
+
+					System.out.println("Course added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getString(2) +" "+ resultSet.getInt(3) +" "+ resultSet.getInt(4) +" "+ resultSet.getInt(5)+" "+ resultSet.getInt(6));
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(insert);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}	
+			}
+		});
+		return newID;
 	}
+	
+	public int getNumCourses(final int instID){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select institution.* from institution where institution.instId = ?"   //should obtain current number of courses
+					);
+					
+					stmt.setInt(1, instID);
+					int result;
+					
+					resultSet = stmt.executeQuery();
+					result = resultSet.getInt(4);
+					
+					System.out.println("The number of courses is:" + result);
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public Boolean setNumCourses(final int instID, final int numCourses){
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"update institution " + "set numCourses = ? " + "where instId = ?"   //should obtain current number of courses
+					);
+					
+					stmt.setInt(1, numCourses);
+					stmt.setInt(2, instID);
+					
+					stmt.executeUpdate();
+										
+					System.out.println("The number of courses has been updated");
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public int getNumUsers(final int instID){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select institution.* from institution where institution.instId = ?"   //should obtain current number of users
+					);
+					
+					stmt.setInt(1, instID);
+					int result;
+					
+					resultSet = stmt.executeQuery();
+					result = resultSet.getInt(3);
+					
+					System.out.println("The number of users is:" + result);
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public Boolean setNumUsers(final int instID, final int numUsers){
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"update institution set numUsers = ? where institution.instId = ?"  
+					);
+					
+					stmt.setInt(1, numUsers);
+					stmt.setInt(2, instID);
+										
+					stmt.executeUpdate();
+					
+					System.out.println("The number of courses has been updated");
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public Boolean setNumSurveys(final int instID, final int numSurveys){
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"update institution set numSurveys = ? where institution.instId = ?"   //should obtain current number of courses
+					);
+					
+					stmt.setInt(1, numSurveys);
+					stmt.setInt(2, instID);
+					
+					stmt.executeUpdate();
+										
+					System.out.println("The number of surveys has been updated to " + numSurveys);
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public int getNumSurveys(final int instID){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select institution.* from institution where institution.instId = ?"   //should obtain current number of users
+					);
+					
+					stmt.setInt(1, instID);
+					int result;
+					
+					resultSet = stmt.executeQuery();
+					result = resultSet.getInt(5);
+					
+					System.out.println("The number of surveys is:" + result);
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	
+	
 	@Override
 	public User findUserAccountByName(String accountName, int instID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void addToSectionTable(int instID, int courseID, int sectID,
-			int userID, boolean student, boolean prof) {
-		// TODO Auto-generated method stub
-		
+	public void addToSectionTable(final int instID, final int courseID, final int sectID,
+			final int userID, final boolean student, final boolean prof) {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+
+				PreparedStatement insert = null;
+
+				//for testing
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+			
+				try {
+					insert = conn.prepareStatement("insert into section_"+ instID +"_"+ courseID +" values (?, ?, ?, ?)");
+						//creates reference to correct course Table
+						
+						//set values for new course
+						insert.setInt(1, sectID);
+						insert.setInt(2, userID);
+						insert.setBoolean(3, student);
+						insert.setBoolean(4, prof);
+						
+					insert.executeUpdate();
+					
+					stmt = conn.prepareStatement(
+							"select section_"+ instID +"_"+ courseID +".*" +
+							" from section_"+ instID +"_"+ courseID +
+							" where  section_"+ instID +"_"+ courseID + ".userID" +" = ? "
+					);
+					
+					stmt.setInt(1, userID);
+					
+					resultSet = stmt.executeQuery();
+
+					System.out.println("User added to section_"+ instID +"_"+ courseID + " is: " + resultSet.getInt(1) +" "+ resultSet.getInt(2) +" "+ resultSet.getBoolean(3) +" "+ resultSet.getBoolean(4));
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(insert);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}	
+			}
+		});
 	}
+	
 	@Override
-	public int addSurvey(int instID, int courseID, int creatorID,
-			String surveyName) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int addSurvey(final int instID, final int courseID, final int creatorID, final String surveyName){
+		final int newID = getNumSurveys(instID) + 1;
+		setNumSurveys(instID, newID);
+		
+		createTemplateTable(instID, newID);
+		createResponseIndexTable(instID, newID);
+		
+		executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+
+				PreparedStatement insert = null;
+
+				//for testing
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+			
+				try {
+					insert = conn.prepareStatement("insert into survey_"+ instID +" values (?, ?, ?, ?)");
+						//creates reference to correct course Table
+						
+						//set values for new course
+						insert.setInt(1, courseID);
+						insert.setInt(2, creatorID);
+						insert.setString(3, surveyName);
+						insert.setInt(4, newID);
+						
+					insert.executeUpdate();
+					
+					stmt = conn.prepareStatement(
+							"select survey_"+ instID +".*" +
+							" from survey_"+ instID +
+							" where  survey_"+ instID +".surveyID" +" = ? "
+					);
+					stmt.setInt(1, newID);
+					
+					resultSet = stmt.executeQuery();
+
+					System.out.println("Survey added is: " + resultSet.getInt(1) +" "+ resultSet.getInt(2) +" "+ resultSet.getString(3) +" "+ resultSet.getInt(4));
+					
+					return newID;
+				} finally {
+					DBUtil.closeQuietly(insert);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}	
+			}
+		});
+		return newID;
 	}
 	
 	@Override

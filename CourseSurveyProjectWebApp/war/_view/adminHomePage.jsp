@@ -19,8 +19,12 @@
   	<body>
         <div id="wrapper">
             <header><h1>Web Survey</h1></header>
+            
              <div id="content">
-              <h2>Welcome, Admin!</h2>
+              <h2 class = "label" > Welcome, ${user}</h2>
+              <c:if test="${! empty errorMessage}">
+				      <div class="error">${errorMessage}</div>
+				    </c:if>
   				 <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">
             		    <table>
             		        <tr>

@@ -34,15 +34,34 @@ public class AdminHomePageServlet extends HttpServlet {
 		System.out.println("newSection from form is " + newSection);
 		System.out.println("permission from form is " +permissions);
 		
-		String password = addedAccountName; // temporarily setting the new user's password to addedAccountName
+		// temporarily setting the new user's password to addedAccountName + "Password1"
+		// to satisfy login password requirements
+		String password = addedAccountName + "Password1";
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
 		int instID = sessionUser.instID();
+
+		//User adminUser = (User) session.getAttribute("user");
+		//System.out.println(adminUser);
+		//System.out.println(adminUser.getUserID());
+		//int instID = adminUser.instID();
+		String name = sessionUser.getUserName();
+		req.setAttribute("admin", name);
+		//session.getAttribute("institution") returns null
+		//String inst = (String) session.getAttribute("institution");
+	//	System.out.println("inst name is " +inst);
+		String inst = "YCP";
 		AdminController controller = new AdminController();
-		
 		if (!addedAccountName.isEmpty()) {
-			controller.addUser(instID, addedAccountName, password, permissions);
+			//if (controller.userExists(inst, addedAccountName)) {
+				controller.addUser(sessionUser, addedAccountName, password, permissions);
+			/*} else {
+				String error = "Errors :";
+					error += "*This user already exists, please enter a new user name \n";
+				req.setAttribute("errorMessage", error);
+			
+			}*/
 		}
 		if (!newCourse.isEmpty()) {
 			controller.addCourse(sessionUser, newCourse);

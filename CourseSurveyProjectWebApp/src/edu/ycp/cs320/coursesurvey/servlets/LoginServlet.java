@@ -12,7 +12,6 @@ import com.sun.org.apache.commons.logging.Log;
 
 import edu.ycp.cs320.coursesurvey.controller.LoginController;
 import edu.ycp.cs320.coursesurvey.model.User;
-import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 
 public class LoginServlet extends HttpServlet {
@@ -43,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Login Controller created");
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
+		
 		session.setAttribute("user", controller.createUserSession(accountName, instName));
 		System.out.println("Session Created");
 		

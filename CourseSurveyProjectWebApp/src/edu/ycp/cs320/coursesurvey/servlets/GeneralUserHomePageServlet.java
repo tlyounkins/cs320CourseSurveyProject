@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class GeneralUserHomePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +17,12 @@ public class GeneralUserHomePageServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		// Just forward to the view
+		
+		HttpSession session = req.getSession();
+		
+		String name = (String) session.getAttribute("user");
+		//req.setAttribute("student", name);
+		// Just forward to the generalUserHomePage
 		req.getRequestDispatcher("/_view/generalUserHomePage.jsp").forward(req, resp);
 	}
 }

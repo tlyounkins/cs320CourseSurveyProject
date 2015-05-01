@@ -7,6 +7,9 @@ public class SurveyCreationController {
 	boolean done;
 	public void createSurvey(String course, String section, User adminUser, String surveyName) {
 		System.out.println("survey creation controller running");
+	
+	//TODO make it so that this will choose a specific inst  and course
+		
 		// Check if course and section to create a survey for exists. 
 		
 		if (DatabaseProvider.getInstance().findCourseByName(course, adminUser.instID())!=null) { 
@@ -23,9 +26,8 @@ public class SurveyCreationController {
 		done = true;
 		System.out.println("survey sucessfully created!");
 		DatabaseProvider.getInstance().findSurveyByID(adminUser.instID(), newSurveyID);
-		}
-		else {
-		done = false;
+		} else {
+			done = false;
 		}
 
 	}

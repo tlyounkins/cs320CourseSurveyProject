@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
 import edu.ycp.cs320.coursesurvey.controller.SurveyCreationController;
-import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.model.User;
 
 public class SurveyCreationServlet extends HttpServlet {

@@ -38,10 +38,7 @@ public class AdminHomePageServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
-		System.out.println(sessionUser);
-		System.out.println(sessionUser.getUserID());
 		int instID = sessionUser.instID();
-		System.out.println("instID for session is " + sessionUser.instID());
 		AdminController controller = new AdminController();
 		
 		if (!addedAccountName.isEmpty()) {

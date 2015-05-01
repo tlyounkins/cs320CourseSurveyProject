@@ -21,7 +21,7 @@
             <header><h1>Web Survey</h1></header>
              <div id="content">
               <h2>Create An Account</h2>
-				    <c:if test="${! empty errorMessage}">
+			  		<c:if test="${! empty errorMessage}">
 				      <div class="error">${errorMessage}</div>
 				    </c:if>
 				    

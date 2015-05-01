@@ -1,5 +1,6 @@
 package edu.ycp.cs320.coursesurvey.servlets;
 
+import java.awt.image.DataBuffer;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.model.Institution;
+import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 import edu.ycp.cs320.coursesurvey.persistence.FakeDatabase;
@@ -51,13 +53,17 @@ public class AccountCreationServlet extends HttpServlet{
 		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 		
 	
-		//goes to admin home page if account info is incorrect
+		//goes to admin home page if account info is correct
 		if (controller.passwordsMatching() && controller.done()){
-			//Set user name to session attribute 
-			//"user" is currently a string (accountName) should be changed to a User Object later
-			session.setAttribute("user", accountName);
-			System.out.println("testing session value " + session.getAttribute("user"));
-			System.out.println("done");
+			//Create new (User) session 
+			int instId = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
+			User sessionUser = (User) DatabaseProvider.getInstance().findUserAccountByName(accountName, instId);
+			
+			session.setAttribute("user", sessionUser);
+			System.out.println("testing sessionUser name " + sessionUser.getUserName());
+			System.out.println("done" );
+			resp.sendRedirect(req.getContextPath() + "/adminHomePage");
+			return;
 		}
 		//will remain on account creation if institution already exist or the passwords do not match
 		else{
@@ -72,7 +78,7 @@ public class AccountCreationServlet extends HttpServlet{
 
 			req.setAttribute("errorMessage", error);
 			req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
-			
+			return;
 		}
 		
 		

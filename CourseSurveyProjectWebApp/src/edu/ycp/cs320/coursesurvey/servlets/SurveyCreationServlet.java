@@ -18,17 +18,18 @@ public class SurveyCreationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// Just forward to the surveyCreation
+		System.out.println("do get survey running");
 		req.getRequestDispatcher("/_view/surveyCreation.jsp").forward(req, resp);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		
+		System.out.println("Do post survey running");
 
 		String courseID = req.getParameter("courseID");
 		String sectionID = req.getParameter("sectionID");
 		String surveyName = req.getParameter("surveyName");
-		
+
 		String question1_type = req.getParameter("Question1_type");
 		System.out.println("Question1 is: " + question1_type);
 		String question1 = req.getParameter("Question1");
@@ -52,8 +53,14 @@ public class SurveyCreationServlet extends HttpServlet {
 		
 		//goes to admin home page if survey has been created 
 		if (controller.done()){
-			System.out.println("done");
+			System.out.println("doneS survey creation");
 			req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
+			return;
+		}
+		else {
+			System.out.println("survey creation collroller!=done");
+			req.getRequestDispatcher("/_view/surveyCreation.jsp").forward(req, resp);
+			return;
 		}
 	}
 }

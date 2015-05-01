@@ -34,22 +34,31 @@ public class AdminHomePageServlet extends HttpServlet {
 		System.out.println(newSection);
 		System.out.println(permissions);
 		
-		String password = addedAccountName; // temporarily setting the new user's password to addedAccountName
+		// temporarily setting the new user's password to addedAccountName + "Password1"
+		// to satisfy login password requirements
+		String password = addedAccountName + "Password1";
+		
 		HttpSession session = req.getSession();
 		// if there is no session created already, than it will create a new one.
-		User admin;
-		User adminUser = (User) session.getAttribute("user");
-		System.out.println(adminUser);
-		System.out.println(adminUser.getUserID());
-		int instID = adminUser.instID();
 		
+		//User adminUser = (User) session.getAttribute("user");
+		//System.out.println(adminUser);
+		//System.out.println(adminUser.getUserID());
+		//int instID = adminUser.instID();
+		String name = (String) session.getAttribute("user");
+		req.setAttribute("admin", name);
+		String inst = (String) session.getAttribute("institution");
 		AdminController controller = new AdminController();
-		if (addedAccountName != null) {
-			controller.addUser(instID, addedAccountName, password, permissions);
+		if (!addedAccountName.isEmpty()) {
+			if (controller.userExists(inst, addedAccountName)) {
+				controller.addUser(inst, addedAccountName, password, permissions);
+			} else {
+				String error = "Errors :";
+					error += "*This user already exists, please enter a new user name \n";
+				req.setAttribute("errorMessage", error);
+			
+			}
 		}
-		
-		
-		
 		// Just forward to the adminHomePage
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}

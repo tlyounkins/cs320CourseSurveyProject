@@ -56,6 +56,7 @@ public class AccountCreationServlet extends HttpServlet{
 			//Set user name to session attribute 
 			//"user" is currently a string (accountName) should be changed to a User Object later
 			session.setAttribute("user", accountName);
+			session.setAttribute("institution", instName);
 			System.out.println("testing session value " + session.getAttribute("user"));
 			System.out.println("done");
 			resp.sendRedirect(req.getContextPath() + "/adminHomePage");

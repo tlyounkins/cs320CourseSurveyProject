@@ -55,7 +55,7 @@ public class FakeDatabase  implements IDatabase{
 	}
 	
 	@Override
-	public int addInstitution ( String instName) {
+	public int addInstitution (String instName) {
 		
 		//creates ID values for pertinent tables
 		int instID = this.institutionTable.size()+1;

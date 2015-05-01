@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.controller.LoginController;
 import edu.ycp.cs320.coursesurvey.model.User;
-import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 
 public class LoginServlet extends HttpServlet {

@@ -1,10 +1,7 @@
 package edu.ycp.cs320.coursesurvey.controller;
 
 import edu.ycp.cs320.coursesurvey.model.Institution;
-import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
-import edu.ycp.cs320.coursesurvey.persistence.FakeDatabase;
-import edu.ycp.cs320.coursesurvey.persistence.IDatabase;
 import edu.ycp.cs320.coursesurvey.model.User;
 
 public class LoginController {

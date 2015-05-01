@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		System.out.println("In LoginServlet doPost");
+		//System.out.println("In LoginServlet doPost");
 		//initialize variables to receive input from form
 		String instName = req.getParameter("institutionName");
 		String accountName = req.getParameter("accountName");
@@ -41,9 +41,7 @@ public class LoginServlet extends HttpServlet {
 		//Initializes the controller class
 		LoginController controller = new LoginController();
 		System.out.println("Login Controller created");
-		
 		//For logging user session *req.getSession(bool) can also be used here
-		
 		HttpSession session = req.getSession();
 		session.setAttribute("user", controller.createUserSession(accountName, instName));
 		System.out.println("Session Created");
@@ -51,6 +49,20 @@ public class LoginServlet extends HttpServlet {
 	
 		
 		User sessionUser = (User) session.getAttribute("user");
+		
+		if (sessionUser == null) {
+			System.out.println("SessionUser is null");
+			if (error == null) { error = "Errors :";
+			error += "*Login incorrect - please make sure your Institution, Account Name and Password are typed correctly \n";
+			}
+
+			req.setAttribute("errorMessage", error);
+			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+			//resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+			
+		}
+		
 		System.out.println(sessionUser.getUserID());
 		
 		if (controller.login(instName,accountName, password)) {
@@ -77,9 +89,9 @@ public class LoginServlet extends HttpServlet {
 				}
 		
 				req.setAttribute("errorMessage", error);
-				req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
-				//resp.sendRedirect(req.getContextPath() + "/login");
-				//return;
+				//req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+				resp.sendRedirect(req.getContextPath() + "/login");
+				return;
 			}
 			
 	}

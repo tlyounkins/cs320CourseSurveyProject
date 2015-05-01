@@ -6,7 +6,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import edu.ycp.cs320.coursesurvey.controller.AdminController;
 import edu.ycp.cs320.coursesurvey.model.Institution;
+import edu.ycp.cs320.coursesurvey.model.User;
 
 public class AdminHomePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +23,36 @@ public class AdminHomePageServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		// Just forward to the view
+			
+		String addedAccountName = req.getParameter("accountName");
+		String newCourse = req.getParameter("courseID");
+		String newSection = req.getParameter("sectionID");
+		String permissions = req.getParameter("permissions");
+		System.out.println("AdminHomePageServlet:");
+		System.out.println("addedAccoutName from form is  " +addedAccountName);
+		System.out.println("newCourse from form is " +newCourse);
+		System.out.println("newSection from form is " + newSection);
+		System.out.println("permission from form is " +permissions);
+		
+		String password = addedAccountName; // temporarily setting the new user's password to addedAccountName
+		
+		HttpSession session = req.getSession();
+		User sessionUser = (User) session.getAttribute("user");
+		System.out.println(sessionUser);
+		System.out.println(sessionUser.getUserID());
+		int instID = sessionUser.instID();
+		System.out.println("instID for session is " + sessionUser.instID());
+		AdminController controller = new AdminController();
+		
+		if (!addedAccountName.isEmpty()) {
+			controller.addUser(instID, addedAccountName, password, permissions);
+		}
+		if (!newCourse.isEmpty()) {
+			controller.addCourse(sessionUser, newCourse);
+		}
+		 //TODO - Deal with section
+		
+		// Just forward to the adminHomePage
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}
 }

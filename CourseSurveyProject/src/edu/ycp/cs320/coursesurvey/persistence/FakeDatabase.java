@@ -134,6 +134,7 @@ public class FakeDatabase  implements IDatabase{
 		courseTable.get(newID-1).setTerm(term);
 		
 		System.out.println(title + " has been added to the courses");
+		System.out.println("ID for instID is" + (instID-1));
 		
 		return newID;
 	}
@@ -173,9 +174,10 @@ public class FakeDatabase  implements IDatabase{
 		newSurvey.setCreatorID(creatorID);
 		newSurvey.setSurveyName(surveyName);
 		
+		// TODO - fix me ! out of bounds
 		//create responseIndex table and template table based on newID
-		this.templateTables.get(instID-1).add(new ArrayList<Template>());
-		this.responseIndexTables.get(instID-1).add(new ArrayList<ResponseIndex>());
+		//this.templateTables.get(instID-1).add(new ArrayList<Template>());
+		//this.responseIndexTables.get(instID-1).add(new ArrayList<ResponseIndex>());
 		
 		surveyTable.add(newSurvey);
 		
@@ -184,6 +186,14 @@ public class FakeDatabase  implements IDatabase{
 		return newID;
 	}
 	
+	@Override 
+	public Survey findSurveyByID (int instID, int surveyID) {
+		ArrayList<Survey> surveyTable = this.surveyTables.get(instID-1);
+		Survey survey = surveyTable.get(surveyID-1);
+		System.out.println("Survey name is " + survey.getSurveyName());
+		return survey;
+	}
+	// Option arguement is for multiple choice, 5 element array with different multiple choice options in there
 	@Override
 	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
 		ArrayList<Template> template = this.templateTables.get(instID-1).get(surveyID-1);
@@ -207,16 +217,16 @@ public class FakeDatabase  implements IDatabase{
 	
 	//due to maintaining anonymity of the user, we cannot keep track of which table an individual users responses are in, so all responses must be submitted 
 	//bundled into an arraylist
+	@Override
 	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses){
 		ArrayList<ResponseIndex> responseIndex = this.responseIndexTables.get(instID-1).get(surveyID-1);
 		ArrayList<ArrayList<Response>> rTables = this.responseTables.get(instID-1).get(surveyID-1);
-		Institution institute = this.institutionTable.get(instID-1);
 		
 		int newID = rTables.size()+1;
 		//adds response to the tables
 		rTables.add(responses);
 		
-		//create and add responseIndex entry for finding the repsonse later
+		//create and add responseIndex entry for finding the response later
 		ResponseIndex newEntry = new ResponseIndex();
 		newEntry.setResponseID(newID);
 		
@@ -226,8 +236,17 @@ public class FakeDatabase  implements IDatabase{
 	
 	
 	@Override
-	public Course findCourse(String course) {
-		// TODO Auto-generated method stub
+	public Course findCourseByName(String course, int instID) {
+		ArrayList<Course> courseTable = this.courseTables.get(instID-1);
+		System.out.println("finding course by name instID is " + (instID-1));
+		for (Course courseItr : courseTable) {
+			System.out.println("itr name for course find " + courseItr.getCourseTitle());
+			System.out.println("name for course to find is " + course); 
+			if (courseItr.getCourseTitle().equals(course)){
+				System.out.println("found course!");
+				return courseItr;
+			}
+		}
 		return null;
 	}
 	@Override
@@ -235,14 +254,15 @@ public class FakeDatabase  implements IDatabase{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public void addSurvey(String surveyName) {
-		// TODO Auto-generated method stub
 		
-	}
 	@Override
 	public void createTables() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public Boolean clearDB(){
+		return false;
 	}
 }

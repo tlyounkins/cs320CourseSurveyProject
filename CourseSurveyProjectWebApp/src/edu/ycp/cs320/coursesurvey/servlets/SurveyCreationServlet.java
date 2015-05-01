@@ -6,10 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
 import edu.ycp.cs320.coursesurvey.controller.SurveyCreationController;
 import edu.ycp.cs320.coursesurvey.model.Institution;
+import edu.ycp.cs320.coursesurvey.model.User;
 
 public class SurveyCreationServlet extends HttpServlet {
 	
@@ -26,9 +28,16 @@ public class SurveyCreationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("Do post survey running");
 
-		String courseID = req.getParameter("courseID");
-		String sectionID = req.getParameter("sectionID");
-		String surveyName = req.getParameter("surveyName");
+		HttpSession session = req.getSession();
+		User sessionUser =  (User) session.getAttribute("user");
+		if (sessionUser == null) {
+			System.out.println("Please log into your account");
+		}
+		System.out.println("Current session user for create survey page " + sessionUser.getUserName());
+		
+		String courseID = req.getParameter("CourseId");
+		String sectionID = req.getParameter("SectionId");
+		String surveyName = req.getParameter("SurveyName");
 
 		String question1_type = req.getParameter("Question1_type");
 		System.out.println("Question1 is: " + question1_type);
@@ -47,8 +56,8 @@ public class SurveyCreationServlet extends HttpServlet {
 		
 		//initializes the controller class
 		SurveyCreationController controller = new SurveyCreationController();
-		
-		controller.createSurvey(courseID,sectionID,surveyName);
+		System.out.println("survey creation serv course id is " + courseID);
+		controller.createSurvey(courseID, sectionID, sessionUser, surveyName);
 		//req.setAttribute("create", controller);
 		
 		//goes to admin home page if survey has been created 

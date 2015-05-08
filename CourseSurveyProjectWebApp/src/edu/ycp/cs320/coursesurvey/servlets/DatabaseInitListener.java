@@ -12,12 +12,12 @@ public class DatabaseInitListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent e) {
 		// Initialize database
 		System.out.println("Initializing database!");
-		DatabaseProvider.setInstance(new FakeDatabase());
+		//DatabaseProvider.setInstance(new FakeDatabase());
 
-		//DatabaseProvider.setInstance(new SqliteDatabase());
+		DatabaseProvider.setInstance(new SqliteDatabase());
 	}
 	
-		public void contextDestroyed(ServletContextEvent e) {
+	public void contextDestroyed(ServletContextEvent e) {
 		// Nothing to do
 	}
 

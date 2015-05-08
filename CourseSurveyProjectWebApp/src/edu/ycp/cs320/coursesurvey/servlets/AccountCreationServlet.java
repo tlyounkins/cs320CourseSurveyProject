@@ -9,12 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.controller.AccountCreationController;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
-import edu.ycp.cs320.coursesurvey.persistence.FakeDatabase;
-import edu.ycp.cs320.coursesurvey.persistence.IDatabase;
 
 public class AccountCreationServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -60,7 +57,7 @@ public class AccountCreationServlet extends HttpServlet{
 			User sessionUser = (User) DatabaseProvider.getInstance().findUserAccountByName(accountName, instId);
 			
 			session.setAttribute("user", sessionUser);
-			System.out.println("testing sessionUser name " + sessionUser.getUserName());
+			//System.out.println("testing sessionUser name " + sessionUser.getUserName());
 			System.out.println("done" );
 
 			resp.sendRedirect(req.getContextPath() + "/adminHomePage");

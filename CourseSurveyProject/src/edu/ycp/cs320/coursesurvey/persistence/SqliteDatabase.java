@@ -228,17 +228,177 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
+	//works by taking all the responses for one survey from one user to ensure they are matched and submits them
 	@Override
-	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses){
-		//TODO
+	public void submitResponse(final int instID, final int surveyID, ArrayList<Response> responses){
+		final int newID = 1;
+		///createResponseTable(instID, surveyID, newID);
+		
+		
+		for (int i = 0; i < responses.size(); i++){
+			final int x = i;
+			final int questionNum = responses.get(i).getQuestionNum();
+			final String answer = responses.get(i).getAnswer();
+			
+			executeTransaction(new Transaction<Integer>() {
+				@Override
+				public Integer execute(Connection conn) throws SQLException {
+
+					PreparedStatement insert = null;
+					PreparedStatement stmt = null;
+					ResultSet resultSet = null;
+				
+					try {
+						insert = conn.prepareStatement("insert into response_"+ instID + "_" + surveyID + "_" + newID + " values (?, ?)");
+							//creates reference to correct course Table
+							
+							//set values for new course
+							insert.setInt(1, questionNum);
+							insert.setString(2, answer);
+							insert.addBatch();
+						insert.executeBatch();
+						
+						stmt = conn.prepareStatement(
+								"select response_"+ instID + "_" + surveyID + "_" + newID + ".* " +
+								"from response_"+ instID + "_" + surveyID + "_" + newID +
+								" where response_" + instID + "_" + surveyID + "_" + newID +".questionNum" +" = ? "
+						);
+						stmt.setInt(1, x);
+						
+						resultSet = stmt.executeQuery();
+
+						System.out.println("Response submited is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getString(2));
+						
+						return newID;
+					} finally {
+						DBUtil.closeQuietly(insert);
+						DBUtil.closeQuietly(resultSet);
+						DBUtil.closeQuietly(stmt);
+					}	
+				}
+			});
+
+		}
+	}
+	
+	public int addToResponseIndex(final int instID, final int surveyID){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				PreparedStatement insert = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select max(responseID) as max from responseIndex_" + instID + "_" + surveyID   //should obtain the largest institution ID
+					);
+					
+					int result;
+					
+					resultSet = stmt.executeQuery();
+					result = resultSet.getInt(1) + 1;
+					
+					insert = conn.prepareStatement("insert into responseIndex_"+ instID + "_" + surveyID +" values (?)");
+					//creates reference to correct course Table
+					
+					//set values for new course
+					insert.setInt(1, result);
+					insert.addBatch();
+					insert.executeBatch();
+					
+					System.out.println("The max val is:" + result);
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(insert);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 	
 	
 	@Override
-	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
-		//TODO
+	public void addToTemplate(final int instID, final int surveyID, final int questionType, final String question, final String options[]){
+		final int newID = getNumQuestions(instID, surveyID) + 1;
+		
+		executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+
+				PreparedStatement insert = null;
+
+				//for testing
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+			
+				try {
+					insert = conn.prepareStatement("insert into template_"+ instID + "_" + surveyID +" values (?, ?, ?, ?, ?, ?, ?, ?)");
+						//creates reference to correct course Table
+						
+						//set values for new course
+						insert.setInt(1, newID);
+						insert.setInt(2, questionType);
+						insert.setString(3, question);
+						insert.setString(4, options[0]);
+						insert.setString(5, options[1]);
+						insert.setString(6, options[2]);
+						insert.setString(7, options[3]);
+						insert.setString(8, options[4]);
+						insert.addBatch();
+					insert.executeBatch();
+					
+					stmt = conn.prepareStatement(
+							"select template_"+ instID + "_" + surveyID +".*" +
+							"from template_"+ instID + "_" + surveyID +
+							" where template_" + instID + "_" + surveyID +".questionNum" +" = ? "
+					);
+					stmt.setInt(1, newID);
+					
+					resultSet = stmt.executeQuery();
+
+					System.out.println("Question added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getInt(2) +" "+ resultSet.getString(3) + " " + resultSet.getString(4)+ " " + resultSet.getString(5)+ " " + resultSet.getString(6) + " " + resultSet.getString(7)+ " " + resultSet.getString(8));
+					
+					return newID;
+				} finally {
+					DBUtil.closeQuietly(insert);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}	
+			}
+		});
+
 	}
 	
+	public int getNumQuestions(final int instID, final int surveyID){
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select max(questionNum) as max from template_" + instID +"_"+ surveyID   //should obtain the largest question number
+					);
+					
+					int result;
+					
+					resultSet = stmt.executeQuery();
+					result = resultSet.getInt(1);
+					
+					System.out.println("The max val is:" + result);
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	/*
 	public User findUserAccountByName (final String accountName, int instID) {
 		return executeTransaction(new Transaction<User>() {
@@ -467,7 +627,7 @@ public class SqliteDatabase implements IDatabase{
 									"    responseID integer primary key" +
 							")");
 					stmt1.executeUpdate();
-
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
@@ -476,7 +636,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	
-	public void createResponseTable(final int responseTableID) {
+	public void createResponseTable(final int instID, final int surveyID, final int responseID) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -484,7 +644,7 @@ public class SqliteDatabase implements IDatabase{
 				
 				try {
 					stmt1 = conn.prepareStatement(
-							"create table response_" + responseTableID +  " (" +
+							"create table response_" + instID + "_" + surveyID + "_" + responseID +  " (" +
 									"    questionNum integer primary key," +
 									"    answer varchar(255)" +
 							")");
@@ -909,7 +1069,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 		return newID;
 	}
-	
+
 	@Override
 	public Boolean clearDB(){
 		return executeTransaction(new Transaction<Boolean>() {

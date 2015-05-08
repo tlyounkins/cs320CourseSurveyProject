@@ -22,13 +22,15 @@ public class Main {
 		
 		// Start the server
 		server.start();
-		//SQLTest.test2();
 		//SQLTest.test1();
 		//SQLTest.test2();
 		//SQLTest.test3();
 		//SQLTest.test4();
 		//SQLTest.test5();
 		//SQLTest.test6();
+		//SQLTest.test7();
+		SQLTest.test8();
+
 		
 		// Wait for the user to type "quit"
 		System.out.println("Web server started, type quit to shut down");

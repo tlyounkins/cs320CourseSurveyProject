@@ -36,22 +36,15 @@ public class AdminHomePageServlet extends HttpServlet {
 		
 		// temporarily setting the new user's password to addedAccountName + "Password1"
 		// to satisfy login password requirements
-		String password = addedAccountName + "Password1";
+		String password = "Password1";
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
 		int instID = sessionUser.instID();
 
-		//User adminUser = (User) session.getAttribute("user");
-		//System.out.println(adminUser);
-		//System.out.println(adminUser.getUserID());
-		//int instID = adminUser.instID();
 		String name = sessionUser.getUserName();
 		req.setAttribute("admin", name);
-		//session.getAttribute("institution") returns null
-		//String inst = (String) session.getAttribute("institution");
-	//	System.out.println("inst name is " +inst);
-		String inst = "YCP";
+
 		AdminController controller = new AdminController();
 		if (!addedAccountName.isEmpty()) {
 			//if (controller.userExists(inst, addedAccountName)) {
@@ -66,7 +59,6 @@ public class AdminHomePageServlet extends HttpServlet {
 		if (!newCourse.isEmpty()) {
 			controller.addCourse(sessionUser, newCourse);
 		}
-		 //TODO - Deal with section
 		
 		// Just forward to the adminHomePage
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);

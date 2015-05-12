@@ -30,12 +30,22 @@
             		        <tr>
             		            <td class="label">Add Course:</td>
             		            <td><input type="text" name="courseID" size="16" value="${courseID}" /></td>
-            		            <td class="label">Add Section:</td>
-            		            <td><input type="text" name="sectionID" size="16" value="${sectionID}" /></td>
+            		            <td class="label">Add Department:</td>
+            		            <td><input type="text" name="deptID" size="16" value="${deptID}" /></td>
+            		        </tr>
+            		        <tr>
+            		            <td class="label">Add Year:</td>
+            		            <td><input type="text" name="yearID" size="16" value="${yearID}" /></td>
+            		            <td class="label">Add Term:</td>
+            		            <td><input type="text" name="termID" size="16" value="${termID}" /></td>
             		        </tr>
             		        <tr>
             		            <td class="label">Add User:</td>
             		            <td><input type="text" name="accountName" size="16" value="${accountName}" /></td>
+            		            <td class="label">New User's Password:</td>
+            		            <td><input type="text" name="newuserPassword" size="16" value="${newuserPassword}" /></td>
+            		        </tr>
+            		        <tr>
     		        			<td class = "label">Permissions:</td>
 								<td> <select name="permissions"> 
     							<option value="professor">Professor</option>

@@ -80,7 +80,8 @@ public class LoginController {
 	
 	public User createUserSession (String accountName, String instName) {
 		if (DatabaseProvider.getInstance().findInstitution(instName) == null) {
-			DatabaseProvider.getInstance().addInstitution(instName);
+			//DatabaseProvider.getInstance().addInstitution(instName);
+			return null;
 		}
 		int instID = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
 		User sessionUser = DatabaseProvider.getInstance().findUserAccountByName(accountName, instID);

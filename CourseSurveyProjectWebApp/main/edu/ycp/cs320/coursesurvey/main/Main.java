@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		Server server = new Server(8081);
 
-		// Create and register a webapp context
+		// Create and register a web app context
 		WebAppContext handler = new WebAppContext();
 		handler.setContextPath("/survey");
 		handler.setWar("./war"); // web app is in the war directory of the project

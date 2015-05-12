@@ -822,7 +822,8 @@ public class SqliteDatabase implements IDatabase{
 					insert.setString(2, title);
 					insert.setString(3, dept);
 					insert.setInt(4, year);
-					insert.setString(5, term);
+					insert.setInt(5, 101);
+					insert.setString(6, term);
 					insert.addBatch();
 
 					insert.executeBatch();
@@ -836,7 +837,7 @@ public class SqliteDatabase implements IDatabase{
 
 					resultSet = stmt.executeQuery();
 
-					System.out.println("Course added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getString(2) +" "+ resultSet.getInt(3) +" "+ resultSet.getInt(4) +" "+ resultSet.getInt(5)+" "+ resultSet.getInt(6));
+					System.out.println("Course added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getString(2) +" "+ resultSet.getString(3) +" "+ resultSet.getInt(4) +" "+ resultSet.getInt(5)+" "+ resultSet.getString(6));
 
 					return true;
 				} finally {

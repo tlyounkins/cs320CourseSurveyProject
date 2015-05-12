@@ -42,9 +42,9 @@ public class AdminHomePageServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
+
 		String name = sessionUser.getUserName();
 		req.setAttribute("admin", name);
-		
 		AdminController controller = new AdminController();
 		
 		if (!newCourse.isEmpty() && !newDepartment.isEmpty() && !newYear.isEmpty() && !newTerm.isEmpty()) {
@@ -61,7 +61,6 @@ public class AdminHomePageServlet extends HttpServlet {
 			
 			}
 		}
-		
 		
 		// Just forward to the adminHomePage
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);

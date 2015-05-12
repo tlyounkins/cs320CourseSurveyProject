@@ -1,7 +1,6 @@
 package edu.ycp.cs320.coursesurvey.controller;
 
 import edu.ycp.cs320.coursesurvey.model.User;
-import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 public class AdminController {
@@ -18,9 +17,17 @@ public class AdminController {
 	}
 	public void addCourse (User sessionUser, String title, String dept, String newyear, String term) {
 		int instID = sessionUser.instID();
+		
 		int year = Integer.parseInt(newyear);
 		DatabaseProvider.getInstance().addCourse(instID, title, dept, year, term);
 		
+		if (DatabaseProvider.getInstance().findCourseByName(title, instID) == null) {
+			System.out.println("Course Title not found adding Title to Database");
+			DatabaseProvider.getInstance().addCourse(instID, title, dept, year, term);
+		}
+		else {
+			System.out.println("Course already exists");
+		}
 	}
 
 	public boolean userExists(User adminUser, String userName) {
@@ -33,7 +40,7 @@ public class AdminController {
 		} else {
 			return false;
 		}
-		
+
 	}
-	
+
 }

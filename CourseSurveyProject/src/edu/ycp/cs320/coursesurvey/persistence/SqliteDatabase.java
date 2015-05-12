@@ -526,7 +526,7 @@ public class SqliteDatabase implements IDatabase{
 									"    userPassword varchar(16)," +
 									"    instTableID integer," +
 									"    student BOOLEAN," +
-									"    proffesor BOOLEAN," +
+									"    professor BOOLEAN," +
 									"    admin BOOLEAN" +
 							")");
 					stmt1.executeUpdate();

@@ -9,17 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-/*import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.persist.DBUtil;
-import edu.ycp.cs320.booksdb.persist.InitialData;
-import edu.ycp.cs320.booksdb.persist.SqliteDatabase.Transaction;*/
 import edu.ycp.cs320.coursesurvey.model.Response;
 import edu.ycp.cs320.coursesurvey.model.Survey;
 import edu.ycp.cs320.coursesurvey.model.User;
@@ -90,10 +79,39 @@ public class SqliteDatabase implements IDatabase{
 	}
 
 	@Override
-	public Institution findInstitution(String instName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Institution findInstitution(final String instName) {
+		
+		return executeTransaction(new Transaction <Institution>() {
+			@Override
+			public Institution execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select *" +
+							"  from institution " +
+							" where institution.name = ?" 
+					);
+					
+					stmt.setString(1, instName);
+					
+					Institution result = new Institution ();
+					
+					resultSet = stmt.executeQuery();
+
+					result.setInstID(resultSet.getInt(1));
+					result.setName(resultSet.getString(2));
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
+	
 
 	@Override
 	public int addUser(final String userName, final String password, final int instID, final boolean student, final boolean prof, final boolean admin){
@@ -208,6 +226,7 @@ public class SqliteDatabase implements IDatabase{
 				ResultSet resultSet = null;
 				
 				try {
+					System.out.println("trying getnextID");
 					stmt = conn.prepareStatement(
 							"select max(instID) as max from institution"   //should obtain the largest institution ID
 					);

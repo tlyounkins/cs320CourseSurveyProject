@@ -29,7 +29,7 @@ public class Main {
 		//SQLTest.test5();
 		//SQLTest.test6();
 		//SQLTest.test7();
-		SQLTest.test8();
+		//SQLTest.test8();
 
 		
 		// Wait for the user to type "quit"

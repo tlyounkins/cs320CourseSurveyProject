@@ -57,6 +57,7 @@ public class AccountCreationServlet extends HttpServlet{
 		if (controller.passwordsMatching() && controller.done()){
 			//Create new (User) session 
 			int instId = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
+			System.out.println(" instId is " +instId);
 			User sessionUser = (User) DatabaseProvider.getInstance().findUserAccountByName(accountName, instId);
 			
 			session.setAttribute("user", sessionUser);

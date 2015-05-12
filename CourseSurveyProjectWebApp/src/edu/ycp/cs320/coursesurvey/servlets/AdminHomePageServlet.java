@@ -49,9 +49,6 @@ public class AdminHomePageServlet extends HttpServlet {
 		req.setAttribute("admin", name);
 		AdminController controller = new AdminController();
 		
-		if (!newCourse.isEmpty()) {
-			controller.addCourse(sessionUser, newCourse);
-		}
 	
 		if (!addedAccountName.isEmpty() && !newuserPassword.isEmpty()) {
 			//if (controller.userExists(inst, addedAccountName)) {

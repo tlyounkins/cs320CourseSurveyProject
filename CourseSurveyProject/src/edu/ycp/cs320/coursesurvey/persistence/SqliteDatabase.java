@@ -364,7 +364,7 @@ public class SqliteDatabase implements IDatabase{
 					insert = conn.prepareStatement("insert into template_"+ instID + "_" + surveyID +" values (?, ?, ?, ?, ?, ?, ?, ?)");
 					//creates reference to correct course Table
 
-					//set values for new course
+					//set values for new survey
 					insert.setInt(1, newID);
 					insert.setInt(2, questionType);
 					insert.setString(3, question);
@@ -773,13 +773,13 @@ public class SqliteDatabase implements IDatabase{
 						result.setSchoolYear(resultSet.getInt(index++));
 						resultSet.getInt(index++);
 						result.setTerm(resultSet.getString(index++));
-					
+
 					}
 					else {
 						return null;
 					}
 					return result;
-				
+
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -788,7 +788,7 @@ public class SqliteDatabase implements IDatabase{
 		});
 
 	}
-		
+
 	@Override
 	public Section findSection(String section) {
 		// TODO Auto-generated method stub
@@ -1051,7 +1051,7 @@ public class SqliteDatabase implements IDatabase{
 						return null;
 					}
 					return result;
-				
+
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -1186,8 +1186,47 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	@Override
-	public Survey findSurveyByID(int instID, int surveyID) {
-		// TODO Auto-generated method stub
-		return null;
+	public Survey findSurveyByID(final int instID, final int surveyID) {
+		return executeTransaction(new Transaction <Survey>() {
+			@Override
+			public Survey execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"SELECT *" +
+									"  FROM survey_" + instID +
+									"  WHERE survey_" + instID +".surveyID = ?" 
+							);
+
+					stmt.setInt(1, surveyID);
+
+					Survey result = new Survey ();
+
+					resultSet =  stmt.executeQuery();
+					int index = 1;
+
+					if (resultSet.next()) {
+						System.out.println("resultSet has next");
+						result.setCourseID(resultSet.getInt(index++));
+						result.setCreatorID(resultSet.getInt(index++));
+						result.setSurveyName(resultSet.getString(index++));
+						result.setSurveyID(resultSet.getInt(index++));
+						System.out.println("returned survey name is " + result.getSurveyName() );
+					}
+					else {
+						System.out.println("Didn't find Survey with that name");
+						return null;
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+
+
 	}
 }

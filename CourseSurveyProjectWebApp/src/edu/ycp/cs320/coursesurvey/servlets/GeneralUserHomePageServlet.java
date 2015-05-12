@@ -15,7 +15,7 @@ public class GeneralUserHomePageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-	
+
 		req.getRequestDispatcher("/_view/generalUserHomePage.jsp").forward(req, resp);
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 

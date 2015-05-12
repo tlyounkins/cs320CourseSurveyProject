@@ -17,10 +17,12 @@ public class AdminHomePageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
 		String name = sessionUser.getUserName();
 		req.setAttribute("admin", name);
+
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}
 	

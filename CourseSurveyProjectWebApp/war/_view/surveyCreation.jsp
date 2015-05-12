@@ -31,10 +31,6 @@
     		          <td><input type="text" name="CourseId" required size="16" value="${courseID}" /></td>
     		        </tr>
     		        <tr>
-    		          <td class="label">Section Id:</td>
-    		          <td><input type="text" name="SectionId" required size="16" value="${sectionID}" /></td>
-    		        </tr>
-    		        <tr>
     		          <td class="label">Survey Name:</td>
     		          <td><input type="text" name="SurveyName" required size="16" value="${surveyName}" /></td>
     		        </tr>

@@ -5,27 +5,21 @@ import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 public class SurveyCreationController {
 	boolean done;
-	public void createSurvey(String course, String section, User adminUser, String surveyName) {
+	public void createSurvey(String course, String section, User user, String surveyName) {
 		System.out.println("survey creation controller running");
-	
-	//TODO make it so that this will choose a specific inst  and course
-		
-		// Check if course and section to create a survey for exists. 
-		
-		if (DatabaseProvider.getInstance().findCourseByName(course, adminUser.instID())!=null) { 
-				//&& DatabaseProvider.getInstance().findSection(section) != null) {
-			int courseID = DatabaseProvider.getInstance().findCourseByName(course, adminUser.instID()).getCourseID();
+
+		// Check if course exists 
+		if (DatabaseProvider.getInstance().findCourseByName(course, user.instID())!=null) { 
+			int courseID = DatabaseProvider.getInstance().findCourseByName(course, user.instID()).getCourseID();
 			System.out.println("courseID found is " + courseID);
 			
-			// TODO - Deal with section
-			//int sectionID = DatabaseProvider.getInstance().findSection(section).getSectID();
-
-		// Add survey
+			//Create new Survey and Save ID
+			int newSurveyID = DatabaseProvider.getInstance().addSurvey(user.instID(), courseID, user.getUserID(), surveyName);
+			done = true;
+			System.out.println("survey sucessfully created!");
+			
+			System.out.println("New Survey ID is" + DatabaseProvider.getInstance().findSurveyByID(user.instID(), newSurveyID));
 		
-		int newSurveyID = DatabaseProvider.getInstance().addSurvey(adminUser.instID(), courseID, adminUser.getUserID(), surveyName);
-		done = true;
-		System.out.println("survey sucessfully created!");
-		DatabaseProvider.getInstance().findSurveyByID(adminUser.instID(), newSurveyID);
 		} else {
 			done = false;
 		}

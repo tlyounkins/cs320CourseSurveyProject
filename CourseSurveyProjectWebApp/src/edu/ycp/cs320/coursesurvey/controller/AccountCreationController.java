@@ -31,21 +31,21 @@ public class AccountCreationController {
 		this.checkPassword(password, passwordCheck);
 		if (passwordMatch) {
 
-			int id = -1;
+			int id;
 			//create a new institution if it does not exist
 			if ((DatabaseProvider.getInstance().findInstitution(instName)) == null){
+				instExists = false;
 				id = DatabaseProvider.getInstance().addInstitution(instName);	
 				DatabaseProvider.getInstance().addUser(accountName, password, id, false, false, true);
+				System.out.println("created User and Institution");
+				finished = true;
 			}
 			else {
 				//variable will be set to true if the institution already exists and the account will not be created
+				System.out.println("institution already exists in database");
 				instExists = true;
 			}
 			
-			//this.institute.createAdminAccount(accountName, password);
-			instExists = false;
-			finished = true;
-			System.out.println("created");
 		}
 	}
 

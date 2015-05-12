@@ -43,7 +43,6 @@
 						<td> <select name="Question1_type"> 
     					<option value="Freeform">FreeForm</option>
     					<option value="Multiple_Choice">Multiple Choice</option>
-				   	 	<option value="Fill_in_the_blank">Fill in the Blank</option>
 						</select> </td>
 					</tr>
 					<tr> 
@@ -55,7 +54,6 @@
 						<td> <select name="Question2_type"> 
     					<option value="Freeform">FreeForm</option>
     					<option value="Multiple_Choice">Multiple Choice</option>
-				   	 	<option value="Fill_in_the_blank">Fill in the Blank</option>
 						</select> </td>
 					</tr>
 					<tr> 
@@ -67,7 +65,6 @@
 						<td> <select name="Question3_type"> 
     					<option value="Freeform">FreeForm</option>
     					<option value="Multiple_Choice">Multiple Choice</option>
-				   	 	<option value="Fill_in_the_blank">Fill in the Blank</option>
 						</select> </td>
 					</tr>
 					<tr> 

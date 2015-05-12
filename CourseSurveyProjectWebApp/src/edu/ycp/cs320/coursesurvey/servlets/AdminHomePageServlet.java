@@ -24,31 +24,38 @@ public class AdminHomePageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 			
-		String addedAccountName = req.getParameter("accountName");
 		String newCourse = req.getParameter("courseID");
-		String newSection = req.getParameter("sectionID");
+		String newDepartment = req.getParameter("deptID");
+		String newYear = req.getParameter("yearID");
+		String newTerm = req.getParameter("termID");
+		String addedAccountName = req.getParameter("accountName");
+		String newuserPassword = req.getParameter("newuserPassword");
 		String permissions = req.getParameter("permissions");
-		System.out.println("AdminHomePageServlet:");
-		System.out.println("addedAccoutName from form is  " +addedAccountName);
-		System.out.println("newCourse from form is " +newCourse);
-		System.out.println("newSection from form is " + newSection);
-		System.out.println("permission from form is " +permissions);
 		
-		// temporarily setting the new user's password to addedAccountName + "Password1"
-		// to satisfy login password requirements
-		String password = "Password1";
+		System.out.println("AdminHomePageServlet:");
+		System.out.println("newCourse from form is " +newCourse);
+		System.out.println("newDepartment from form is " +newDepartment);
+		System.out.println("newYear from form is " +newYear);
+		System.out.println("newTerm from form is " +newTerm);
+		System.out.println("addedAccoutName from form is  " +addedAccountName);
+		System.out.println("newuserPassword from form is " +newuserPassword);
+		System.out.println("permission from form is " +permissions);
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
-		int instID = sessionUser.instID();
+		//int instID = sessionUser.instID();
 
 		String name = sessionUser.getUserName();
 		req.setAttribute("admin", name);
-
 		AdminController controller = new AdminController();
-		if (!addedAccountName.isEmpty()) {
+		
+		if (!newCourse.isEmpty()) {
+			controller.addCourse(sessionUser, newCourse);
+		}
+	
+		if (!addedAccountName.isEmpty() && !newuserPassword.isEmpty()) {
 			//if (controller.userExists(inst, addedAccountName)) {
-				controller.addUser(sessionUser, addedAccountName, password, permissions);
+				controller.addUser(sessionUser, addedAccountName, newuserPassword, permissions);
 			/*} else {
 				String error = "Errors :";
 					error += "*This user already exists, please enter a new user name \n";

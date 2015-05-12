@@ -1,7 +1,6 @@
 package edu.ycp.cs320.coursesurvey.controller;
 
 import edu.ycp.cs320.coursesurvey.model.User;
-import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 

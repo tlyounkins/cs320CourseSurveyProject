@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		//System.out.println("In LoginServlet doPost");
+		
 		//initialize variables to receive input from form
 		String instName = req.getParameter("institutionName");
 		String accountName = req.getParameter("accountName");
@@ -40,13 +40,12 @@ public class LoginServlet extends HttpServlet {
 		//Initializes the controller class
 		LoginController controller = new LoginController();
 		System.out.println("Login Controller created");
+		
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
 		
 		session.setAttribute("user", controller.createUserSession(accountName, instName));
 		System.out.println("Session Created");
-		
-	
 		
 		User sessionUser = (User) session.getAttribute("user");
 		

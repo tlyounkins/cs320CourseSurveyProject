@@ -17,7 +17,7 @@ public class DatabaseInitListener implements ServletContextListener {
 		DatabaseProvider.setInstance(new SqliteDatabase());
 	}
 	
-		public void contextDestroyed(ServletContextEvent e) {
+	public void contextDestroyed(ServletContextEvent e) {
 		// Nothing to do
 	}
 

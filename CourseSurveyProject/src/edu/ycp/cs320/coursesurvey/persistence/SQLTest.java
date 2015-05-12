@@ -2,10 +2,7 @@ package edu.ycp.cs320.coursesurvey.persistence;
 
 import java.util.ArrayList;
 
-import edu.ycp.cs320.coursesurvey.persistence.*;
 import edu.ycp.cs320.coursesurvey.model.*;
-
-//import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 public class SQLTest {
 	

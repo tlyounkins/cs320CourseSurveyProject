@@ -745,26 +745,50 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
-	/*	
-	// The main method creates the database tables and loads the initial data.
-	//For testing only
-	public static void main(String[] args) throws IOException {
-		System.out.println("Creating tables...");
-		SqliteDatabase db = new SqliteDatabase();
-		db.createTables();
-
-		//System.out.println("Loading initial data...");
-		//db.loadInitialData();
-
-		System.out.println("Success!");
-	}
-	 */
 
 	@Override
-	public Course findCourseByName(String course, int instID) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course findCourseByName(final String course, final int instID) {
+		return executeTransaction(new Transaction <Course>() {
+			@Override
+			public Course execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"SELECT *" +
+									"  FROM course_" + instID + 
+									"  WHERE course_" + instID +".courseTitle = ?" 
+							);
+					stmt.setString(1, course);
+
+					Course result = new Course ();
+
+					resultSet = stmt.executeQuery();
+					int index = 1;
+					if (resultSet.next()) {
+						result.setCourseID(resultSet.getInt(index++));
+						result.setCourseTitle(resultSet.getString(index++));
+						result.setDept(resultSet.getString(index++));
+						result.setSchoolYear(resultSet.getInt(index++));
+						resultSet.getInt(index++);
+						result.setTerm(resultSet.getString(index++));
+					
+					}
+					else {
+						return null;
+					}
+					return result;
+				
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+
 	}
+		
 	@Override
 	public Section findSection(String section) {
 		// TODO Auto-generated method stub
@@ -799,7 +823,6 @@ public class SqliteDatabase implements IDatabase{
 					insert.setString(3, dept);
 					insert.setInt(4, year);
 					insert.setString(5, term);
-					insert.setInt(4, newID);
 					insert.addBatch();
 
 					insert.executeBatch();

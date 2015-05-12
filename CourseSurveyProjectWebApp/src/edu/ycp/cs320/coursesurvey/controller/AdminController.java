@@ -32,14 +32,13 @@ public class AdminController {
 	public boolean userExists(User adminUser, String userName) {
 		int instId = adminUser.instID();
 		System.out.println("inst ID is " + instId);
-		// If the userName does not exist in the database, then return true
+		// If the userName does not exist in the database,
+		// meaning findUserAccountByName returns null, then return false
 		// it can be added
-		if (DatabaseProvider.getInstance().findUserAccountByName(userName, instId) != null) {
-			return true;
-		} else {
+		if (DatabaseProvider.getInstance().findUserAccountByName(userName, instId) == null) {
 			return false;
+		} else {
+			return true;
 		}
-
 	}
-
 }

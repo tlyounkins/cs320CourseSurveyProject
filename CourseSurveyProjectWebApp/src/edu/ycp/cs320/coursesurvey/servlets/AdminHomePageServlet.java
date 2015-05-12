@@ -16,7 +16,13 @@ public class AdminHomePageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// Just forward to the view
+		HttpSession session = req.getSession();
+		User sessionUser = (User) session.getAttribute("user");
+		if (sessionUser == null) {
+			System.out.println("no session user, forwarding to login page");
+			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+			return;
+		}
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}
 	
@@ -42,17 +48,15 @@ public class AdminHomePageServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
-
+	
 		String name = sessionUser.getUserName();
 		req.setAttribute("admin", name);
 		AdminController controller = new AdminController();
 		
-		if (!newCourse.isEmpty() && !newDepartment.isEmpty() && !newYear.isEmpty() && !newTerm.isEmpty()) {
-			controller.addCourse(sessionUser, newCourse, newDepartment, newYear, newTerm);
-		}
+	
 	
 		if (!addedAccountName.isEmpty() && !newuserPassword.isEmpty()) {
-			if (controller.userExists(sessionUser, addedAccountName)) {
+			if (controller.userExists(sessionUser, addedAccountName) == false) {
 				controller.addUser(sessionUser, addedAccountName, newuserPassword, permissions);
 			} else {
 				String error = "Errors :";
@@ -60,6 +64,9 @@ public class AdminHomePageServlet extends HttpServlet {
 				req.setAttribute("errorMessage", error);
 			
 			}
+		}
+		if (!newCourse.isEmpty() && !newDepartment.isEmpty() && !newYear.isEmpty() && !newTerm.isEmpty()) {
+			controller.addCourse(sessionUser, newCourse, newDepartment, newYear, newTerm);
 		}
 		
 		// Just forward to the adminHomePage

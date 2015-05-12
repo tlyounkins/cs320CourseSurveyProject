@@ -16,13 +16,6 @@ public class AdminHomePageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		User sessionUser = (User) session.getAttribute("user");
-		if (sessionUser == null) {
-			System.out.println("no session user, forwarding to login page");
-			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
-			return;
-		}
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}
 	

@@ -21,13 +21,14 @@
             <header><h1>Web Survey</h1></header>
             
              <div id="content">
-              <h2 class = "label" > Welcome, ${user}</h2>
+              <h2> Welcome, ${admin}</h2>
               <c:if test="${! empty errorMessage}">
 				      <div class="error">${errorMessage}</div>
 				    </c:if>
   				 <form action="${pageContext.servletContext.contextPath}/adminHomePage" method="post">
             		    <table>
             		        <tr>
+            		        	
             		            <td class="label">Add Course:</td>
             		            <td><input type="text" name="courseID" size="16" value="${courseID}" /></td>
             		            <td class="label">Add Department:</td>
@@ -39,8 +40,8 @@
             		            <td class="label">Add Term:</td>
             		            <td><input type="text" name="termID" size="16" value="${termID}" /></td>
             		        </tr>
-            		       </table>
-            		       <table>
+            		    </table>
+            		    <table>
             		        <tr>
             		            <td class="label">Add User:</td>
             		            <td><input type="text" name="accountName" size="16" value="${accountName}" /></td>

@@ -42,7 +42,7 @@ td.label {
             		        </tr>
             		        <tr>
             		            <td class="label">Password:</td>
-            		            <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" size="16" value="${password}" /></td>
+            		            <td><input type="password" name="password" size="16" value="${password}" /></td>
             		        </tr>
             		    </table>
             	        <input name="Submit" type="submit" value="Login">

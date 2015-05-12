@@ -2,7 +2,7 @@ package edu.ycp.cs320.coursesurvey.model;
 
 public class Template {
 	private int questionNum;
-	private int questionType; // 1=Yes or No, 2=Multiple choice 3=Free form
+	private int questionType; // 1 = Multiple choice 2 = Free form
 	private String question;
 	private String option[] = new String[5];
 	

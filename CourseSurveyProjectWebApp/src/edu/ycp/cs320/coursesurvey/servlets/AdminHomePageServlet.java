@@ -1,6 +1,7 @@
 package edu.ycp.cs320.coursesurvey.servlets;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +19,8 @@ public class AdminHomePageServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
-		if (sessionUser == null) {
-			System.out.println("no session user, forwarding to login page");
-			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
-			return;
-		}
+		String name = sessionUser.getUserName();
+		req.setAttribute("admin", name);
 		req.getRequestDispatcher("/_view/adminHomePage.jsp").forward(req, resp);
 	}
 	
@@ -50,10 +48,9 @@ public class AdminHomePageServlet extends HttpServlet {
 		User sessionUser = (User) session.getAttribute("user");
 	
 		String name = sessionUser.getUserName();
-		req.setAttribute("admin", name);
-		AdminController controller = new AdminController();
+		session.setAttribute("admin", name);
 		
-	
+		AdminController controller = new AdminController();
 	
 		if (!addedAccountName.isEmpty() && !newuserPassword.isEmpty()) {
 			if (controller.userExists(sessionUser, addedAccountName) == false) {
@@ -62,7 +59,6 @@ public class AdminHomePageServlet extends HttpServlet {
 				String error = "Errors :";
 					error += "*This user already exists, please enter a new user name \n";
 				req.setAttribute("errorMessage", error);
-			
 			}
 		}
 		if (!newCourse.isEmpty() && !newDepartment.isEmpty() && !newYear.isEmpty() && !newTerm.isEmpty()) {

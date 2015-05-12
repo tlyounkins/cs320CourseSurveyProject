@@ -38,18 +38,15 @@
 				    		        </tr>
 				    		        <tr>
 				    		          <td class="label">Password:</td>
-				    		          <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
+				    		          <td><input type="password" name="password" onchange="form.passwordConfirm.pattern = this.value;" size="16" value="${password}" /></td>
 				    		        </tr>
 				    		        <tr>
 				    		          <td class="label">Confirm Password:</td>
-				    		          <td><input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="passwordConfirm" size="16" value="${passwordConfirm}" /></td>
+				    		          <td><input type="password" name="passwordConfirm" size="16" value="${passwordConfirm}" /></td>
 				    		        </tr>
 				                </table>
 					            <input name="Submit" type="submit" value="Create Institutional Account">
 					     </form>
-					     <p> 
-					     <button type="button" onclick="alert('Password must contain 1 upper case letter, 1 number, and be at least 6 characters in length')">Need Help?</button>
-					     </p>
 					     <p>
 					     Already have an account? Click <a href="${pageContext.servletContext.contextPath}/login">here</a>
 						</p>

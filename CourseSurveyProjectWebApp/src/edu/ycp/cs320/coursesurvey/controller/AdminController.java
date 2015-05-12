@@ -16,20 +16,15 @@ public class AdminController {
 		}
 		DatabaseProvider.getInstance().addUser(userName, password, instId, student, prof, admin);
 	}
-	public void addCourse (User sessionUser, String title) {
+	public void addCourse (User sessionUser, String title, String dept, String newyear, String term) {
 		int instID = sessionUser.instID();
-		// TODO - Get dept, year and term from AdminHomePage
-		String dept = "CS";
-		int year = 2015;
-		String term = "Spring";
+		int year = Integer.parseInt(newyear);
 		DatabaseProvider.getInstance().addCourse(instID, title, dept, year, term);
 		
 	}
 
-	public boolean userExists(String instName, String userName) {
-		Institution inst = DatabaseProvider.getInstance().findInstitution(instName);
-		System.out.println("inst Name is " +instName);
-		int instId = inst.getInstID();
+	public boolean userExists(User adminUser, String userName) {
+		int instId = adminUser.instID();
 		System.out.println("inst ID is " + instId);
 		// If the userName does not exist in the database, then return true
 		// it can be added

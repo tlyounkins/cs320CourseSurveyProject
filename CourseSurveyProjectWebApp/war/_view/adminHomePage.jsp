@@ -43,7 +43,7 @@
             		            <td class="label">Add User:</td>
             		            <td><input type="text" name="accountName" size="16" value="${accountName}" /></td>
             		            <td class="label">New User's Password:</td>
-            		            <td><input type="text" name="newuserPassword" size="16" value="${newuserPassword}" /></td>
+            		            <td><input type="text" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="newuserPassword" size="16" value="${newuserPassword}" /></td>
             		        </tr>
             		        <tr>
     		        			<td class = "label">Permissions:</td>

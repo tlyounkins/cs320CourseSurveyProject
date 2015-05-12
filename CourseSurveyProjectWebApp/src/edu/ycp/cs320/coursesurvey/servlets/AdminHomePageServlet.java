@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.coursesurvey.controller.AdminController;
-import edu.ycp.cs320.coursesurvey.model.Institution;
 import edu.ycp.cs320.coursesurvey.model.User;
 
 public class AdminHomePageServlet extends HttpServlet {
@@ -31,7 +30,7 @@ public class AdminHomePageServlet extends HttpServlet {
 		String addedAccountName = req.getParameter("accountName");
 		String newuserPassword = req.getParameter("newuserPassword");
 		String permissions = req.getParameter("permissions");
-		
+	
 		System.out.println("AdminHomePageServlet:");
 		System.out.println("newCourse from form is " +newCourse);
 		System.out.println("newDepartment from form is " +newDepartment);
@@ -40,39 +39,27 @@ public class AdminHomePageServlet extends HttpServlet {
 		System.out.println("addedAccoutName from form is  " +addedAccountName);
 		System.out.println("newuserPassword from form is " +newuserPassword);
 		System.out.println("permission from form is " +permissions);
-		// temporarily setting the new user's password to addedAccountName + "Password1"
-		// to satisfy login password requirements
-		//String password = addedAccountName + "Password1";
 		
 		HttpSession session = req.getSession();
 		User sessionUser = (User) session.getAttribute("user");
-		//int instID = sessionUser.instID();
-
-		//User adminUser = (User) session.getAttribute("user");
-		//System.out.println(adminUser);
-		//System.out.println(adminUser.getUserID());
-		//int instID = adminUser.instID();
 		String name = sessionUser.getUserName();
 		req.setAttribute("admin", name);
-		//session.getAttribute("institution") returns null
-		//String inst = (String) session.getAttribute("institution");
-	//	System.out.println("inst name is " +inst);
-		//String inst = "YCP";
+		
 		AdminController controller = new AdminController();
 		
-		if (!newCourse.isEmpty()) {
-			controller.addCourse(sessionUser, newCourse);
+		if (!newCourse.isEmpty() && !newDepartment.isEmpty() && !newYear.isEmpty() && !newTerm.isEmpty()) {
+			controller.addCourse(sessionUser, newCourse, newDepartment, newYear, newTerm);
 		}
 	
 		if (!addedAccountName.isEmpty() && !newuserPassword.isEmpty()) {
-			//if (controller.userExists(inst, addedAccountName)) {
+			if (controller.userExists(sessionUser, addedAccountName)) {
 				controller.addUser(sessionUser, addedAccountName, newuserPassword, permissions);
-			/*} else {
+			} else {
 				String error = "Errors :";
 					error += "*This user already exists, please enter a new user name \n";
 				req.setAttribute("errorMessage", error);
 			
-			}*/
+			}
 		}
 		
 		

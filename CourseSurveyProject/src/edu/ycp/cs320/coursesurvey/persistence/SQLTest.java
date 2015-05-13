@@ -37,8 +37,7 @@ public class SQLTest {
 	}
 	
 	public static void test7(){
-		String[] options = {"", "", "", "", ""};
-		DatabaseProvider.getInstance().addToTemplate(1, 1, 1, "New question", options);//	public void addToTemplate(final int instID, final int surveyID, final int questionType, final String question, final String options[]){
+		DatabaseProvider.getInstance().addToTemplate(1, 1, 1, "New question");//	public void addToTemplate(final int instID, final int surveyID, final int questionType, final String question, final String options[]){
 
 		System.out.println("Added a question to the template");
 	}

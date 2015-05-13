@@ -25,15 +25,13 @@ public interface IDatabase {
 	
 	public int addCourse(int instID, String title, String dept, int year, String term);
 
-	public Section findSection(String section);
-
 	void createTables();
 	
 	public void addToSectionTable(int instID, int courseID, int sectID, int userID, boolean student, boolean prof);
 	
 	public int addSurvey(int instID, int courseID, int creatorID, String surveyName);
 	
-	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]);
+	public void addToTemplate(int instID, int surveyID, int questionType, String question);
 	
 	public void submitResponse(int instID, int surveyID, ArrayList<Response> responses);
 	
@@ -45,6 +43,6 @@ public interface IDatabase {
 
 	public Institution findInstitutionByID(int instID);
 
-	public List<Template> findSurveyQuesitons(int instID, int surveyID);
-		
+	public List<Template> findSurveyQuesitons(int instID);
+
 }

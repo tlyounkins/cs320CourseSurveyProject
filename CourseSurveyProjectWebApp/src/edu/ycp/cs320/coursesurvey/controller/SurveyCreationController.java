@@ -29,7 +29,7 @@ public class SurveyCreationController {
 	public void addQuestion(User sessionUser, int newSurveyID, int question_type, String question, String option[]) {
 		int instID = sessionUser.instID();
 	
-		DatabaseProvider.getInstance().addToTemplate(instID, newSurveyID, question_type, question, option);
+		DatabaseProvider.getInstance().addToTemplate(instID, newSurveyID, question_type, question);
 		System.out.println("new question added to template." );
 	}
 	public boolean done(){

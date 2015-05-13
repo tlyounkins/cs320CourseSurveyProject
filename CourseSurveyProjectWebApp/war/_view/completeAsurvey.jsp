@@ -30,7 +30,21 @@
 				<tr>
 					<td class = "label" > Question 1: ${question1}</td>
 					<td> <textarea rows="5" cols="30" name="Question1"></textarea> </td>
+				
 				</tr>
+				<tr>
+					<td class = "label" > Question 2: ${question2}</td>
+					<td> <textarea rows="5" cols="30" name="Question2"></textarea> </td>
+				</tr>
+				<tr>
+					<td class = "label" > Question 3: ${question3}</td>
+					<td> <textarea rows="5" cols="30" name="Question3"></textarea> </td>
+				</tr>
+	
+	
+	
+	
+	
 			</table>
 		</form>
    		

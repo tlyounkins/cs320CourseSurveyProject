@@ -23,13 +23,16 @@ public class CompleteASurveyServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		User sessionUser = (User)session.getAttribute("user");
-		int surveyID = 1;
 		//Survey survey = DatabaseProvider.getInstance().findSurveyByID(sessionUser.getUserID(), surveyID);
 		List<Template> questions = new ArrayList<Template>();
-		questions = DatabaseProvider.getInstance().findSurveyQuesitons(sessionUser.instID(), surveyID);
+		questions = DatabaseProvider.getInstance().findSurveyQuesitons(sessionUser.instID());
 		int index = 1;
 		for (Template temp : questions) {
+			System.out.println("temp.getQuestion = " + temp.getQuestion() + " for index = " +index);
+		System.out.println("loading questions");
 			req.setAttribute("question" + index, temp.getQuestion());
+			System.out.println("question" + index);
+			System.out.println(req.getAttribute("question" + index));
 			index++;
 		}
 

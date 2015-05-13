@@ -389,9 +389,9 @@ public class SqliteDatabase implements IDatabase{
 
 
 	@Override
-	public void addToTemplate(final int instID, final int surveyID, final int questionType, final String question, final String options[]){
+	public void addToTemplate(final int instID, final int surveyID, final int questionType, final String question){
 		final int newID = getNumQuestions(instID, surveyID) + 1;
-
+		System.out.println("new question ID is " + newID);
 		executeTransaction(new Transaction<Integer>() {
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
@@ -403,21 +403,13 @@ public class SqliteDatabase implements IDatabase{
 				ResultSet resultSet = null;
 
 				try {
-					insert = conn.prepareStatement("insert into template_"+ instID + "_" + surveyID +" values (?, ?, ?, ?, ?, ?, ?, ?)");
+					insert = conn.prepareStatement("insert into template_"+ instID + "_" + surveyID +" values (?, ?, ?)");
 					//creates reference to correct course Table
 
 					//set values for new survey
 					insert.setInt(1, newID);
 					insert.setInt(2, questionType);
 					insert.setString(3, question);
-					//How to deal with adding questions without multiple choice.
-					if (options != null) {
-						insert.setString(4, options[0]);
-						insert.setString(5, options[1]);
-						insert.setString(6, options[2]);
-						insert.setString(7, options[3]);
-						insert.setString(8, options[4]);
-					}
 					insert.addBatch();
 					insert.executeBatch();
 
@@ -430,7 +422,7 @@ public class SqliteDatabase implements IDatabase{
 
 					resultSet = stmt.executeQuery();
 
-					System.out.println("Question added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getInt(2) +" "+ resultSet.getString(3) + " " + resultSet.getString(4)+ " " + resultSet.getString(5)+ " " + resultSet.getString(6) + " " + resultSet.getString(7)+ " " + resultSet.getString(8));
+					System.out.println("Question added is: " +" "+ resultSet.getInt(1) +" "+ resultSet.getInt(2) +" "+ resultSet.getString(3));
 
 					return newID;
 				} finally {
@@ -470,40 +462,7 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
-	/*
-	public User findUserAccountByName (final String accountName, int instID) {
-		return executeTransaction(new Transaction<User>() {
-			@Override
-			public User execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
 
-				try {
-					stmt = conn.prepareStatement ( 
-							"select adminId.*, adminName.* " +
-									" from admin_account " +
-									" where admin_account.adminName = " + accountName
-							);
-					stmt.setString(1, accountName);
-
-					User result  = new User();
-					resultSet = stmt.executeQuery();
-
-					if (resultSet.next()) {
-						loadAdminAccount(result, resultSet, 1);
-					}
-
-					return result;
-				} finally {
-					DBUtil.closeQuietly(stmt);
-					DBUtil.closeQuietly(resultSet);
-				}
-
-
-			}
-		});
-	}
-	 */
 	@Override
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -669,12 +628,7 @@ public class SqliteDatabase implements IDatabase{
 							"create table template_" + instID + "_" + surveyID +  " (" +
 									"    questionNum integer primary key," +
 									"    questionType integer," +
-									"    question varchar(255)," +
-									"    option0 varchar(255)," +
-									"    option1 varchar(255)," +
-									"    option2 varchar(255)," +
-									"    option3 varchar(255)," +
-									"    option4 varchar(255)" +
+									"    question varchar(255)" +
 							")");
 					stmt1.executeUpdate();
 
@@ -729,13 +683,6 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 
-	/*
-	private void loadAdminAccount(AdminAccount admin, ResultSet resultSet, int index) throws SQLException {
-		admin.setAdminId(resultSet.getInt(index++));
-		admin.setAccountName(resultSet.getString(index++));
-		admin.setPassword(resultSet.getString(index++));
-	}
-	 */
 	public <ResultType> ResultType executeTransaction (Transaction<ResultType> txn) {
 		try {
 			return doExecuteTransation(txn);
@@ -762,18 +709,6 @@ public class SqliteDatabase implements IDatabase{
 				PreparedStatement insertInstitution = null;
 
 				try {
-					// Creating an iterator for creating an admin account for loading the initial data
-					/*
-					insertAdminAccount = conn.prepareStatement("insert into admin_account1 values (?, ?, ?)");
-					for (AdminAccount adminItr : adminList) {
-						insertAdminAccount.setInt(1, adminItr.getAdminId());
-						insertAdminAccount.setString(2, adminItr.getAccountName());
-						insertAdminAccount.setString(3, adminItr.getPassword());
-						insertAdminAccount.setInt(4,  adminItr.getInstId());
-						insertAdminAccount.addBatch();
-					}
-					insertAdminAccount.executeBatch();
-					 */
 					insertInstitution = conn.prepareStatement("insert into institution values (?, ?, ?, ?)");
 					for (Institution instItr : instList) {
 						insertInstitution.setInt(1, instItr.getInstID());
@@ -832,12 +767,6 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 
-	}
-
-	@Override
-	public Section findSection(String section) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
@@ -1231,33 +1160,39 @@ public class SqliteDatabase implements IDatabase{
 		});
 	}
 	@Override
-	public List <Template> findSurveyQuesitons (final int instID, final int surveyID) {
+	public List <Template> findSurveyQuesitons (final int instID) {
 		return executeTransaction(new Transaction <List<Template>>() {
 			@Override
 			public List <Template> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-
+				final int surveyID = getNumSurveys(instID);
 				try {
 					stmt = conn.prepareStatement(
-							"SELECT *" +
+							"SELECT  *" +
 									"  FROM template_" + instID + "_" + surveyID +
-									"  WHERE template_" + instID + "_" + surveyID +".questionNum = ?" 
+									"  WHERE template_" + instID + "_" + surveyID +".questionNum < ?" 
 							);
 
-					stmt.setInt(1, surveyID);
+					int maxID = getNumQuestions(instID, surveyID) + 1;
+					System.out.println("max id is " + maxID);
+					stmt.setInt(1, maxID);
 
 					List <Template> result = new ArrayList<Template> ();
 
 					resultSet =  stmt.executeQuery();
-					int index = 1;
 
 					while (resultSet.next()) {
+						int index = 1;
 						System.out.println("resultSet has next");
 						Template template = new Template();
 						template.setQuestionNum(resultSet.getInt(index++));
+						System.out.println("QuestionNUM is" + template.getQuestionNum() + "current index after add is " + index);
 						template.setQuestionType(resultSet.getInt(index++));
+						System.out.println("QuestionType is" + template.getQuestionType() + "current index after add is " + index);
 						template.setQuestion(resultSet.getString(index++));
+						System.out.println("Question is" + template.getQuestion() + "current index after add is " + index);
+
 						result.add(template);
 					}
 					return result;

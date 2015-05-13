@@ -195,7 +195,7 @@ public class FakeDatabase  implements IDatabase{
 	}
 	// Option arguement is for multiple choice, 5 element array with different multiple choice options in there
 	@Override
-	public void addToTemplate(int instID, int surveyID, int questionType, String question, String options[]){
+	public void addToTemplate(int instID, int surveyID, int questionType, String question){
 		ArrayList<Template> template = this.templateTables.get(instID-1).get(surveyID-1);
 		int questionNum = template.size();
 		
@@ -203,14 +203,6 @@ public class FakeDatabase  implements IDatabase{
 		newQuestion.setQuestionNum(questionNum);
 		newQuestion.setQuestionType(questionType);
 		newQuestion.setQuestion(question);
-		if (options != null){
-			if (options.length >= 1) newQuestion.setOption(0, options[0]);
-			if (options.length >= 2) newQuestion.setOption(1, options[1]);
-			if (options.length >= 3) newQuestion.setOption(2, options[2]);
-			if (options.length >= 4) newQuestion.setOption(3, options[3]);
-			if (options.length >= 5) newQuestion.setOption(4, options[4]);
-		}
-		
 		template.add(newQuestion);
 	}
 	
@@ -249,11 +241,6 @@ public class FakeDatabase  implements IDatabase{
 		}
 		return null;
 	}
-	@Override
-	public Section findSection(String section) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void createTables() {
@@ -271,7 +258,7 @@ public class FakeDatabase  implements IDatabase{
 		return null;
 	}
 	@Override
-	public List<Template> findSurveyQuesitons(int instID, int surveyID) {
+	public List<Template> findSurveyQuesitons(int instID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

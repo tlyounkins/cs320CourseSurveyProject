@@ -5,7 +5,7 @@ import edu.ycp.cs320.coursesurvey.persistence.DatabaseProvider;
 
 public class SurveyCreationController {
 	boolean done;
-	public void createSurvey(String course, String section, User user, String surveyName) {
+	public int createSurvey(String course, String section, User user, String surveyName) {
 		System.out.println("survey creation controller running");
 
 		// Check if course exists 
@@ -19,18 +19,18 @@ public class SurveyCreationController {
 			System.out.println("survey sucessfully created!");
 			
 			System.out.println("New Survey ID is" + DatabaseProvider.getInstance().findSurveyByID(user.instID(), newSurveyID));
-		
+			return newSurveyID;
 		} else {
 			done = false;
+			return -1;
 		}
 
 	}
-	public void addQuestion(String instName, String survey, String question_type, String Question, String option[]) {
-		int instID = DatabaseProvider.getInstance().findInstitution(instName).getInstID();
-		//int surveyID = 1;
-		//int Questiontype = 1;
-
-		//DatabaseProvider.getInstance().addToTemplate(instID, surveyID, Questiontype, Question, option);;
+	public void addQuestion(User sessionUser, int newSurveyID, int question_type, String question, String option[]) {
+		int instID = sessionUser.instID();
+	
+		DatabaseProvider.getInstance().addToTemplate(instID, newSurveyID, question_type, question, option);
+		System.out.println("new question added to template." );
 	}
 	public boolean done(){
 		return this.done;

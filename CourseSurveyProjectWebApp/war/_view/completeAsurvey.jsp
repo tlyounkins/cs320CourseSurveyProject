@@ -28,7 +28,7 @@
 		<form action="${pageContext.servletContext.contextPath}/generalUserHomePage" method="post">
 			<table>
 				<tr>
-					<td class = "label" > Question 1: ${Question1}</td>
+					<td class = "label" > Question 1: ${question1}</td>
 					<td> <textarea rows="5" cols="30" name="Question1"></textarea> </td>
 				</tr>
 			</table>

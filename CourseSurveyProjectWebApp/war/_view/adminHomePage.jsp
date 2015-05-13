@@ -61,5 +61,8 @@
 		
 		<a href="${pageContext.servletContext.contextPath}/surveyCreation">Survey Creation Page</a>
 		</p>
+		<p>
+		<a href="${pageContext.servletContext.contextPath}/surveyResults">View Survey Results</a>
+		</p>
 	</body>
 </html>

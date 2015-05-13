@@ -22,7 +22,7 @@ public class Main {
 		
 		// Start the server
 		server.start();
-		SQLTest.test1();
+		//SQLTest.test1();
 		//SQLTest.test2();
 		//SQLTest.test3();
 		//SQLTest.test4();

@@ -15,15 +15,19 @@ public class GeneralUserHomePageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		HttpSession session = req.getSession();
+		User sessionUser = (User) session.getAttribute("user");
+		String name = sessionUser.getUserName();
+		req.setAttribute("generaluser", name);
+		
 		req.getRequestDispatcher("/_view/generalUserHomePage.jsp").forward(req, resp);
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
+		User sessionUser = (User) session.getAttribute("user");
 		
-		String name = (String) session.getAttribute("user");
 		//req.setAttribute("student", name);
 		// Just forward to the generalUserHomePage
 		req.getRequestDispatcher("/_view/generalUserHomePage.jsp").forward(req, resp);

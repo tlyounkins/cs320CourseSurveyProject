@@ -1,9 +1,5 @@
 package edu.ycp.cs320.coursesurvey.model;
 
-//import java.util.ArrayList;
-//import java.util.Iterator;
-
-
 /**
  * 
  * @author Tyler Younkins, Garlan Bowser, Cory Dawson

@@ -21,7 +21,7 @@
         <div id="wrapper">
             <header><h1>Web Survey</h1></header>
              <div id="content">
-             <!--   <h2 class = "label" > Welcome, ${user}</h2> -->
+             <h2> Welcome, ${generaluser}</h2>
               
 	</div>
 	<p>

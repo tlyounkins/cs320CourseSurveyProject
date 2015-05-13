@@ -45,11 +45,6 @@ public class AccountCreationServlet extends HttpServlet{
 		//For logging user session *req.getSession(bool) can also be used here
 		HttpSession session = req.getSession();
 		
-		//req.setAttribute("create", controller);
-		
-		//req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
-		
-	
 		//goes to admin home page if account info is correct
 		if (controller.passwordsMatching() && controller.done()){
 			//Create new (User) session 

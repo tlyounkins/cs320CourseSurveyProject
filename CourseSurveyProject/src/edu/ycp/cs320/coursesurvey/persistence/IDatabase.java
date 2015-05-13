@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.ycp.cs320.coursesurvey.model.Response;
 import edu.ycp.cs320.coursesurvey.model.Survey;
+import edu.ycp.cs320.coursesurvey.model.Template;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -41,5 +42,9 @@ public interface IDatabase {
 	public Survey findSurveyByID(int instID, int surveyID);
 
 	public Course findCourseByName(String course, int instID);
+
+	public Institution findInstitutionByID(int instID);
+
+	public List<Template> findSurveyQuesitons(int instID, int surveyID);
 		
 }

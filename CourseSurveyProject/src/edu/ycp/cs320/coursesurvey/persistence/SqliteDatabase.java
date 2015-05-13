@@ -12,6 +12,7 @@ import java.util.List;
 
 import edu.ycp.cs320.coursesurvey.model.Response;
 import edu.ycp.cs320.coursesurvey.model.Survey;
+import edu.ycp.cs320.coursesurvey.model.Template;
 import edu.ycp.cs320.coursesurvey.model.User;
 import edu.ycp.cs320.coursesurvey.model.Course;
 import edu.ycp.cs320.coursesurvey.model.Institution;
@@ -79,6 +80,7 @@ public class SqliteDatabase implements IDatabase{
 		return conn;
 	}
 
+
 	@Override
 	public Institution findInstitution(final String instName) {
 
@@ -108,6 +110,46 @@ public class SqliteDatabase implements IDatabase{
 					}
 					else {
 						System.out.println("Didn't find inst with instName");
+						return null;
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	@Override
+	public Institution findInstitutionByID(final int instID) {
+
+		return executeTransaction(new Transaction <Institution>() {
+			@Override
+			public Institution execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"SELECT *" +
+									"  FROM institution " +
+									"  WHERE institution.instId = ?" 
+							);
+
+					stmt.setInt(1, instID);
+
+					Institution result = new Institution ();
+
+					resultSet =  stmt.executeQuery();
+					if (resultSet.next()) {
+						System.out.println("resultSet has next");
+						result.setInstID(resultSet.getInt(1));
+						result.setName(resultSet.getString(2));
+						System.out.println("returned inst name is " + result.getName() );
+					}
+					else {
+						System.out.println("Didn't find inst with instID");
 						return null;
 					}
 					return result;
@@ -1188,6 +1230,48 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
+	@Override
+	public List <Template> findSurveyQuesitons (final int instID, final int surveyID) {
+		return executeTransaction(new Transaction <List<Template>>() {
+			@Override
+			public List <Template> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement(
+							"SELECT *" +
+									"  FROM template_" + instID + "_" + surveyID +
+									"  WHERE template_" + instID + "_" + surveyID +".questionNum = ?" 
+							);
+
+					stmt.setInt(1, surveyID);
+
+					List <Template> result = new ArrayList<Template> ();
+
+					resultSet =  stmt.executeQuery();
+					int index = 1;
+
+					while (resultSet.next()) {
+						System.out.println("resultSet has next");
+						Template template = new Template();
+						template.setQuestionNum(resultSet.getInt(index++));
+						template.setQuestionType(resultSet.getInt(index++));
+						template.setQuestion(resultSet.getString(index++));
+						result.add(template);
+					}
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+
+
+	}
+
+
 	@Override
 	public Survey findSurveyByID(final int instID, final int surveyID) {
 		return executeTransaction(new Transaction <Survey>() {

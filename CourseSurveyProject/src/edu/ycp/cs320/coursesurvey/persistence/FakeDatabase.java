@@ -265,4 +265,14 @@ public class FakeDatabase  implements IDatabase{
 	public Boolean clearDB(){
 		return false;
 	}
+	@Override
+	public Institution findInstitutionByID(int instID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Template> findSurveyQuesitons(int instID, int surveyID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

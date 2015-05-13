@@ -368,11 +368,14 @@ public class SqliteDatabase implements IDatabase{
 					insert.setInt(1, newID);
 					insert.setInt(2, questionType);
 					insert.setString(3, question);
-					insert.setString(4, options[0]);
-					insert.setString(5, options[1]);
-					insert.setString(6, options[2]);
-					insert.setString(7, options[3]);
-					insert.setString(8, options[4]);
+					//How to deal with adding questions without multiple choice.
+					if (options != null) {
+						insert.setString(4, options[0]);
+						insert.setString(5, options[1]);
+						insert.setString(6, options[2]);
+						insert.setString(7, options[3]);
+						insert.setString(8, options[4]);
+					}
 					insert.addBatch();
 					insert.executeBatch();
 

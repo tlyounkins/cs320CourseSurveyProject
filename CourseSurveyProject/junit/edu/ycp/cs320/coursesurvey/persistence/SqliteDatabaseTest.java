@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-
+/*
 public class SqliteDatabaseTest {
 	private SqliteDatabase db;
 	private String name;
@@ -30,3 +30,4 @@ public class SqliteDatabaseTest {
 	
 
 }
+*/

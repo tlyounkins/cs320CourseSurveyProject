@@ -139,7 +139,7 @@ public class FakeDatabase  implements IDatabase{
 		return newID;
 	}
 
-	//this function is used to add an already existing user to a course
+	/*//this function is used to add an already existing user to a course
 	@Override
 	public void addToSectionTable(int instID, int courseID, int sectID, int userID, boolean student, boolean prof){
 		//ArrayList<Course> courseTable = this.courseTables.get(instID-1);
@@ -153,7 +153,7 @@ public class FakeDatabase  implements IDatabase{
 		
 		sectionTable.add(newEntry);
 	}
-	
+	*/
 	@Override
 	public int addSurvey(int instID, int courseID, int creatorID, String surveyName){
 		ArrayList<Survey> surveyTable = this.surveyTables.get(instID-1);

@@ -4,7 +4,6 @@ public class Template {
 	private int questionNum;
 	private int questionType; // 1 = Multiple choice 2 = Free form
 	private String question;
-	private String option[] = new String[5];
 	
 	public void setQuestionNum(int questionNum){
 		this.questionNum = questionNum;
@@ -28,14 +27,6 @@ public class Template {
 	
 	public String getQuestion(){
 		return this.question;
-	}
-	
-	public void setOption(int i, String option){
-		this.option[i] = option;
-	}
-	
-	public String getOption(int i){
-		return this.option[i];
 	}
 	
 }

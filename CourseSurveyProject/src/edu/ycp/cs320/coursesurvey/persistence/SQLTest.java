@@ -31,10 +31,10 @@ public class SQLTest {
 		System.out.println("Added a survey");
 	}
 	
-	public static void test6(){
-		DatabaseProvider.getInstance().addToSectionTable(1, 1, 1, 1, true, false);
-		System.out.println("Added a student to a class");
-	}
+	//public static void test6(){
+		//DatabaseProvider.getInstance().addToSectionTable(1, 1, 1, 1, true, false);
+		//System.out.println("Added a student to a class");
+//	}
 	
 	public static void test7(){
 		DatabaseProvider.getInstance().addToTemplate(1, 1, 1, "New question");//	public void addToTemplate(final int instID, final int surveyID, final int questionType, final String question, final String options[]){

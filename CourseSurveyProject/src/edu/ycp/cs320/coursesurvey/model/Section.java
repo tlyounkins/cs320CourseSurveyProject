@@ -6,7 +6,7 @@ package edu.ycp.cs320.coursesurvey.model;
 
 public class Section {
 	//TODO : Update model using id and section name
-
+/*
 	private int sectID;
 	private int userID;
 	private boolean student;

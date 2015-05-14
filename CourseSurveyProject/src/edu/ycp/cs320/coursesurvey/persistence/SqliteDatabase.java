@@ -1035,7 +1035,7 @@ public class SqliteDatabase implements IDatabase{
 
 	}
 
-	@Override
+/*	@Override
 	public void addToSectionTable(final int instID, final int courseID, final int sectID,
 			final int userID, final boolean student, final boolean prof) {
 		executeTransaction(new Transaction<Boolean>() {
@@ -1081,7 +1081,7 @@ public class SqliteDatabase implements IDatabase{
 			}
 		});
 	}
-
+*/
 	@Override
 	public int addSurvey(final int instID, final int courseID, final int creatorID, final String surveyName){
 		final int newID = getNumSurveys(instID) + 1;

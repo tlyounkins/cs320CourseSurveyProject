@@ -14,17 +14,6 @@ public class Institution {
 	private int numSurveys = 0;
 
 
-	/*public Institution (int instID, int sectID, String name, int userTableID, int courseTableID) {
-		this.instId = instID;
-		this.name = name;
-		this.userTableID = userTableID;
-		this.courseTableID = courseTableID;
-
-		//studentList = new ArrayList<User>();
-		//teacherList = new ArrayList<User>();
-
-	}*/
-
 
 	/**
 	 * Get Institution name

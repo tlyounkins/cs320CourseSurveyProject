@@ -8,7 +8,7 @@ public class AccountCreationController {
 	private boolean instExists = false;
 
 	
-	private void checkPassword(String password, String passwordCheck){
+	public void checkPassword(String password, String passwordCheck){
 		if (password.contains(passwordCheck)){
 			passwordMatch = true;
 			System.out.println("match");

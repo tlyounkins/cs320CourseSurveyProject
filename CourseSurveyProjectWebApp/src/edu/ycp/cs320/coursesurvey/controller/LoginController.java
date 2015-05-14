@@ -9,7 +9,6 @@ public class LoginController {
 	public boolean login(String inst,String accountName, String password){
 		Institution instName = DatabaseProvider.getInstance().findInstitution(inst);
 		if (instName == null) {
-			//System.out.println("Institution doesn't exist");
 			return false;
 		}
 		User user = DatabaseProvider.getInstance().findUserAccountByName(accountName, 1); 
